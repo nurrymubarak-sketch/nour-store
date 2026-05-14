@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>متجر نوري | المنصة المميزة</title>
+    <title>متجر نوري | Noure Store</title>
     <style>
         :root {
             --gold: linear-gradient(135deg, #D4AF37, #F9F295, #B8860B);
@@ -15,7 +15,6 @@
             margin: 0; background: var(--dark-bg); color: #fff; text-align: center;
         }
 
-        /* الهيدر */
         header {
             background: linear-gradient(to bottom, #16213e, #0f3460);
             padding: 30px 0; border-bottom: 3px solid #D4AF37;
@@ -30,36 +29,28 @@
             font-family: serif; margin: 0; line-height: 1;
         }
 
-        .nav-bar { background: rgba(255,255,255,0.05); padding: 15px; display: flex; justify-content: center; gap: 20px; }
-        .nav-bar span { cursor: pointer; color: #ccc; font-size: 15px; }
-
-        /* الحاوية والكروت */
         .container { width: 92%; margin: 25px auto; padding-bottom: 80px; }
         .card {
             background: var(--card-gray); border-radius: 20px; margin-bottom: 25px;
             overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.3); text-align: right;
         }
         .bg-tk { background: linear-gradient(90deg, #ff0050, #00f2ea); }
-        .bg-re { background: #1e3a8a; }
-        .bg-car { background: #064e3b; }
-        .bg-ele { background: #431407; }
 
         .card-inner { padding: 20px; display: flex; gap: 15px; align-items: center; }
         .card-img { width: 130px; height: 95px; border-radius: 12px; object-fit: cover; border: 1.5px solid #D4AF37; }
         
         .btn-gold {
             background: var(--gold); color: #000; border: none; padding: 12px 25px;
-            border-radius: 25px; font-weight: bold; cursor: pointer; font-size: 14px;
+            border-radius: 25px; font-weight: bold; cursor: pointer;
         }
 
         /* الصفحات المنبثقة */
-        .page { display: none; position: fixed; inset: 0; background: #0d1117; z-index: 9999; padding: 25px; overflow-y: auto; text-align: right; }
+        .page { 
+            display: none; position: fixed; inset: 0; background: #0d1117; 
+            z-index: 9999; padding: 25px; overflow-y: auto; text-align: right; 
+        }
         input, select, textarea { width: 100%; padding: 14px; margin-top: 10px; border-radius: 10px; border: 1px solid #333; background: #1a1a1a; color: #fff; box-sizing: border-box; }
         label { display: block; margin-top: 20px; color: #D4AF37; font-weight: bold; }
-
-        .footer-back {
-            margin-top: 40px; padding-top: 20px; border-top: 1px solid #333; text-align: center;
-        }
     </style>
 </head>
 <body>
@@ -71,14 +62,8 @@
     </div>
 </header>
 
-<div class="nav-bar">
-    <span onclick="location.reload()">الرئيسية</span>
-    <span onclick="openPage('aboutPage')">حولنا</span>
-    <span onclick="alert('تواصل مع الإدارة عبر الواتساب')">اتصل بنا</span>
-</div>
-
 <div class="container">
-    <button class="btn-gold" style="width:100%; padding:20px; margin-bottom:25px; font-size:18px;" onclick="openPage('regPage')">🔑 إنشاء حساب معلن جديد</button>
+    <button class="btn-gold" style="width:100%; padding:20px; margin-bottom:25px;" onclick="openPage('regPage')">🔑 إنشاء حساب معلن جديد</button>
 
     <div class="card">
         <div class="card-head bg-tk" style="padding:10px 15px; font-weight:bold;">🪙 شحن عملات تيك توك</div>
@@ -86,94 +71,52 @@
             <img src="https://files.catbox.moe/p9o4b6.png" class="card-img" alt="شعار تيك توك">
             <div style="flex:1">
                 <h3 style="margin:0; color:#D4AF37">شحن فوري وآمن</h3>
-                <p style="font-size:12px; color:#aaa">خدمة حصرية من إدارة متجر نوري.</p>
-                <button class="btn-gold" onclick="alert('سيتم توجيهك للمالك مباشرة')">اشحن الآن</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-head bg-re" style="padding:10px 15px; font-weight:bold;">🏙️ عقارات مميزة</div>
-        <div class="card-inner">
-            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=300" class="card-img" alt="عقارات">
-            <div style="flex:1">
-                <h3 style="margin:0; color:#D4AF37">فلل وقصور للاستثمار</h3>
-                <button class="btn-gold">تصفح العقارات</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-head bg-car" style="padding:10px 15px; font-weight:bold;">🚗 سيارات فاخرة</div>
-        <div class="card-inner">
-            <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=300" class="card-img" alt="سيارات">
-            <div style="flex:1">
-                <h3 style="margin:0; color:#D4AF37">أحدث موديلات السيارات</h3>
-                <button class="btn-gold">مشاهدة المعرض</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-head bg-ele" style="padding:10px 15px; font-weight:bold;">📱 إلكترونيات وتقنية</div>
-        <div class="card-inner">
-            <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=300" class="card-img" alt="إلكترونيات">
-            <div style="flex:1">
-                <h3 style="margin:0; color:#D4AF37">أجهزة وتقنيات حديثة</h3>
-                <button class="btn-gold">تسوق الآن</button>
+                <button class="btn-gold" onclick="alert('تواصل مع الإدارة للشحن')">اشحن الآن</button>
             </div>
         </div>
     </div>
 </div>
 
 <div id="regPage" class="page">
-    <h2 style="color:#D4AF37; text-align:center;">بوابة المعلنين الجديدة 🔑</h2>
+    <h2 style="color:#D4AF37; text-align:center;">إنشاء حساب جديد 🔑</h2>
     
-    <label>اسم المتجر / المعلن</label>
-    <input type="text" placeholder="ادخل اسمك أو اسم النشاط">
-    
-    <label>القسم</label>
-    <select>
-        <option>عقارات</option>
-        <option>سيارات</option>
-        <option>إلكترونيات</option>
-    </select>
-    
-    <label>السعر (بالعملة المحلية)</label>
-    <input type="number" placeholder="مثال: 5000">
-    
-    <label>وصف المنتج / الإعلان</label>
-    <textarea rows="4" placeholder="اكتب تفاصيل المنتج هنا..."></textarea>
-    
-    <label>وسيلة التواصل</label>
-    <select>
-        <option>واتساب</option>
-        <option>بريد إلكتروني</option>
-    </select>
-    
-    <label>رفع صور / فيديو للمنتج</label>
-    <input type="file" multiple accept="image/*,video/*">
-    
-    <button class="btn-gold" style="width:100%; margin-top:25px; padding:18px;" onclick="showConfirm()">إرسال الطلب للتوثيق</button>
-    
-    <div class="footer-back">
-        <button class="btn-gold" style="background:transparent; color:#D4AF37; border:1px solid #D4AF37;" onclick="closePage('regPage')">🏠 الرجوع للصفحة الرئيسية</button>
-    </div>
-</div>
+    <label>الاسم الكامل</label>
+    <input type="text" id="userName" placeholder="أدخل اسمك">
 
-<div id="aboutPage" class="page">
-    <h2 style="color:#D4AF37; text-align:center;">حول متجر نوري 💎</h2>
-    <p style="line-height:1.8;">نحن منصة **نوري ستور**، وجهتك الأولى للخدمات والمنتجات الفاخرة. نقدم خدمة شحن تيك توك بإشرافنا المباشر، ونوفر مساحة للمعلنين الموثوقين لعرض أفضل العقارات والسيارات والإلكترونيات لعملائنا المتميزين.</p>
-    <div class="footer-back">
-        <button class="btn-gold" onclick="closePage('aboutPage')">🏠 العودة للرئيسية</button>
-    </div>
+    <label>البريد الإلكتروني (لتلقي رسالة التأكيد)</label>
+    <input type="email" id="userEmail" placeholder="example@mail.com">
+    
+    <label>رقم الواتساب</label>
+    <input type="tel" placeholder="+249...">
+
+    <button class="btn-gold" style="width:100%; margin-top:25px; padding:18px;" onclick="handleRegistration()">تأكيد وإنشاء الحساب</button>
+    
+    <p style="text-align:center; margin-top:40px; color:#666; font-size:14px;">يمكنك الرجوع عبر سهم المتصفح في الأسفل</p>
 </div>
 
 <script>
-    function openPage(id) { document.getElementById(id).style.display = 'block'; window.scrollTo(0,0); }
-    function closePage(id) { document.getElementById(id).style.display = 'none'; }
-    function showConfirm() {
-        alert("✅ تم استلام طلبك بنجاح!\n\nستصلك رسالة تأكيد على بريدك الإلكتروني فور مراجعة الإدارة للبيانات والصور.");
+    // فتح الصفحة وإضافة سجل للتاريخ
+    function openPage(id) {
+        document.getElementById(id).style.display = 'block';
+        window.history.pushState({pageId: id}, "", "#" + id);
+    }
+
+    // إغلاق الصفحات عند الرجوع بالسهم
+    window.onpopstate = function(event) {
+        document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+    };
+
+    // معالجة التسجيل وإرسال رسالة التأكيد
+    function handleRegistration() {
+        const email = document.getElementById('userEmail').value;
+        const name = document.getElementById('userName').value;
+
+        if(!email || !name) {
+            alert("يرجى ملء جميع الخانات المطلوبة.");
+            return;
+        }
+
+        alert("✅ شكراً " + name + "!\n\nلقد تم إرسال رسالة تأكيد إلى البريد: (" + email + "). يرجى مراجعة بريدك لتفعيل الحساب.");
     }
 </script>
 
