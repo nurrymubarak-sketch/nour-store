@@ -3,51 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>متجر نور | Elnour Mubarak</title>
+    <title>Elnour Store | منصة النور العالمية</title>
     <style>
-        :root { --primary: #3CB371; --secondary: #228B22; }
-        body { background-color: var(--secondary); color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; }
-        header { background-color: var(--primary); padding: 50px 20px; text-align: center; border-bottom: 10px solid #1a6b1a; }
-        .container { display: flex; flex-wrap: wrap; justify-content: center; padding: 20px; }
-        .card { background: white; color: #333; margin: 15px; padding: 25px; border-radius: 15px; width: 300px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
-        .card h3 { color: var(--secondary); border-bottom: 2px solid var(--primary); padding-bottom: 10px; }
-        .btn { background: var(--primary); color: white; padding: 12px; border-radius: 8px; text-decoration: none; display: block; margin-top: 15px; font-weight: bold; text-align: center; }
-        .badge { background: #ffd700; color: #333; padding: 5px 10px; border-radius: 5px; font-size: 0.8em; font-weight: bold; }
+        :root { --amazon-green: #228B22; --light-green: #3CB371; --accent-gold: #FFD700; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background-color: #f3f3f3; color: #333; }
+        
+        /* الهيدر على طريقة أمازون */
+        header { background-color: #131921; color: white; padding: 10px 5%; display: flex; flex-direction: column; align-items: center; }
+        .nav-top { width: 100%; display: flex; justify-content: space-between; align-items: center; }
+        .search-bar { width: 100%; margin: 10px 0; display: flex; }
+        .search-bar input { flex: 1; padding: 10px; border-radius: 5px 0 0 5px; border: none; }
+        .search-bar button { background: var(--accent-gold); border: none; padding: 10px 20px; border-radius: 0 5px 5px 0; cursor: pointer; font-weight: bold; }
+
+        /* عرض المنتجات */
+        .hero { background: linear-gradient(to bottom, var(--light-green), #f3f3f3); height: 200px; text-align: center; padding-top: 30px; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; padding: 20px 5%; margin-top: -50px; }
+        .product-card { background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center; transition: 0.3s; }
+        .product-card:hover { transform: translateY(-5px); }
+        .product-card img { width: 100%; height: 150px; object-fit: cover; border-radius: 5px; }
+        .price { color: #B12704; font-size: 1.2em; font-weight: bold; margin: 10px 0; }
+        .add-to-cart { background: var(--accent-gold); border: 1px solid #a88734; padding: 8px 15px; border-radius: 5px; cursor: pointer; width: 100%; }
+
+        /* ميثاق المجتمع ونظام العمولات */
+        .info-section { background: var(--amazon-green); color: white; padding: 40px 5%; margin-top: 30px; }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>متجر نور (Nour Store)</h1>
-    <p>المنصة الرسمية للمدير التنفيذي: <b>Elnour Mubarak</b></p>
-    <span class="badge">مدون وبلوجر معتمد</span>
+    <div class="nav-top">
+        <h2>Elnour Store</h2>
+        <div>سلة المشتريات (0)</div>
+    </div>
+    <div class="search-bar">
+        <input type="text" placeholder="ابحث عن بوتات، سكريبتات، أو خدمات محتوى...">
+        <button>بحث</button>
+    </div>
 </header>
 
-<div class="container">
-    <!-- الجانب العملي 1: إدارة العمولات -->
-    <div class="card">
-        <h3>نظام العمولات الرقمي</h3>
-        <p>توزيع تلقائي للأرباح بنسبة <b>15%</b> لشركاء النجاح تحت إشرافنا المباشر.</p>
-        <a href="#" class="btn">تتبع العمولات</a>
+<div class="hero">
+    <h1>مرحباً بك في إمبراطورية Elnour Mubarak</h1>
+    <p>أفضل الخدمات التقنية والمحتوى الرقمي في مكان واحد</p>
+</div>
+
+<div class="product-grid">
+    <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=300&q=80" alt="Python Bot">
+        <h3>بوت تليجرام احترافي (Python)</h3>
+        <p class="price">150.00 ر.س</p>
+        <p>عمولة التسويق: 15%</p>
+        <button class="add-to-cart">أضف إلى السلة</button>
     </div>
 
-    <!-- الجانب العملي 2: البرمجة والأتمتة -->
-    <div class="card">
-        <h3>خدمات الأتمتة (Python)</h3>
-        <p>تطوير بوتات تليجرام متقدمة وسكريبتات ذكية لإدارة المحتوى الرقمي بفعالية.</p>
-        <a href="#" class="btn">طلب سكريبت</a>
+    <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=300&q=80" alt="Marketing">
+        <h3>باقة بلوجر لشركاء النجاح</h3>
+        <p class="price">200.00 ر.س</p>
+        <p>عمولة التسويق: 15%</p>
+        <button class="add-to-cart">أضف إلى السلة</button>
     </div>
 
-    <!-- الجانب العملي 3: ميثاق المجتمع -->
-    <div class="card">
-        <h3>رُفَقاء المحبة</h3>
-        <p>نعمل وفق دستور "رُفَقاء المحبة" لضمان التعاون والشفافية بين جميع الأعضاء.</p>
-        <a href="#" class="btn">قراءة الميثاق</a>
+    <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=300&q=80" alt="Community">
+        <h3>عضوية رُفَقاء المحبة المميزة</h3>
+        <p class="price">50.00 ر.س</p>
+        <p>دخول حصري لدستور المجتمع</p>
+        <button class="add-to-cart">انضم الآن</button>
     </div>
 </div>
 
-<footer style="text-align: center; padding: 20px; font-size: 0.9em;">
-    &copy; 2026 Elnour Mubarak. جميع الحقوق محفوظة.
+<div class="info-section">
+    <h3>لماذا متجر نور؟</h3>
+    <p>نحن لا نبيع مجرد خدمات، بل نبني مجتمعاً قائماً على ميثاق <b>"رُفَقاء المحبة"</b> والشفافية في توزيع العمولات.</p>
+</div>
+
+<footer style="background:#131921; color:white; text-align:center; padding:20px;">
+    &copy; 2026 Elnour Mubarak. جميع الحقوق محفوظة لمدونتنا الرسمية.
 </footer>
 
 </body>
