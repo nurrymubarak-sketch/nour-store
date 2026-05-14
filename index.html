@@ -3,58 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نُور العقارية | إضافة مباشرة</title>
+    <title>سوق نُور الشامل | NOUR MARKET</title>
     <style>
-        :root { --gold: #D4AF37; --dark: #1a1a1a; --white: #ffffff; }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: #f4f7f6; color: var(--dark); text-align: center; }
-        header { background: var(--dark); color: var(--gold); padding: 25px; font-weight: bold; border-bottom: 4px solid var(--gold); font-size: 1.5em; }
+        :root { --main: #D4AF37; --dark: #1a1a1a; --bg: #f0f2f5; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--bg); color: #333; text-align: center; }
+        header { background: var(--dark); color: var(--main); padding: 20px; font-weight: bold; border-bottom: 4px solid var(--main); font-size: 1.5em; }
         .container { padding: 15px; max-width: 500px; margin: auto; }
-        .card { background: var(--white); border-radius: 20px; padding: 25px; box-shadow: 0 8px 30px rgba(0,0,0,0.1); margin-bottom: 20px; text-align: right; }
-        input, textarea, button { width: 100%; padding: 14px; margin: 8px 0; border-radius: 12px; border: 1.5px solid #eee; box-sizing: border-box; font-size: 15px; font-family: inherit; }
-        textarea { height: 100px; resize: none; }
-        label { display: block; margin-top: 10px; font-weight: bold; color: #555; }
-        button { background: var(--dark); color: var(--gold); font-weight: bold; border: 1px solid var(--gold); cursor: pointer; transition: 0.3s; }
-        button:hover { background: var(--gold); color: var(--dark); }
-        .prop-card { background: white; border-radius: 20px; overflow: hidden; margin: 25px 0; box-shadow: 0 10px 20px rgba(0,0,0,0.05); text-align: right; border: 1px solid #eee; }
-        .prop-media { width: 100%; max-height: 300px; object-fit: cover; background: #000; }
-        .info { padding: 20px; }
-        .price { color: #27ae60; font-size: 1.4em; font-weight: bold; display: block; margin: 10px 0; }
-        .wa-btn { background: #25d366; color: white; border: none; padding: 12px; border-radius: 12px; text-decoration: none; display: block; text-align: center; font-weight: bold; margin-top: 15px; }
-        .wa-btn:hover { background: #1ebe57; }
-        .loader { color: var(--gold); font-weight: bold; display: none; margin-bottom: 10px; text-align: center; }
+        .card { background: #fff; border-radius: 20px; padding: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); margin-bottom: 25px; text-align: right; }
+        input, textarea, select, button { width: 100%; padding: 12px; margin: 8px 0; border-radius: 10px; border: 1.5px solid #eee; box-sizing: border-box; font-family: inherit; font-size: 14px; }
+        button { background: var(--dark); color: var(--main); font-weight: bold; border: 1px solid var(--main); cursor: pointer; }
+        .item-card { background: #fff; border-radius: 15px; overflow: hidden; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); text-align: right; border: 1px solid #ddd; }
+        .item-media { width: 100%; max-height: 300px; object-fit: cover; display: block; background: #000; }
+        .item-info { padding: 15px; }
+        .badge { display: inline-block; background: var(--main); color: #000; padding: 3px 10px; border-radius: 5px; font-size: 0.8em; font-weight: bold; margin-bottom: 5px; }
+        .price { color: #27ae60; font-size: 1.3em; font-weight: bold; display: block; margin: 5px 0; }
+        .wa-btn { background: #25d366; color: #fff; padding: 12px; border-radius: 10px; text-decoration: none; display: block; text-align: center; font-weight: bold; margin-top: 10px; }
+        .loader { color: var(--main); font-weight: bold; display: none; margin: 10px 0; }
     </style>
 </head>
 <body>
 
-<header>نُور العقارية | NOUR REAL ESTATE 🏙️</header>
+<header>سوق نُور الشامل 🌍</header>
 
 <div class="container">
     <div class="card">
-        <h3 style="color:var(--gold); text-align:center;">إضافة عرض جديد 💎</h3>
+        <h3 style="text-align:center; margin-top:0;">إضافة إعلان جديد ➕</h3>
         
-        <input type="text" id="pTitle" placeholder="عنوان العقار">
-        <textarea id="pDesc" placeholder="وصف العقار التفصيلي..."></textarea>
-        <input type="number" id="pPrice" placeholder="السعر (AED)">
+        <input type="text" id="pTitle" placeholder="عنوان الإعلان (مثلاً: آيفون 15 برو)">
+        
+        <select id="pCategory">
+            <option value="عقارات">🏙️ عقارات</option>
+            <option value="سيارات">🚗 سيارات</option>
+            <option value="إلكترونيات">📱 إلكترونيات</option>
+            <option value="منوعات">📦 منوعات أخرى</option>
+        </select>
+
+        <textarea id="pDesc" placeholder="اكتب تفاصيل المنتج (الحالة، المواصفات...)"></textarea>
+        <input type="number" id="pPrice" placeholder="السعر">
         <input type="text" id="pWhatsApp" placeholder="رقم الواتساب (مثال: 97150xxxxxxx)">
 
-        <label>📸 اختر صورة العقار:</label>
+        <label style="font-weight:bold; font-size:0.9em;">📸 ارفع صورة المنتج:</label>
         <input type="file" id="pImgFile" accept="image/*">
-        
-        <label>🎥 اختر فيديو العقار (اختياري):</label>
-        <input type="file" id="pVidFile" accept="video/*">
 
-        <div id="status" class="loader">جاري النشر... يرجى الانتظار ⏳</div>
-        <button id="addBtn" onclick="handleUpload()">نشر العرض المطور الآن ✅</button>
+        <div id="status" class="loader">جاري النشر في السوق... ⏳</div>
+        <button id="addBtn" onclick="publishToMarket()">انشر الآن ✅</button>
     </div>
 
-    <div id="propList">جاري تحميل العروض...</div>
+    <div id="marketList">جاري تحميل العروض...</div>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
 
 <script>
-    // إعدادات Firebase الخاصة بك
     const firebaseConfig = {
         apiKey: "AIzaSyB9Ff0ku07M5FT8O4PVxBL0fkb70h8OaFY",
         authDomain: "nour-store-platform.firebaseapp.com",
@@ -66,53 +67,54 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
-    async function handleUpload() {
+    async function publishToMarket() {
         const title = document.getElementById('pTitle').value;
+        const category = document.getElementById('pCategory').value;
         const desc = document.getElementById('pDesc').value;
         const price = document.getElementById('pPrice').value;
         const wa = document.getElementById('pWhatsApp').value;
         const imgFile = document.getElementById('pImgFile').files[0];
 
         if(!title || !price || !wa || !imgFile) {
-            alert("يرجى ملء البيانات واختيار صورة على الأقل");
+            alert("يرجى ملء الخانات الأساسية واختيار صورة");
             return;
         }
 
         document.getElementById('status').style.display = 'block';
         document.getElementById('addBtn').disabled = true;
 
-        // ملاحظة: بما أن Storage يتطلب ترقية، سنستخدم قارئ الملفات لعرض الصور محلياً كحل بديل وسريع
         const reader = new FileReader();
         reader.readAsDataURL(imgFile);
         reader.onload = async () => {
             const imgData = reader.result;
             
-            await db.collection("smart_listings").add({
-                title, desc, price, wa, imgData,
+            await db.collection("nour_global_market").add({
+                title, category, desc, price, wa, imgData,
                 createdAt: Date.now()
             });
 
-            alert("تم نشر العرض بنجاح!");
+            alert("تم نشر إعلانك بنجاح في سوق نُور!");
             location.reload();
         };
     }
 
-    db.collection("smart_listings").orderBy("createdAt", "desc").onSnapshot(snap => {
+    db.collection("nour_global_market").orderBy("createdAt", "desc").onSnapshot(snap => {
         let h = "";
         snap.forEach(doc => {
             const p = doc.data();
             h += `
-                <div class="prop-card">
-                    <img src="${p.imgData}" class="prop-media">
-                    <div class="info">
-                        <h3 style="margin:0;">${p.title}</h3>
-                        <p style="color:#666; font-size:0.9em;">${p.desc}</p>
+                <div class="item-card">
+                    <img src="${p.imgData}" class="item-media">
+                    <div class="item-info">
+                        <span class="badge">${p.category}</span>
+                        <h3 style="margin:5px 0;">${p.title}</h3>
+                        <p style="font-size:0.9em; color:#666; margin:10px 0;">${p.desc}</p>
                         <span class="price">${Number(p.price).toLocaleString()} AED</span>
-                        <a href="https://wa.me/${p.wa}?text=استفسار_عن_${p.title}" class="wa-btn">تواصل عبر واتساب ✅</a>
+                        <a href="https://wa.me/${p.wa}?text=بخصوص_${p.title}" class="wa-btn">شراء / تواصل ✅</a>
                     </div>
                 </div>`;
         });
-        document.getElementById('propList').innerHTML = h || "لا توجد عروض حالياً";
+        document.getElementById('marketList').innerHTML = h || "السوق فارغ حالياً، كن أول من ينشر!";
     });
 </script>
 </body>
