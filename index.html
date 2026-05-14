@@ -3,99 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nour Store | الإمبراطورية</title>
+    <title>Nour Store</title>
     <style>
         :root {
-            --bg-color: #0d1b15; /* خلفية داكنة فخمة */
-            --card-coral: #ff7f50; /* المرجاني */
-            --card-green: #2d5a43; /* الأخضر الداكن */
-            --card-gold: #d4af37; /* الذهبي */
-            --text-white: #ffffff;
+            --bg-color: #ffffff;
+            --card-coral: #ff7f50; 
+            --card-green: #2d5a43; 
+            --text-dark: #1a1a1a;
         }
-        body { background-color: var(--bg-color); color: var(--text-white); font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; padding: 0; }
+        body { background-color: var(--bg-color); color: var(--text-dark); font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; padding: 0; }
         
-        /* الهيدر العلوي */
-        header { background: #1a1a1a; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #333; }
-        .currency-bar { background: rgba(255,255,255,0.1); padding: 5px 15px; border-radius: 20px; display: flex; gap: 10px; font-size: 0.8em; align-items: center; }
+        header { background: #1a1a1a; padding: 12px 5%; display: flex; justify-content: space-between; align-items: center; color: white; }
+        .currency-bar { background: rgba(255,255,255,0.1); padding: 5px 12px; border-radius: 20px; display: flex; gap: 8px; font-size: 0.75em; align-items: center; }
 
-        /* شعار Nour Store الدائري */
-        .logo-section { text-align: center; padding: 30px 20px; background: linear-gradient(to bottom, #2d5a43, #ff7f50); }
-        .circle-logo { width: 120px; height: 120px; border: 5px solid white; border-radius: 50%; margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; background: white; color: var(--card-green); }
-        .circle-logo span { font-size: 3em; font-weight: bold; line-height: 1; }
-        .logo-name { font-weight: bold; font-size: 1.5em; margin-top: 10px; }
+        .logo-section { text-align: center; padding: 40px 20px; background: linear-gradient(to bottom, #2d5a43 50%, #ff7f50 50%); }
+        .circle-logo { width: 130px; height: 130px; border: 6px solid #3CB371; border-radius: 50%; margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; background: white; color: var(--card-green); box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .circle-logo span { font-size: 3.5em; font-weight: bold; line-height: 1; margin-bottom: -5px; }
+        .circle-logo small { color: #1a1a1a; font-size: 0.9em; font-weight: bold; }
 
-        .welcome-msg { text-align: center; padding: 20px; font-size: 1.2em; font-weight: bold; }
+        .welcome-msg { text-align: center; padding: 25px; font-size: 1.3em; font-weight: bold; color: var(--text-dark); }
 
-        /* نظام المربعات (Grid) مثل الصورة تماماً */
-        .main-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 20px; }
-        
-        .box { border-radius: 15px; padding: 20px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: 0.3s; cursor: pointer; height: 150px; }
-        .box:hover { transform: scale(1.02); }
-        
+        /* الأزرار والمربعات */
+        .main-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 0 20px 20px 20px; }
+        .box { border-radius: 18px; padding: 20px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.3s; cursor: pointer; height: 140px; color: white; }
         .box-coral { background-color: var(--card-coral); }
         .box-green { background-color: var(--card-green); }
-        
-        .box i { font-size: 2.5em; margin-bottom: 10px; }
-        .box-title { font-weight: bold; font-size: 1.1em; }
-        .box-sub { font-size: 0.8em; margin-top: 5px; opacity: 0.9; }
 
-        /* شريط التحديثات الأسفل */
-        .news-feed { background: white; color: black; margin: 20px; border-radius: 10px; padding: 15px; }
-        .status-active { color: #2ecc71; font-weight: bold; float: left; }
+        /* نافذة التسجيل */
+        #signupModal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:2000; justify-content:center; align-items:center; }
+        .modal-content { background:white; padding:30px; border-radius:20px; width:85%; max-width:350px; text-align:center; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; }
+
+        .news-feed { background: #f9f9f9; margin: 20px; border-radius: 15px; padding: 15px; border: 1px solid #eee; }
     </style>
 </head>
 <body>
 
 <header>
     <div style="font-weight: bold;">Nour Store</div>
-    <div class="currency-bar">
-        🇸🇦 SAR | 🇺🇸 USD | 🇸🇩 SDG | 🇦🇪 AED
-    </div>
+    <div class="currency-bar">🇸🇦 SAR | 🇺🇸 USD | 🇸🇩 SDG</div>
 </header>
 
 <div class="logo-section">
     <div class="circle-logo">
         <span>N</span>
-        <small style="color:black; font-size: 0.3em;">Nour Store</small>
+        <small>Nour Store</small>
     </div>
-    <div class="logo-name">Nour Store</div>
 </div>
 
-<div class="welcome-msg">مرحباً بك في إمبراطورية Nour Store</div>
+<div class="welcome-msg">مرحباً بك في Nour Store</div>
+
+<div style="text-align: center; margin-bottom: 20px;">
+    <button onclick="openModal()" style="background: var(--card-green); color: white; border: none; padding: 12px 25px; border-radius: 25px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
+        تسجيل شركة جديدة 📝
+    </button>
+</div>
 
 <div class="main-grid">
-    <div class="box box-coral" onclick="location.href='https://t.me/YOUR_USERNAME'">
-        <div style="font-size: 2em;">👥</div>
-        <div class="box-title">Partners Portal</div>
-        <div class="box-sub">بوابة الشركاء: انشر منتجاتك</div>
-    </div>
-
-    <div class="box box-green">
-        <div style="font-size: 2em;">🐍</div>
-        <div class="box-title">أتمتة Python:</div>
-        <div class="box-sub">خدمات عملية</div>
-    </div>
-
-    <div class="box box-green">
-        <div style="font-size: 2em;">📜</div>
-        <div class="box-title">Constitution Ticker</div>
-    </div>
-
     <div class="box box-coral">
-        <div style="font-size: 2.2em; font-weight: bold;">15%</div>
-        <div class="box-title">Affiliate Calculator</div>
+        <div style="font-size: 2.5em;">👥</div>
+        <strong>Partners Portal</strong>
+        <div style="font-size: 0.8em;">بوابة الشركاء</div>
+    </div>
+    <div class="box box-green">
+        <div style="font-size: 2.5em;">🐍</div>
+        <strong>أتمتة Python</strong>
+        <div style="font-size: 0.8em;">خدمات برمجية</div>
+    </div>
+</div>
+
+<div id="signupModal">
+    <div class="modal-content">
+        <h3 style="color: var(--card-green);">إنشاء حساب شريك</h3>
+        <input type="text" id="compName" placeholder="اسم الشركة">
+        <input type="text" id="userTag" placeholder="اسم المستخدم (Username)">
+        <button id="submitBtn" onclick="saveToFirebase()" style="background: var(--card-green); color: white; border: none; padding: 12px; width: 100%; border-radius: 10px; font-weight: bold; cursor: pointer;">تأكيد التسجيل</button>
+        <button onclick="closeModal()" style="background:none; border:none; color:#888; margin-top:10px; cursor:pointer;">إلغاء</button>
     </div>
 </div>
 
 <div class="news-feed">
-    <span class="status-active">Active</span>
-    <div style="font-weight: bold; border-bottom: 1px solid #ddd; padding-bottom: 5px;">Last News Feed</div>
-    <p style="font-size: 0.9em; margin-top: 10px;">Real-time updates from Nour Store</p>
-    <div style="display: flex; align-items: center; gap: 10px;">
-        <div style="background: var(--card-green); width: 30px; height: 30px; border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; font-size: 0.6em;">N</div>
-        <span style="font-size: 0.8em;"><b>Nour Store:</b> تم تحديث الموقع بنجاح.</span>
-    </div>
+    <div style="font-weight: bold; font-size: 0.9em; border-bottom: 1px solid #ddd; padding-bottom: 5px;">Last News Feed</div>
+    <p id="statusMsg" style="font-size: 0.85em; margin-top: 10px; color: #555;">بانتظار تسجيل أول شركة كشريك لـ Nour Store...</p>
 </div>
 
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+
+<script>
+  // إعدادات Firebase الخاصة بك
+  const firebaseConfig = {
+    apiKey: "AIzaSyB9Ff0ku07M5FT8O4PVxBL0fkb70h8OaFY",
+    authDomain: "nour-store-platform.firebaseapp.com",
+    projectId: "nour-store-platform",
+    storageBucket: "nour-store-platform.firebasestorage.app",
+    messagingSenderId: "1058922024981",
+    appId: "1:1058922024981:web:8317653906d138ec8bfe1c"
+  };
+
+  // تشغيل Firebase
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  function openModal() { document.getElementById('signupModal').style.display = 'flex'; }
+  function closeModal() { document.getElementById('signupModal').style.display = 'none'; }
+
+  async function saveToFirebase() {
+      const comp = document.getElementById('compName').value;
+      const user = document.getElementById('userTag').value;
+      const btn = document.getElementById('submitBtn');
+
+      if(comp && user) {
+          btn.innerText = "جاري الحفظ...";
+          btn.disabled = true;
+          try {
+              // حفظ البيانات في جدول partners
+              await db.collection("partners").add({
+                  company: comp,
+                  username: user,
+                  date: new Date().toLocaleString('ar-EG')
+              });
+              alert(`تم التسجيل بنجاح! أهلاً بك يا ${user}`);
+              document.getElementById('statusMsg').innerText = `آخر نشاط: تم انضمام شركة (${comp}) بنجاح!`;
+              closeModal();
+          } catch (e) {
+              console.error(e);
+              alert("حدث خطأ! تأكد من تفعيل Firestore واختيار Test Mode");
+          } finally {
+              btn.innerText = "تأكيد التسجيل";
+              btn.disabled = false;
+          }
+      } else { alert("أدخل البيانات كاملة"); }
+  }
+</script>
 </body>
 </html>
