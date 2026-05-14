@@ -21,6 +21,7 @@
         .logo-box {
             border: 2px solid #D4AF37; display: inline-block;
             padding: 10px 25px; border-radius: 15px; background: #000; margin-bottom: 10px;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
         }
         .logo-n {
             font-size: 50px; background: var(--gold);
@@ -42,7 +43,7 @@
         }
         .card-head { padding: 12px 15px; font-weight: bold; color: #fff; display: flex; align-items: center; gap: 10px; }
         
-        /* ألوان الأقسام */
+        /* ألوان الأقسام الاحترافية */
         .bg-car { background: #064e3b; }
         .bg-house { background: #1e3a8a; }
         .bg-serv { background: #431407; }
@@ -57,7 +58,9 @@
         .btn-gold {
             background: var(--gold); color: #000; border: none; padding: 10px 20px;
             border-radius: 20px; font-weight: bold; cursor: pointer; text-decoration: none; display: inline-block; font-size: 14px;
+            transition: 0.3s;
         }
+        .btn-gold:active { transform: scale(0.9); }
         .category-icon { font-size: 20px; }
     </style>
 </head>
@@ -69,7 +72,7 @@
         <div style="color:#D4AF37; font-weight:bold;">Nore Store</div>
     </div>
     <div class="search-container">
-        <input type="text" class="search-bar" placeholder="🔍 ابحث عن ما تحتاجه...">
+        <input type="text" class="search-bar" placeholder="🔍 ابحث في متجر نوري...">
     </div>
 </header>
 
@@ -81,7 +84,7 @@
             <div class="card-img-box"><img src="https://images.unsplash.com/photo-1550355291-bbee04a92027?q=80&w=300"></div>
             <div style="flex:1">
                 <h3 style="margin:0; color:#D4AF37; font-size: 16px;">سوق السيارات</h3>
-                <button class="btn-gold">تصفح</button>
+                <button class="btn-gold">تصفح العروض</button>
             </div>
         </div>
     </div>
@@ -92,7 +95,7 @@
             <div class="card-img-box"><img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=300"></div>
             <div style="flex:1">
                 <h3 style="margin:0; color:#D4AF37; font-size: 16px;">شقق وبيوت</h3>
-                <button class="btn-gold">شاهد</button>
+                <button class="btn-gold">شاهد الصور</button>
             </div>
         </div>
     </div>
@@ -102,7 +105,7 @@
         <div class="card-inner">
             <div class="card-img-box"><img src="https://images.unsplash.com/photo-1581578731548-c64695ce6958?q=80&w=300"></div>
             <div style="flex:1">
-                <h3 style="margin:0; color:#D4AF37; font-size: 16px;">صيانة شاملة ونظافة</h3>
+                <h3 style="margin:0; color:#D4AF37; font-size: 16px;">صيانة شاملة</h3>
                 <button class="btn-gold">اطلب الآن</button>
             </div>
         </div>
@@ -113,7 +116,7 @@
         <div class="card-inner">
             <div class="card-img-box"><img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=300"></div>
             <div style="flex:1">
-                <h3 style="margin:0; color:#D4AF37; font-size: 16px;">أحدث التقنيات</h3>
+                <h3 style="margin:0; color:#D4AF37; font-size: 16px;">أحدث الموديلات</h3>
                 <button class="btn-gold">تصفح</button>
             </div>
         </div>
@@ -124,8 +127,8 @@
         <div class="card-inner">
             <div class="card-img-box"><img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=300"></div>
             <div style="flex:1">
-                <h3 style="margin:0; color:#D4AF37; font-size: 16px;">فرش أثاث</h3>
-                <button class="btn-gold">تصفح</button>
+                <h3 style="margin:0; color:#D4AF37; font-size: 16px;">أثاث منزلي</h3>
+                <button class="btn-gold">مشاهدة</button>
             </div>
         </div>
     </div>
@@ -135,8 +138,8 @@
         <div class="card-inner">
             <div class="card-img-box"><img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=300"></div>
             <div style="flex:1">
-                <h3 style="margin:0; color:#D4AF37; font-size: 16px;">فرص التوظيف</h3>
-                <button class="btn-gold">مشاهدة</button>
+                <h3 style="margin:0; color:#D4AF37; font-size: 16px;">فرص العمل</h3>
+                <button class="btn-gold">سجل طلبك</button>
             </div>
         </div>
     </div>
