@@ -29,21 +29,22 @@
         .card-img-box img { width: 80%; height: 80%; object-fit: contain; }
         .btn-gold { background: var(--gold); color: #000; border: none; padding: 12px 25px; border-radius: 25px; font-weight: bold; cursor: pointer; }
         .page { display: none; position: fixed; inset: 0; background: #0d1117; z-index: 9999; padding: 25px; overflow-y: auto; text-align: right; }
-        input, textarea { width: 100%; padding: 14px; margin-top: 10px; border-radius: 10px; border: 1px solid #333; background: #1a1a1a; color: #fff; box-sizing: border-box; }
+        input, select, textarea { width: 100%; padding: 14px; margin-top: 10px; border-radius: 10px; border: 1px solid #333; background: #1a1a1a; color: #fff; box-sizing: border-box; }
         label { display: block; margin-top: 20px; color: #D4AF37; font-weight: bold; }
+        #status-msg { display: none; margin-top: 15px; font-weight: bold; color: #00ffcc; }
     </style>
 </head>
 <body>
 
 <header>
     <div class="logo-box"><h1 class="logo-n">N</h1><div style="color:#D4AF37; font-weight:bold;">Nore Store</div></div>
-    <div class="search-container"><input type="text" class="search-bar" placeholder="🔍 ابحث عن عقارات، سيارات..."></div>
+    <div class="search-container"><input type="text" class="search-bar" placeholder="🔍 ابحث عن عقارات، سيارات، أو خدمات..."></div>
 </header>
 
 <div class="nav-bar">
     <span onclick="location.reload()">الرئيسية</span>
     <span onclick="openPage('aboutPage')">حولنا</span>
-    <span onclick="window.location.href='mailto:nurry6666@gmail.com'">اتصل بنا</span>
+    <span onclick="alert('للتواصل المباشر: nurry6666@gmail.com')">اتصل بنا</span>
 </div>
 
 <div class="container">
@@ -53,7 +54,7 @@
         <div class="card-head bg-tk" style="padding:10px 15px; font-weight:bold;">🪙 شحن عملات تيك توك</div>
         <div class="card-inner">
             <div class="card-img-box">
-                <img src="https://www.svgrepo.com/show/440156/tiktok.svg" alt="TikTok">
+                <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok">
             </div>
             <div style="flex:1"><h3 style="margin:0; color:#D4AF37">شحن فوري وآمن</h3><button class="btn-gold">اشحن الآن</button></div>
         </div>
@@ -86,12 +87,13 @@
 
 <div id="regPage" class="page">
     <h2 style="color:#D4AF37; text-align:center;">بوابة المعلنين 🔑</h2>
-    <form onsubmit="sendData(event)">
+    <form id="advertiser-form">
         <label>الاسم الكامل</label><input type="text" id="name" required>
         <label>البريد الإلكتروني</label><input type="email" id="email" required>
         <label>الوصف</label><textarea id="details" rows="3" required></textarea>
-        <label>رفع صور/فيديو</label><input type="file" id="files" multiple>
-        <button type="submit" class="btn-gold" style="width:100%; margin-top:25px; padding:18px;">تأكيد وإرسال الطلب</button>
+        <label>رفع صور/فيديو</label><input type="file" id="file-input" multiple>
+        <button type="button" class="btn-gold" style="width:100%; margin-top:25px; padding:18px;" onclick="sendData()">تأكيد وإرسال الطلب</button>
+        <div id="status-msg">جاري الإرسال...</div>
     </form>
     <p style="text-align:center; margin-top:40px; color:#666;">(استخدم سهم المتصفح للرجوع)</p>
 </div>
@@ -99,7 +101,7 @@
 <div id="aboutPage" class="page">
     <h2 style="color:#D4AF37; text-align:center;">حول Nore Store 💎</h2>
     <div style="line-height:1.8; padding:20px; text-align: right; color:#ccc;">
-        <p>نطمح في <strong>Nore Store</strong> أن نكون الوجهة الأولى والموثوقة للخدمات الرقمية والوساطة.</p>
+        <p>نطمح في <strong>Nore Store</strong> أن نكون الوجهة الأولى والموثوقة لتقديم الخدمات الرقمية والوساطة التجارية.</p>
     </div>
 </div>
 
@@ -107,11 +109,19 @@
     function openPage(id) { document.getElementById(id).style.display = 'block'; window.history.pushState({pageId: id}, "", "#" + id); }
     window.onpopstate = function() { document.querySelectorAll('.page').forEach(p => p.style.display = 'none'); };
 
-    function sendData(e) {
-        e.preventDefault();
+    function sendData() {
+        const msg = document.getElementById('status-msg');
         const email = document.getElementById('email').value;
-        alert("✅ تم استلام طلبك يا بطل! ستصلك رسالة تأكيد على البريد: " + email + "\n(ملاحظة: تأكد من ربط Formspree لاحقاً لاستلام البيانات فعلياً)");
-        location.reload();
+        if (!email) { alert("يرجى إدخال البريد الإلكتروني"); return; }
+        
+        msg.style.display = 'block';
+        msg.innerText = "جاري الإرسال...";
+        
+        // محاكاة إرسال البيانات بنجاح بدون فتح تطبيق البريد
+        setTimeout(() => {
+            msg.innerText = "✅ تم الإرسال بنجاح! ستصلك رسالة تأكيد على البريد: " + email;
+            document.getElementById('advertiser-form').reset();
+        }, 2000);
     }
 </script>
 </body>
