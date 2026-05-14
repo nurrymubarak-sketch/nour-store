@@ -14,7 +14,6 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0; background: var(--dark-bg); color: #fff; text-align: center;
         }
-
         header {
             background: linear-gradient(to bottom, #16213e, #0f3460);
             padding: 30px 0; border-bottom: 3px solid #D4AF37;
@@ -28,18 +27,20 @@
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             font-family: serif; margin: 0; line-height: 1;
         }
-
         .container { width: 92%; margin: 25px auto; padding-bottom: 80px; }
         .card {
             background: var(--card-gray); border-radius: 20px; margin-bottom: 25px;
             overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.3); text-align: right;
         }
         .bg-tk { background: linear-gradient(90deg, #ff0050, #00f2ea); }
+        .bg-re { background: #1e3a8a; }
+        .bg-car { background: #064e3b; }
+        .bg-ele { background: #431407; }
 
         .card-inner { padding: 20px; display: flex; gap: 15px; align-items: center; }
         .card-img-box { 
             width: 130px; height: 95px; border-radius: 12px; 
-            border: 1.5px solid #D4AF37; overflow: hidden; position: relative;
+            border: 1.5px solid #D4AF37; overflow: hidden;
         }
         .card-img-box img { width: 100%; height: 100%; object-fit: cover; }
         
@@ -47,15 +48,13 @@
             background: var(--gold); color: #000; border: none; padding: 12px 25px;
             border-radius: 25px; font-weight: bold; cursor: pointer;
         }
-
         .page { 
             display: none; position: fixed; inset: 0; background: #0d1117; 
             z-index: 9999; padding: 25px; overflow-y: auto; text-align: right; 
         }
         input, select, textarea { width: 100%; padding: 14px; margin-top: 10px; border-radius: 10px; border: 1px solid #333; background: #1a1a1a; color: #fff; box-sizing: border-box; }
         label { display: block; margin-top: 20px; color: #D4AF37; font-weight: bold; }
-        
-        .nav-bar { background: rgba(255,255,255,0.05); padding: 15px; display: flex; justify-content: center; gap: 20px; border-bottom: 1px solid #333; }
+        .nav-bar { background: rgba(255,255,255,0.05); padding: 15px; display: flex; justify-content: center; gap: 20px; }
         .nav-bar span { cursor: pointer; color: #ccc; }
     </style>
 </head>
@@ -79,19 +78,16 @@
     <div class="card">
         <div class="card-head bg-tk" style="padding:10px 15px; font-weight:bold;">🪙 شحن عملات تيك توك</div>
         <div class="card-inner">
-            <div class="card-img-box">
-                <img src="https://files.catbox.moe/p9o4b6.png" alt="TikTok Logo">
-            </div>
+            <div class="card-img-box"><img src="https://files.catbox.moe/p9o4b6.png"></div>
             <div style="flex:1">
                 <h3 style="margin:0; color:#D4AF37">شحن فوري وآمن</h3>
-                <p style="font-size:12px; color:#aaa; margin:5px 0;">خدمة حصرية من الإدارة</p>
                 <button class="btn-gold" onclick="alert('تواصل مع الإدارة للشحن')">اشحن الآن</button>
             </div>
         </div>
     </div>
-    
-    <div class="card" style="border-color: #1e3a8a;">
-        <div class="card-head" style="background:#1e3a8a; padding:10px 15px; font-weight:bold;">🏙️ عقارات مميزة</div>
+
+    <div class="card">
+        <div class="card-head bg-re" style="padding:10px 15px; font-weight:bold;">🏙️ عقارات مميزة</div>
         <div class="card-inner">
             <div class="card-img-box"><img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=300"></div>
             <div style="flex:1">
@@ -100,29 +96,40 @@
             </div>
         </div>
     </div>
+
+    <div class="card">
+        <div class="card-head bg-car" style="padding:10px 15px; font-weight:bold;">🚗 سيارات فاخرة</div>
+        <div class="card-inner">
+            <div class="card-img-box"><img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=300"></div>
+            <div style="flex:1">
+                <h3 style="margin:0; color:#D4AF37">أحدث موديلات السيارات</h3>
+                <button class="btn-gold">مشاهدة المعرض</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-head bg-ele" style="padding:10px 15px; font-weight:bold;">📱 إلكترونيات وتقنية</div>
+        <div class="card-inner">
+            <div class="card-img-box"><img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=300"></div>
+            <div style="flex:1">
+                <h3 style="margin:0; color:#D4AF37">أجهزة وتقنيات حديثة</h3>
+                <button class="btn-gold">تسوق الآن</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div id="regPage" class="page">
     <h2 style="color:#D4AF37; text-align:center;">بوابة المعلنين الجديدة 🔑</h2>
-    
-    <label>الاسم الكامل</label>
-    <input type="text" id="userName" placeholder="أدخل اسمك">
-
-    <label>البريد الإلكتروني (لتلقي رسالة التأكيد)</label>
-    <input type="email" id="userEmail" placeholder="example@mail.com">
-    
-    <label>السعر (بالعملة المحلية)</label>
-    <input type="number" placeholder="0.00">
-    
-    <label>وصف المنتج</label>
-    <textarea rows="3" placeholder="تفاصيل الإعلان كاملة..."></textarea>
-    
-    <label>رفع الصور / الفيديوهات</label>
-    <input type="file" multiple accept="image/*,video/*">
-
+    <label>الاسم الكامل</label><input type="text" id="userName" placeholder="أدخل اسمك أو اسم النشاط">
+    <label>البريد الإلكتروني (لتلقي رسالة التأكيد)</label><input type="email" id="userEmail" placeholder="example@mail.com">
+    <label>رقم الواتساب</label><input type="tel" placeholder="+249...">
+    <label>السعر (بالعملة المحلية)</label><input type="number" placeholder="مثال: 5000">
+    <label>وصف المنتج / الإعلان</label><textarea rows="3" placeholder="تفاصيل المنتج هنا..."></textarea>
+    <label>رفع صور / فيديو للمنتج</label><input type="file" multiple accept="image/*,video/*">
     <button class="btn-gold" style="width:100%; margin-top:25px; padding:18px;" onclick="handleRegistration()">تأكيد وإرسال للتوثيق</button>
-    
-    <p style="text-align:center; margin-top:40px; color:#666; font-size:14px;">(استخدم سهم المتصفح في الأسفل للعودة)</p>
+    <p style="text-align:center; margin-top:40px; color:#666; font-size:14px;">(استخدم سهم المتصفح في الأسفل للعودة للرئيسية)</p>
 </div>
 
 <div id="aboutPage" class="page">
@@ -135,17 +142,15 @@
         document.getElementById(id).style.display = 'block';
         window.history.pushState({pageId: id}, "", "#" + id);
     }
-
-    window.onpopstate = function(event) {
+    window.onpopstate = function() {
         document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
     };
-
     function handleRegistration() {
         const email = document.getElementById('userEmail').value;
-        if(!email) { alert("يرجى إدخال الإيميل لاستلام رسالة التأكيد."); return; }
-        alert("✅ تم الاستلام! ستصلك رسالة تأكيد فوراً على البريد: " + email);
+        const name = document.getElementById('userName').value;
+        if(!email || !name) { alert("يرجى ملء الخانات الأساسية."); return; }
+        alert("✅ تم الاستلام! ستصلك رسالة تأكيد على البريد: " + email);
     }
 </script>
-
 </body>
 </html>
