@@ -24,6 +24,10 @@
         .search-bar input { width: 100%; padding: 12px 40px 12px 15px; border-radius: 25px; border: 1.5px solid var(--gold); background: #0f172a; color: white; outline: none; box-sizing: border-box; }
         .search-bar::after { content: '🔍'; position: absolute; right: 15px; top: 50%; transform: translateY(-50%); }
 
+        /* قسم النصائح للانتشار */
+        .tips-scroller { display: flex; overflow-x: auto; gap: 10px; padding: 10px; margin: 10px auto; width: 95%; scrollbar-width: none; }
+        .tip-card { min-width: 200px; background: #1e293b; padding: 15px; border-radius: 15px; border-right: 4px solid var(--gold); text-align: right; font-size: 13px; }
+
         .container { width: 95%; max-width: 600px; margin: 10px auto; padding-bottom: 100px; }
         
         .section-card { background: var(--card-gray); border-radius: 20px; margin-bottom: 25px; border: 1px solid rgba(212, 175, 55, 0.2); text-align: right; overflow: hidden; }
@@ -33,12 +37,12 @@
 
         .btn-open { background: var(--gold); color: #000; padding: 10px 20px; border-radius: 25px; font-weight: bold; border: none; cursor: pointer; font-size: 14px; }
         
-        .ad-box { background: #020617; border-radius: 15px; margin: 10px; overflow: hidden; border: 1px solid #334155; position: relative; transition: 0.3s; }
+        .ad-box { background: #020617; border-radius: 15px; margin: 10px; overflow: hidden; border: 1px solid #334155; position: relative; }
         .ad-box img { width: 100%; height: auto; max-height: 400px; object-fit: cover; border-bottom: 2px solid var(--gold); }
         .ad-content { padding: 15px; }
         .ad-content h3 { margin: 0; color: var(--gold); font-size: 20px; }
         
-        .ad-actions { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
+        .ad-actions { display: flex; gap: 10px; margin-top: 10px; }
         .btn-whatsapp { flex: 1; background: var(--green); color: white; padding: 10px; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 13px; text-align: center; }
         .btn-share { background: var(--blue); color: white; padding: 10px; border-radius: 10px; cursor: pointer; font-size: 13px; border: none; font-weight: bold; }
         
@@ -58,6 +62,12 @@
     <div class="slogan-ar">عالمك للإعلان والخدمات الموثوقة</div>
     <div class="slogan-en">Your World for Advertising & Trusted Services</div>
 </header>
+
+<div class="tips-scroller">
+    <div class="tip-card">💡 <b>نصيحة:</b> شارك إعلانك في مجموعات الواتساب لتبيعه أسرع!</div>
+    <div class="tip-card">🚗 <b>فحص:</b> تأكد من فحص المحرك جيداً قبل شراء أي سيارة.</div>
+    <div class="tip-card">📱 <b>تنبيه:</b> لا تحول مبالغ مالية قبل رؤية المنتج على الواقع.</div>
+</div>
 
 <div class="search-bar">
     <input type="text" id="srch" onkeyup="searching()" placeholder="ابحث عن سيارة، عقار، أو أي شيء...">
@@ -118,7 +128,7 @@
     }
 
     function shareAd(title, phone) {
-        const text = `شوف الإعلان ده في متجر نوري: ${title}. للتواصل: ${phone}`;
+        const text = `شوف الإعلان ده في متجر نوري (Nore Store): ${title}. للتواصل: ${phone}. الموقع: ${window.location.href}`;
         window.open(`https://wa.me/?text=${encodeURIComponent(text)}`);
     }
 
@@ -142,7 +152,10 @@
         const title = document.getElementById('pTitle').value;
         const phone = document.getElementById('pPhone').value;
         if (title && phone && finalImg) {
-            db.ref('ads/' + cat).push({ title, phone, image: finalImg, desc: document.getElementById('pText').value, views: 0 }).then(() => location.reload());
+            db.ref('ads/' + cat).push({ title, phone, image: finalImg, desc: document.getElementById('pText').value, views: 0 }).then(() => {
+                alert("تم النشر بنجاح! شارك إعلانك الآن مع أصدقائك لزيادة المشاهدات.");
+                location.reload();
+            });
         } else { alert("أكمل البيانات"); }
     }
 
