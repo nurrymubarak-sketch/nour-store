@@ -9,113 +9,68 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
     <style>
-        :root { --gold: #D4AF37; --dark-bg: #020617; --card-gray: #1e293b; }
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--dark-bg); color: #fff; text-align: center; }
+        :root { --gold: #D4AF37; --dark-bg: #020617; --card-gray: #1e293b; --red: #ff4d4d; --green: #25d366; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: var(--dark-bg); color: #fff; text-align: center; }
         
         header { background: linear-gradient(to bottom, #16213e, #020617); padding: 20px; border-bottom: 3px solid var(--gold); }
-        .logo-box { border: 2.5px solid var(--gold); display: inline-block; padding: 10px 30px; border-radius: 15px; background: #000; margin-bottom: 10px; }
+        .logo-box { border: 2.5px solid var(--gold); display: inline-block; padding: 10px 30px; border-radius: 15px; background: #000; margin-bottom: 10px; cursor: pointer; }
         .logo-n { font-size: 50px; color: var(--gold); font-family: serif; margin: 0; }
         
-        /* الجملة المحذوفة رجعت */
-        .slogan-ar { color: var(--gold); font-size: 20px; font-weight: bold; margin-top: 10px; }
-        .slogan-en { color: #94a3b8; font-size: 13px; font-style: italic; margin-bottom: 20px; }
+        .slogan-ar { color: var(--gold); font-size: 22px; font-weight: bold; margin-top: 10px; }
+        .slogan-en { color: #94a3b8; font-size: 14px; font-style: italic; margin-bottom: 20px; }
 
         .container { width: 95%; max-width: 600px; margin: 10px auto; padding-bottom: 100px; }
         
-        /* تصميم الكروت والأيقونات */
-        .section-card { background: var(--card-gray); border-radius: 20px; margin-bottom: 25px; overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.2); text-align: right; }
-        .section-header { padding: 15px; font-weight: bold; font-size: 18px; display: flex; justify-content: space-between; align-items: center; color: #fff; }
+        .section-card { background: var(--card-gray); border-radius: 20px; margin-bottom: 25px; border: 1px solid rgba(212, 175, 55, 0.2); text-align: right; overflow: hidden; }
+        .section-header { padding: 15px; font-weight: bold; font-size: 18px; display: flex; justify-content: space-between; align-items: center; }
         .header-title { display: flex; align-items: center; gap: 10px; }
-        .header-title img { width: 30px; height: 30px; }
+        .header-title img { width: 28px; height: 28px; }
 
         .btn-open { background: var(--gold); color: #000; padding: 10px 20px; border-radius: 25px; font-weight: bold; border: none; cursor: pointer; font-size: 14px; }
-
-        /* عرض الإعلانات */
-        .ad-box { background: #020617; border-radius: 15px; margin: 10px; overflow: hidden; border: 1px solid #334155; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        
+        .ad-box { background: #020617; border-radius: 15px; margin: 10px; overflow: hidden; border: 1px solid #334155; position: relative; }
         .ad-box img { width: 100%; height: auto; max-height: 400px; object-fit: cover; border-bottom: 2px solid var(--gold); }
-        .ad-content { padding: 15px; text-align: right; }
-        .ad-content h3 { margin: 0; color: var(--gold); font-size: 22px; }
-        .ad-content p { color: #cbd5e1; margin: 10px 0; font-size: 15px; line-height: 1.5; }
-        .ad-meta { font-size: 13px; color: #94a3b8; border-top: 1px solid #1e293b; padding-top: 10px; display: flex; gap: 15px; }
+        .ad-content { padding: 15px; }
+        .ad-content h3 { margin: 0; color: var(--gold); font-size: 20px; margin-bottom: 10px; }
+        
+        /* زر الواتساب الجديد */
+        .btn-whatsapp { display: inline-flex; align-items: center; gap: 8px; background: var(--green); color: white; padding: 8px 15px; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 14px; margin-top: 5px; }
+        
+        .del-btn { background: var(--red); color: white; border: none; padding: 8px 15px; border-radius: 10px; cursor: pointer; font-weight: bold; display: none; margin-top: 10px; width: 100%; }
 
-        /* نافذة النشر */
         .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 2000; padding: 20px; overflow-y: auto; }
         .modal-body { background: var(--card-gray); padding: 25px; border-radius: 20px; border: 2px solid var(--gold); max-width: 450px; margin: auto; text-align: right; }
         input, textarea { width: 100%; padding: 12px; margin: 8px 0; border-radius: 10px; background: #020617; border: 1px solid #334155; color: #fff; box-sizing: border-box; }
-        label { color: var(--gold); font-weight: bold; font-size: 13px; margin-top: 8px; display: block; }
         .file-box { background: #334155; border: 2px dashed var(--gold); padding: 15px; text-align: center; border-radius: 12px; cursor: pointer; }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="logo-box"><h1 class="logo-n">N</h1><div style="color:var(--gold); font-weight:bold;">Nore Store</div></div>
+    <div class="logo-box" onclick="adminAccess()"><h1 class="logo-n">N</h1><div style="color:var(--gold); font-weight:bold;">Nore Store</div></div>
     <div class="slogan-ar">عالمك للإعلان والخدمات الموثوقة</div>
     <div class="slogan-en">Your World for Advertising & Trusted Services</div>
 </header>
 
 <div class="container">
-    <div class="section-card">
-        <div class="section-header" style="background: #064e3b;">
-            <div class="header-title"><img src="https://cdn-icons-png.flaticon.com/128/741/741407.png"><span>سيارات للبيع</span></div>
-            <button class="btn-open" onclick="showPost('cars')">انشر مجاناً</button>
-        </div>
-        <div id="list-cars"></div>
-    </div>
-
-    <div class="section-card">
-        <div class="section-header" style="background: #1e3a8a;">
-            <div class="header-title"><img src="https://cdn-icons-png.flaticon.com/128/609/609803.png"><span>عقارات</span></div>
-            <button class="btn-open" onclick="showPost('house')">انشر مجاناً</button>
-        </div>
-        <div id="list-house"></div>
-    </div>
-
-    <div class="section-card">
-        <div class="section-header" style="background: #581c87;">
-            <div class="header-title"><img src="https://cdn-icons-png.flaticon.com/128/644/644458.png"><span>جوالات</span></div>
-            <button class="btn-open" onclick="showPost('tech')">انشر مجاناً</button>
-        </div>
-        <div id="list-tech"></div>
-    </div>
-
-    <div class="section-card">
-        <div class="section-header" style="background: #431407;">
-            <div class="header-title"><img src="https://cdn-icons-png.flaticon.com/128/9539/9539474.png"><span>صيانة</span></div>
-            <button class="btn-open" onclick="showPost('fix')">انشر مجاناً</button>
-        </div>
-        <div id="list-fix"></div>
-    </div>
-
-    <div class="section-card">
-        <div class="section-header" style="background: #065f46;">
-            <div class="header-title"><img src="https://cdn-icons-png.flaticon.com/128/3850/3850285.png"><span>وظائف</span></div>
-            <button class="btn-open" onclick="showPost('jobs')">انشر مجاناً</button>
-        </div>
-        <div id="list-jobs"></div>
-    </div>
-
-    <div class="section-card">
-        <div class="section-header" style="background: #374151;">
-            <div class="header-title"><img src="https://cdn-icons-png.flaticon.com/128/3514/3514491.png"><span>منوعات</span></div>
-            <button class="btn-open" onclick="showPost('other')">انشر مجاناً</button>
-        </div>
-        <div id="list-other"></div>
-    </div>
+    <div class="section-card"><div class="section-header" style="background: #064e3b;"><div class="header-title"><img src="https://cdn-icons-png.flaticon.com/128/741/741407.png"><span>سيارات للبيع</span></div><button class="btn-open" onclick="showPost('cars')">انشر مجاناً</button></div><div id="list-cars"></div></div>
+    <div class="section-card"><div class="section-header" style="background: #1e3a8a;"><div class="header-title"><img src="https://cdn-icons-png.flaticon.com/128/609/609803.png"><span>عقارات</span></div><button class="btn-open" onclick="showPost('house')">انشر مجاناً</button></div><div id="list-house"></div></div>
+    <div class="section-card"><div class="section-header" style="background: #581c87;"><div class="header-title"><img src="https://cdn-icons-png.flaticon.com/128/644/644458.png"><span>جوالات</span></div><button class="btn-open" onclick="showPost('tech')">انشر مجاناً</button></div><div id="list-tech"></div></div>
+    <div class="section-card"><div class="section-header" style="background: #431407;"><div class="header-title"><img src="https://cdn-icons-png.flaticon.com/128/9539/9539474.png"><span>صيانة</span></div><button class="btn-open" onclick="showPost('fix')">انشر مجاناً</button></div><div id="list-fix"></div></div>
+    <div class="section-card"><div class="section-header" style="background: #065f46;"><div class="header-title"><img src="https://cdn-icons-png.flaticon.com/128/3850/3850285.png"><span>وظائف</span></div><button class="btn-open" onclick="showPost('jobs')">انشر مجاناً</button></div><div id="list-jobs"></div></div>
+    <div class="section-card"><div class="section-header" style="background: #374151;"><div class="header-title"><img src="https://cdn-icons-png.flaticon.com/128/3514/3514491.png"><span>منوعات</span></div><button class="btn-open" onclick="showPost('other')">انشر مجاناً</button></div><div id="list-other"></div></div>
 </div>
 
 <div id="postModal" class="modal">
     <div class="modal-body">
         <h3 style="color:var(--gold); text-align:center;">إضافة إعلان جديد 🚀</h3>
         <input type="hidden" id="targetCat">
-        <label>اسم المنتج</label><input type="text" id="pTitle" placeholder="مثلاً: آيفون 15">
-        <label>وصف المنتج</label><textarea id="pText" rows="3" placeholder="السعر والمواصفات..."></textarea>
-        <label>صورة المنتج (من جهازك)</label>
+        <input type="text" id="pTitle" placeholder="اسم المنتج">
+        <textarea id="pText" rows="3" placeholder="تفاصيل المنتج والسعر..."></textarea>
         <div class="file-box" onclick="document.getElementById('fileIn').click()"><span id="fileTxt">اضغط لرفع صورة 📸</span></div>
         <input type="file" id="fileIn" accept="image/*" style="display:none" onchange="loadFile()">
-        <label>البريد الإلكتروني</label><input type="email" id="pMail" placeholder="mail@example.com">
-        <label>رقم الهاتف</label><input type="tel" id="pPhone" placeholder="09xxxxxxx">
-        <button class="btn-open" style="width:100%; padding:15px; margin-top:15px;" onclick="doPublish()">حفظ ونشر الإعلان ✅</button>
+        <input type="tel" id="pPhone" placeholder="رقم الهاتف">
+        <button class="btn-open" style="width:100%; padding:15px; margin-top:15px;" onclick="doPublish()">حفظ ونشر الآن ✅</button>
         <button onclick="document.getElementById('postModal').style.display='none'" style="width:100%; background:none; color:grey; border:none; margin-top:10px;">إلغاء</button>
     </div>
 </div>
@@ -131,6 +86,19 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
     let finalImg = "";
+    let canDelete = false;
+
+    function adminAccess() {
+        if (prompt("كلمة السر للحذف:") === "123") {
+            canDelete = true;
+            document.querySelectorAll('.del-btn').forEach(b => b.style.display = 'block');
+            alert("وضع الحذف مفعّل");
+        }
+    }
+
+    function removeAd(cat, key) {
+        if(confirm("حذف نهائي؟")) db.ref('ads/' + cat + '/' + key).remove();
+    }
 
     function showPost(cat) { document.getElementById('targetCat').value = cat; document.getElementById('postModal').style.display = 'block'; }
     
@@ -138,7 +106,7 @@
         const file = document.getElementById('fileIn').files[0];
         if (file) {
             const reader = new FileReader();
-            reader.onloadend = () => { finalImg = reader.result; document.getElementById('fileTxt').innerText = "تم اختيار الصورة ✅"; }
+            reader.onloadend = () => { finalImg = reader.result; document.getElementById('fileTxt').innerText = "تم الاختيار ✅"; }
             reader.readAsDataURL(file);
         }
     }
@@ -148,20 +116,14 @@
         const title = document.getElementById('pTitle').value;
         const phone = document.getElementById('pPhone').value;
         if (title && phone && finalImg) {
-            db.ref('ads/' + cat).push({
-                title, phone, 
-                image: finalImg, 
-                desc: document.getElementById('pText').value, 
-                mail: document.getElementById('pMail').value 
-            }).then(() => { alert("تم النشر!"); location.reload(); });
-        } else { alert("أكمل البيانات وارفع الصورة يا بطل"); }
+            db.ref('ads/' + cat).push({ title, phone, image: finalImg, desc: document.getElementById('pText').value }).then(() => location.reload());
+        } else { alert("أكمل البيانات"); }
     }
 
-    const cats = ['cars', 'house', 'tech', 'fix', 'jobs', 'other'];
-    cats.forEach(c => {
+    const categories = ['cars', 'house', 'tech', 'fix', 'jobs', 'other'];
+    categories.forEach(c => {
         db.ref('ads/' + c).on('value', (snap) => {
-            const list = document.getElementById('list-' + c);
-            list.innerHTML = "";
+            const list = document.getElementById('list-' + c); list.innerHTML = "";
             snap.forEach(ch => {
                 const d = ch.val();
                 list.innerHTML += `
@@ -170,10 +132,12 @@
                         <div class="ad-content">
                             <h3>${d.title}</h3>
                             <p>${d.desc}</p>
-                            <div class="ad-meta"><span>📞 ${d.phone}</span><span>✉️ ${d.mail || ''}</span></div>
+                            <a href="https://wa.me/${d.phone}" class="btn-whatsapp">واتساب: ${d.phone} 💬</a>
+                            <button class="del-btn" onclick="removeAd('${c}', '${ch.key}')">حذف 🗑️</button>
                         </div>
                     </div>`;
             });
+            if(canDelete) document.querySelectorAll('.del-btn').forEach(b => b.style.display = 'block');
         });
     });
 </script>
