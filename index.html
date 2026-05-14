@@ -10,165 +10,118 @@
             --dark-bg: #0d1117;
             --card-gray: #161b22;
         }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0; background: var(--dark-bg); color: #fff; text-align: center;
-        }
-        header {
-            background: linear-gradient(to bottom, #16213e, #0f3460);
-            padding: 20px 0; border-bottom: 3px solid #D4AF37;
-        }
-        .logo-box {
-            border: 2px solid #D4AF37; display: inline-block;
-            padding: 10px 25px; border-radius: 15px; background: #000; margin-bottom: 10px;
-        }
-        .logo-n {
-            font-size: 50px; background: var(--gold);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            font-family: serif; margin: 0; line-height: 1;
-        }
-        
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background: var(--dark-bg); color: #fff; text-align: center; }
+        header { background: linear-gradient(to bottom, #16213e, #0f3460); padding: 20px 0; border-bottom: 3px solid #D4AF37; }
+        .logo-box { border: 2px solid #D4AF37; display: inline-block; padding: 10px 25px; border-radius: 15px; background: #000; margin-bottom: 10px; }
+        .logo-n { font-size: 50px; background: var(--gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-family: serif; margin: 0; line-height: 1; }
         .search-container { width: 90%; margin: 10px auto; }
-        .search-bar {
-            width: 100%; padding: 12px; border-radius: 25px; border: 1px solid #D4AF37;
-            background: #1a1a1a; color: #fff; text-align: center; outline: none;
-        }
-
+        .search-bar { width: 100%; padding: 12px; border-radius: 25px; border: 1px solid #D4AF37; background: #1a1a1a; color: #fff; text-align: center; outline: none; }
         .nav-bar { background: rgba(255,255,255,0.05); padding: 15px; display: flex; justify-content: center; gap: 15px; }
         .nav-bar span { cursor: pointer; color: #ccc; font-size: 14px; }
-
         .container { width: 92%; margin: 20px auto; padding-bottom: 80px; }
-        .card {
-            background: var(--card-gray); border-radius: 20px; margin-bottom: 25px;
-            overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.3); text-align: right;
-        }
+        .card { background: var(--card-gray); border-radius: 20px; margin-bottom: 25px; overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.3); text-align: right; }
         .bg-tk { background: linear-gradient(90deg, #ff0050, #00f2ea); }
         .bg-re { background: #1e3a8a; }
-        .bg-custom { background: #333; } /* لون افتراضي للإعلانات المضافة */
-
+        .bg-car { background: #064e3b; }
+        .bg-ele { background: #431407; }
         .card-inner { padding: 20px; display: flex; gap: 15px; align-items: center; }
-        .card-img-box { width: 130px; height: 95px; border-radius: 12px; border: 1.5px solid #D4AF37; overflow: hidden; flex-shrink: 0; }
-        .card-img-box img { width: 100%; height: 100%; object-fit: cover; }
-        
-        .btn-gold {
-            background: var(--gold); color: #000; border: none; padding: 12px 25px;
-            border-radius: 25px; font-weight: bold; cursor: pointer; text-decoration: none; display: inline-block;
-        }
-        .page { 
-            display: none; position: fixed; inset: 0; background: #0d1117; 
-            z-index: 9999; padding: 25px; overflow-y: auto; text-align: right; 
-        }
+        .card-img-box { width: 130px; height: 95px; border-radius: 12px; border: 1.5px solid #D4AF37; overflow: hidden; background: #000; display: flex; align-items: center; justify-content: center; }
+        .card-img-box img { width: 80%; height: 80%; object-fit: contain; }
+        .btn-gold { background: var(--gold); color: #000; border: none; padding: 12px 25px; border-radius: 25px; font-weight: bold; cursor: pointer; }
+        .page { display: none; position: fixed; inset: 0; background: #0d1117; z-index: 9999; padding: 25px; overflow-y: auto; text-align: right; }
         input, select, textarea { width: 100%; padding: 14px; margin-top: 10px; border-radius: 10px; border: 1px solid #333; background: #1a1a1a; color: #fff; box-sizing: border-box; }
         label { display: block; margin-top: 20px; color: #D4AF37; font-weight: bold; }
+        #success-msg { display:none; background: #28a745; color: white; padding: 15px; border-radius: 10px; margin-top: 20px; text-align: center; }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="logo-box">
-        <h1 class="logo-n">N</h1>
-        <div style="color:#D4AF37; font-weight:bold;">Nore Store</div>
-    </div>
-    <div class="search-container">
-        <input type="text" id="mainSearch" class="search-bar" placeholder="🔍 ابحث في المتجر..." onkeyup="filterAds()">
-    </div>
+    <div class="logo-box"><h1 class="logo-n">N</h1><div style="color:#D4AF37; font-weight:bold;">Nore Store</div></div>
+    <div class="search-container"><input type="text" class="search-bar" placeholder="🔍 ابحث عن عقارات، سيارات، أو خدمات..."></div>
 </header>
 
 <div class="nav-bar">
     <span onclick="location.reload()">الرئيسية</span>
     <span onclick="openPage('aboutPage')">حولنا</span>
+    <span onclick="alert('تواصل معنا عبر البريد: nurry6666@gmail.com')">اتصل بنا</span>
 </div>
 
-<div class="container" id="adsContainer">
-    <button class="btn-gold" style="width:100%; padding:20px; margin-bottom:25px; font-size: 18px;" onclick="openPage('regPage')">🔑 إضافة إعلان جديد</button>
+<div class="container">
+    <button class="btn-gold" style="width:100%; padding:20px; margin-bottom:25px; font-size: 18px;" onclick="openPage('regPage')">🔑 إنشاء حساب معلن جديد</button>
 
-    <div class="card ad-item">
+    <div class="card">
         <div class="card-head bg-tk" style="padding:10px 15px; font-weight:bold;">🪙 شحن عملات تيك توك</div>
         <div class="card-inner">
-            <div class="card-img-box"><img src="https://files.catbox.moe/p9o4b6.png"></div>
+            <div class="card-img-box">
+                <img src="https://cdn.pixabay.com/photo/2021/06/15/12/28/tiktok-6338429_1280.png" alt="TikTok">
+            </div>
             <div style="flex:1">
-                <h3 style="margin:0; color:#D4AF37; font-size:16px;">شحن فوري وآمن</h3>
-                <a href="https://wa.me/971551505027" class="btn-gold" style="margin-top:10px;">اشحن الآن</a>
+                <h3 style="margin:0; color:#D4AF37">شحن فوري وآمن</h3>
+                <button class="btn-gold" onclick="alert('تواصل مع الإدارة عبر الواتساب')">اشحن الآن</button>
             </div>
         </div>
     </div>
 
+    <div class="card">
+        <div class="card-head bg-re" style="padding:10px 15px; font-weight:bold;">🏙️ عقارات مميزة</div>
+        <div class="card-inner">
+            <div class="card-img-box"><img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=300"></div>
+            <div style="flex:1"><h3 style="margin:0; color:#D4AF37">أفضل العقارات</h3><button class="btn-gold">مشاهدة</button></div>
+        </div>
     </div>
 
+    <div class="card">
+        <div class="card-head bg-car" style="padding:10px 15px; font-weight:bold;">🚗 سيارات فاخرة</div>
+        <div class="card-inner">
+            <div class="card-img-box"><img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=300"></div>
+            <div style="flex:1"><h3 style="margin:0; color:#D4AF37">أحدث الموديلات</h3><button class="btn-gold">تصفح</button></div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-head bg-ele" style="padding:10px 15px; font-weight:bold;">📱 إلكترونيات</div>
+        <div class="card-inner">
+            <div class="card-img-box"><img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=300"></div>
+            <div style="flex:1"><h3 style="margin:0; color:#D4AF37">أجهزة حديثة</h3><button class="btn-gold">تسوق</button></div>
+        </div>
+    </div>
+</div>
+
 <div id="regPage" class="page">
-    <h2 style="color:#D4AF37; text-align:center;">إضافة إعلانك الخاص 🚀</h2>
-    <label>عنوان الإعلان</label><input type="text" id="p-title" placeholder="مثال: آيفون 15 برو ماكس">
-    <label>القسم</label>
-    <select id="p-cat">
-        <option value="📱 إلكترونيات">إلكترونيات</option>
-        <option value="🚗 سيارات">سيارات</option>
-        <option value="🏙️ عقارات">عقارات</option>
-        <option value="💼 خدمات">خدمات</option>
-    </select>
-    <label>السعر</label><input type="text" id="p-price" placeholder="حدد السعر أو اكتب (اتصل)">
-    <label>رقم الواتساب</label><input type="tel" id="p-wa" placeholder="+249...">
-    <label>صورة المنتج</label><input type="file" id="p-img" accept="image/*">
-    <button class="btn-gold" style="width:100%; margin-top:25px;" onclick="saveNewAd()">تأكيد ونشر الإعلان</button>
-    <button onclick="closePage('regPage')" style="background:none; border:none; color:#666; width:100%; margin-top:15px;">إلغاء والعودة</button>
+    <h2 style="color:#D4AF37; text-align:center;">بوابة المعلنين 🔑</h2>
+    <div id="regFormContainer">
+        <label>الاسم الكامل</label><input type="text" id="name" required>
+        <label>البريد الإلكتروني</label><input type="email" id="email" required>
+        <label>الوصف</label><textarea id="desc" rows="3" required></textarea>
+        <label>رفع صور/فيديو</label><input type="file" id="files" multiple>
+        <button class="btn-gold" style="width:100%; margin-top:25px; padding:18px;" onclick="submitForm()">تأكيد وإرسال الطلب</button>
+    </div>
+    <div id="success-msg">✅ تم إرسال طلبك بنجاح إلى الإدارة!</div>
+    <p style="text-align:center; margin-top:40px; color:#666;">(استخدم سهم المتصفح للرجوع)</p>
 </div>
 
 <div id="aboutPage" class="page">
     <h2 style="color:#D4AF37; text-align:center;">حول Nore Store 💎</h2>
-    <p style="line-height:1.8; padding:20px; text-align: center;">مرحباً بكم في متجر نوري. نحن نجمع بين الأمان في المعاملات والسهولة في العرض.</p>
-    <button class="btn-gold" style="width:100%" onclick="closePage('aboutPage')">رجوع</button>
+    <p style="line-height:1.8; padding:20px; text-align: center;">منصتكم الموثوقة لشحن العملات والوساطة التجارية بأعلى معايير الأمان.</p>
 </div>
 
 <script>
-    function openPage(id) { document.getElementById(id).style.display = 'block'; }
-    function closePage(id) { document.getElementById(id).style.display = 'none'; }
-
-    // وظيفة البحث
-    function filterAds() {
-        let val = document.getElementById('mainSearch').value.toLowerCase();
-        let ads = document.querySelectorAll('.ad-item');
-        ads.forEach(ad => {
-            ad.style.display = ad.innerText.toLowerCase().includes(val) ? 'block' : 'none';
-        });
-    }
-
-    // حفظ ونشر الإعلان الجديد بنفس التنسيق
-    function saveNewAd() {
-        const title = document.getElementById('p-title').value;
-        const price = document.getElementById('p-price').value;
-        const cat = document.getElementById('p-cat').value;
-        const wa = document.getElementById('p-wa').value;
-        const file = document.getElementById('p-img').files[0];
-
-        if(title && wa && file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                let ads = JSON.parse(localStorage.getItem('nore_user_ads')) || [];
-                ads.unshift({title, price, cat, wa, img: e.target.result});
-                localStorage.setItem('nore_user_ads', JSON.stringify(ads));
-                location.reload();
-            };
-            reader.readAsDataURL(file);
-        } else { alert("يا SoOo، املأ كل البيانات والصورة!"); }
-    }
-
-    // عرض الإعلانات المخزنة عند فتح الموقع
-    window.onload = function() {
-        const container = document.getElementById('adsContainer');
-        const ads = JSON.parse(localStorage.getItem('nore_user_ads')) || [];
-        ads.forEach(ad => {
-            container.innerHTML += `
-                <div class="card ad-item">
-                    <div class="card-head bg-custom" style="padding:10px 15px; font-weight:bold;">${ad.cat}</div>
-                    <div class="card-inner">
-                        <div class="card-img-box"><img src="${ad.img}"></div>
-                        <div style="flex:1">
-                            <h3 style="margin:0; color:#D4AF37; font-size:16px;">${ad.title}</h3>
-                            <p style="margin:5px 0; font-size:12px; color:#2ecc71;">${ad.price}</p>
-                            <a href="https://wa.me/${ad.wa}" class="btn-gold">تواصل الآن</a>
-                        </div>
-                    </div>
-                </div>`;
-        });
+    function openPage(id) { document.getElementById(id).style.display = 'block'; window.history.pushState({pageId: id}, "", "#" + id); }
+    window.onpopstate = function() { document.querySelectorAll('.page').forEach(p => p.style.display = 'none'); };
+    
+    function submitForm() {
+        const name = document.getElementById('name').value;
+        if(name === "") { alert("يرجى ملء البيانات"); return; }
+        
+        // إخفاء الفورم وإظهار رسالة النجاح
+        document.getElementById('regFormContainer').style.display = 'none';
+        document.getElementById('success-msg').style.display = 'block';
+        
+        // تنبيه نهائي
+        setTimeout(() => {
+            alert("شكراً لك " + name + ". تم استلام طلبك.");
+        }, 500);
     }
 </script>
 </body>
