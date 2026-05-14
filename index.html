@@ -10,27 +10,42 @@
             --dark-bg: #0d1117;
             --card-gray: #161b22;
         }
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--dark-bg); color: #fff; text-align: center; }
-        header { background: linear-gradient(to bottom, #16213e, #0f3460); padding: 20px 0; border-bottom: 3px solid #D4AF37; }
-        .logo-box { border: 2px solid #D4AF37; display: inline-block; padding: 10px 25px; border-radius: 15px; background: #000; }
-        .logo-n { font-size: 50px; background: var(--gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-family: serif; margin: 0; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: var(--dark-bg); color: #fff; text-align: center; }
+        header { background: linear-gradient(to bottom, #16213e, #0f3460); padding: 25px 0; border-bottom: 3px solid #D4AF37; }
         
-        .hero-text { margin: 20px auto; width: 90%; }
-        .hero-text h2 { color: #D4AF37; font-size: 20px; }
+        .logo-box { border: 2px solid #D4AF37; display: inline-block; padding: 10px 25px; border-radius: 15px; background: #000; margin-bottom: 5px; }
+        .logo-n { font-size: 50px; background: var(--gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-family: serif; margin: 0; line-height: 1; }
+        
+        /* تنسيق الجملة الجذابة والترجمة */
+        .sub-logo { margin-top: 10px; padding: 0 10px; }
+        .sub-logo .ar { color: #D4AF37; font-size: 18px; font-weight: bold; display: block; }
+        .sub-logo .en { color: #aaa; font-size: 12px; font-style: italic; display: block; margin-top: 4px; letter-spacing: 0.5px; }
 
-        .container { width: 92%; margin: auto; padding-bottom: 80px; }
+        .container { width: 92%; margin: 20px auto; padding-bottom: 50px; }
+        
+        /* زر بوابة المعلنين */
+        .btn-portal { background: var(--gold); color: #000; padding: 15px; border-radius: 15px; font-weight: bold; width: 100%; border: none; margin-bottom: 30px; font-size: 16px; cursor: pointer; display: block; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2); }
+
+        /* تنسيق الكروت */
         .card { background: var(--card-gray); border-radius: 20px; margin-bottom: 25px; overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.3); text-align: right; }
-        .card-head { padding: 12px 15px; font-weight: bold; color: #fff; }
+        .card-head { padding: 12px 15px; font-weight: bold; color: #fff; font-size: 14px; display: flex; align-items: center; gap: 8px; }
         
         .bg-car { background: #064e3b; } .bg-house { background: #1e3a8a; } .bg-serv { background: #431407; }
         .bg-phone { background: #581c87; } .bg-furn { background: #78350f; } .bg-job { background: #164e63; }
 
         .card-inner { padding: 15px; display: flex; gap: 15px; align-items: center; }
-        .card-img-box { width: 120px; height: 95px; border-radius: 12px; border: 1.5px solid #D4AF37; overflow: hidden; flex-shrink: 0; }
+        .card-img-box { width: 110px; height: 90px; border-radius: 12px; border: 1.5px solid #D4AF37; overflow: hidden; flex-shrink: 0; }
         .card-img-box img { width: 100%; height: 100%; object-fit: cover; }
         
-        .btn-gold { background: var(--gold); color: #000; padding: 10px 18px; border-radius: 20px; font-weight: bold; text-decoration: none; display: inline-block; font-size: 13px; margin-top: 8px; }
-        .promo-tag { font-size: 11px; color: #2ecc71; display: block; margin-top: 5px; }
+        .info-side { flex: 1; }
+        .info-side h3 { margin: 0; color: #D4AF37; font-size: 16px; }
+        .btn-gold { background: var(--gold); color: #000; padding: 8px 15px; border-radius: 20px; font-weight: bold; text-decoration: none; display: inline-block; font-size: 12px; margin-top: 8px; }
+
+        /* صفحة التسجيل (البوابة) */
+        .page { display: none; position: fixed; inset: 0; background: #0d1117; z-index: 9999; padding: 25px; overflow-y: auto; text-align: right; }
+        input, select, textarea { width: 100%; padding: 12px; margin-top: 8px; border-radius: 10px; border: 1px solid #333; background: #1a1a1a; color: #fff; box-sizing: border-box; font-family: inherit; }
+        label { display: block; margin-top: 15px; color: #D4AF37; font-weight: bold; font-size: 14px; }
+        .btn-send { background: var(--gold); color: #000; padding: 15px; border-radius: 15px; font-weight: bold; width: 100%; border: none; margin-top: 25px; cursor: pointer; font-size: 16px; }
     </style>
 </head>
 <body>
@@ -40,21 +55,22 @@
         <h1 class="logo-n">N</h1>
         <div style="color:#D4AF37; font-weight:bold;">Nore Store</div>
     </div>
+    <div class="sub-logo">
+        <span class="ar">عالمك للإعلان والخدمات الموثوقة</span>
+        <span class="en">Your World for Advertising & Trusted Services</span>
+    </div>
 </header>
 
-<div class="hero-text">
-    <h2>🤝 تواصل مع المعلن مباشرة</h2>
-</div>
-
 <div class="container">
+    <button class="btn-portal" onclick="openPage('regPage')">🔑 بوابة المعلنين | إنشاء حساب واعلان</button>
+
     <div class="card">
         <div class="card-head bg-car">🚗 سيارات مستعملة</div>
         <div class="card-inner">
             <div class="card-img-box"><img src="https://images.unsplash.com/photo-1550355291-bbee04a92027?w=300"></div>
-            <div style="flex:1">
-                <h3 style="margin:0; color:#D4AF37; font-size:16px;">سوق السيارات</h3>
-                <span class="promo-tag">أول إعلان مجاني</span>
-                <a href="https://wa.me/971551505027" class="btn-gold">أضف إعلانك</a>
+            <div class="info-side">
+                <h3>سوق السيارات</h3>
+                <a href="#" class="btn-gold" onclick="openPage('regPage')">أضف إعلانك</a>
             </div>
         </div>
     </div>
@@ -63,10 +79,9 @@
         <div class="card-head bg-house">🏠 عقارات (إيجار)</div>
         <div class="card-inner">
             <div class="card-img-box"><img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=300"></div>
-            <div style="flex:1">
-                <h3 style="margin:0; color:#D4AF37; font-size:16px;">شقق وبيوت</h3>
-                <span class="promo-tag">عمولة مخفضة 1%</span>
-                <a href="https://wa.me/971551505027" class="btn-gold">شاهد الصور</a>
+            <div class="info-side">
+                <h3>شقق وبيوت</h3>
+                <a href="#" class="btn-gold">شاهد الصور</a>
             </div>
         </div>
     </div>
@@ -74,11 +89,10 @@
     <div class="card">
         <div class="card-head bg-serv">🛠️✨ صيانة ونظافة</div>
         <div class="card-inner">
-            <div class="card-img-box"><img src="https://images.unsplash.com/photo-1621905235294-75416075e840?w=300"></div>
-            <div style="flex:1">
-                <h3 style="margin:0; color:#D4AF37; font-size:16px;">صيانة شاملة</h3>
-                <span class="promo-tag">فنيين معتمدين</span>
-                <a href="https://wa.me/971551505027" class="btn-gold">اطلب الآن</a>
+            <div class="card-img-box"><img src="https://images.unsplash.com/photo-1581578731548-c64695ce6958?w=300"></div>
+            <div class="info-side">
+                <h3>صيانة شاملة</h3>
+                <a href="#" class="btn-gold">اطلب الآن</a>
             </div>
         </div>
     </div>
@@ -87,14 +101,91 @@
         <div class="card-head bg-phone">📱 جوالات وإلكترونيات</div>
         <div class="card-inner">
             <div class="card-img-box"><img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=300"></div>
-            <div style="flex:1">
-                <h3 style="margin:0; color:#D4AF37; font-size:16px;">أحدث الموديلات</h3>
-                <a href="https://wa.me/971551505027" class="btn-gold">تصفح</a>
+            <div class="info-side">
+                <h3>أحدث التقنيات</h3>
+                <a href="#" class="btn-gold">تصفح</a>
             </div>
         </div>
     </div>
-    
+
+    <div class="card">
+        <div class="card-head bg-furn">🛋️ أثاث مستعمل</div>
+        <div class="card-inner">
+            <div class="card-img-box"><img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=300"></div>
+            <div class="info-side">
+                <h3>فرش وأثاث</h3>
+                <a href="#" class="btn-gold">شاهد العروض</a>
+            </div>
+        </div>
     </div>
 
+    <div class="card">
+        <div class="card-head bg-job">💼 وظائف وطلبات عمل</div>
+        <div class="card-inner">
+            <div class="card-img-box"><img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=300"></div>
+            <div class="info-side">
+                <h3>فرص التوظيف</h3>
+                <a href="#" class="btn-gold">سجل الآن</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="regPage" class="page">
+    <h2 style="color:#D4AF37; text-align:center;">بوابة المعلنين 🔑</h2>
+    <p style="text-align:center; font-size:12px; color:#aaa;">سيصلك تأكيد على البريد الإلكتروني بعد مراجعة الطلب</p>
+    
+    <label>الاسم الكامل</label>
+    <input type="text" id="uName" placeholder="أدخل اسمك">
+    
+    <label>البريد الإلكتروني</label>
+    <input type="email" id="uEmail" placeholder="example@mail.com">
+    
+    <label>رقم الواتساب</label>
+    <input type="tel" id="uPhone" placeholder="+249...">
+    
+    <label>نوع القسم</label>
+    <select id="uType">
+        <option>سيارات مستعملة</option>
+        <option>عقارات (إيجار)</option>
+        <option>صيانة ونظافة</option>
+        <option>جوالات وإلكترونيات</option>
+        <option>أثاث مستعمل</option>
+        <option>وظائف وطلبات عمل</option>
+    </select>
+    
+    <label>تفاصيل الإعلان</label>
+    <textarea id="uDesc" rows="4" placeholder="اكتب تفاصيل إعلانك هنا..."></textarea>
+    
+    <button class="btn-send" onclick="sendData()">إرسال الطلب والتحقق</button>
+    
+    <button onclick="closePage('regPage')" style="background:none; border:none; color:#666; width:100%; margin-top:20px; cursor:pointer;">إلغاء والعودة</button>
+</div>
+
+<script>
+    function openPage(id) { document.getElementById(id).style.display = 'block'; }
+    function closePage(id) { document.getElementById(id).style.display = 'none'; }
+
+    function sendData() {
+        let name = document.getElementById('uName').value;
+        let email = document.getElementById('uEmail').value;
+        let phone = document.getElementById('uPhone').value;
+        let type = document.getElementById('uType').value;
+        let desc = document.getElementById('uDesc').value;
+
+        if(!name || !phone || !desc) {
+            alert('الرجاء تعبئة البيانات الأساسية');
+            return;
+        }
+
+        let message = `طلب إعلان جديد من Nore Store:\nالمعلن: ${name}\nالإيميل: ${email}\nالواتساب: ${phone}\nالقسم: ${type}\nالتفاصيل: ${desc}`;
+        
+        // فتح الواتساب الخاص بك
+        window.open(`https://wa.me/971551505027?text=${encodeURIComponent(message)}`, '_blank');
+        
+        alert('تم الإرسال! ستصلك رسالة تأكيد على الإيميل: ' + (email || 'المرتبط بحسابك') + ' فور المراجعة.');
+        closePage('regPage');
+    }
+</script>
 </body>
 </html>
