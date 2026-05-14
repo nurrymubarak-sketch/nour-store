@@ -37,20 +37,26 @@
         .bg-tk { background: linear-gradient(90deg, #ff0050, #00f2ea); }
 
         .card-inner { padding: 20px; display: flex; gap: 15px; align-items: center; }
-        .card-img { width: 130px; height: 95px; border-radius: 12px; object-fit: cover; border: 1.5px solid #D4AF37; }
+        .card-img-box { 
+            width: 130px; height: 95px; border-radius: 12px; 
+            border: 1.5px solid #D4AF37; overflow: hidden; position: relative;
+        }
+        .card-img-box img { width: 100%; height: 100%; object-fit: cover; }
         
         .btn-gold {
             background: var(--gold); color: #000; border: none; padding: 12px 25px;
             border-radius: 25px; font-weight: bold; cursor: pointer;
         }
 
-        /* الصفحات المنبثقة */
         .page { 
             display: none; position: fixed; inset: 0; background: #0d1117; 
             z-index: 9999; padding: 25px; overflow-y: auto; text-align: right; 
         }
         input, select, textarea { width: 100%; padding: 14px; margin-top: 10px; border-radius: 10px; border: 1px solid #333; background: #1a1a1a; color: #fff; box-sizing: border-box; }
         label { display: block; margin-top: 20px; color: #D4AF37; font-weight: bold; }
+        
+        .nav-bar { background: rgba(255,255,255,0.05); padding: 15px; display: flex; justify-content: center; gap: 20px; border-bottom: 1px solid #333; }
+        .nav-bar span { cursor: pointer; color: #ccc; }
     </style>
 </head>
 <body>
@@ -62,23 +68,42 @@
     </div>
 </header>
 
+<div class="nav-bar">
+    <span onclick="location.reload()">الرئيسية</span>
+    <span onclick="openPage('aboutPage')">حولنا</span>
+</div>
+
 <div class="container">
-    <button class="btn-gold" style="width:100%; padding:20px; margin-bottom:25px;" onclick="openPage('regPage')">🔑 إنشاء حساب معلن جديد</button>
+    <button class="btn-gold" style="width:100%; padding:20px; margin-bottom:25px; font-size: 18px;" onclick="openPage('regPage')">🔑 إنشاء حساب معلن جديد</button>
 
     <div class="card">
         <div class="card-head bg-tk" style="padding:10px 15px; font-weight:bold;">🪙 شحن عملات تيك توك</div>
         <div class="card-inner">
-            <img src="https://files.catbox.moe/p9o4b6.png" class="card-img" alt="شعار تيك توك">
+            <div class="card-img-box">
+                <img src="https://files.catbox.moe/p9o4b6.png" alt="TikTok Logo">
+            </div>
             <div style="flex:1">
                 <h3 style="margin:0; color:#D4AF37">شحن فوري وآمن</h3>
+                <p style="font-size:12px; color:#aaa; margin:5px 0;">خدمة حصرية من الإدارة</p>
                 <button class="btn-gold" onclick="alert('تواصل مع الإدارة للشحن')">اشحن الآن</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card" style="border-color: #1e3a8a;">
+        <div class="card-head" style="background:#1e3a8a; padding:10px 15px; font-weight:bold;">🏙️ عقارات مميزة</div>
+        <div class="card-inner">
+            <div class="card-img-box"><img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=300"></div>
+            <div style="flex:1">
+                <h3 style="margin:0; color:#D4AF37">تصفح أفضل العقارات</h3>
+                <button class="btn-gold">مشاهدة</button>
             </div>
         </div>
     </div>
 </div>
 
 <div id="regPage" class="page">
-    <h2 style="color:#D4AF37; text-align:center;">إنشاء حساب جديد 🔑</h2>
+    <h2 style="color:#D4AF37; text-align:center;">بوابة المعلنين الجديدة 🔑</h2>
     
     <label>الاسم الكامل</label>
     <input type="text" id="userName" placeholder="أدخل اسمك">
@@ -86,37 +111,39 @@
     <label>البريد الإلكتروني (لتلقي رسالة التأكيد)</label>
     <input type="email" id="userEmail" placeholder="example@mail.com">
     
-    <label>رقم الواتساب</label>
-    <input type="tel" placeholder="+249...">
-
-    <button class="btn-gold" style="width:100%; margin-top:25px; padding:18px;" onclick="handleRegistration()">تأكيد وإنشاء الحساب</button>
+    <label>السعر (بالعملة المحلية)</label>
+    <input type="number" placeholder="0.00">
     
-    <p style="text-align:center; margin-top:40px; color:#666; font-size:14px;">يمكنك الرجوع عبر سهم المتصفح في الأسفل</p>
+    <label>وصف المنتج</label>
+    <textarea rows="3" placeholder="تفاصيل الإعلان كاملة..."></textarea>
+    
+    <label>رفع الصور / الفيديوهات</label>
+    <input type="file" multiple accept="image/*,video/*">
+
+    <button class="btn-gold" style="width:100%; margin-top:25px; padding:18px;" onclick="handleRegistration()">تأكيد وإرسال للتوثيق</button>
+    
+    <p style="text-align:center; margin-top:40px; color:#666; font-size:14px;">(استخدم سهم المتصفح في الأسفل للعودة)</p>
+</div>
+
+<div id="aboutPage" class="page">
+    <h2 style="color:#D4AF37; text-align:center;">حول متجر نوري 💎</h2>
+    <p style="line-height:1.8; padding: 20px;">نحن منصة متخصصة في تقديم الخدمات الرقمية المتميزة، نوفر شحن عملات تيك توك ومساحة للمعلنين الموثوقين لعرض منتجاتهم الفاخرة.</p>
 </div>
 
 <script>
-    // فتح الصفحة وإضافة سجل للتاريخ
     function openPage(id) {
         document.getElementById(id).style.display = 'block';
         window.history.pushState({pageId: id}, "", "#" + id);
     }
 
-    // إغلاق الصفحات عند الرجوع بالسهم
     window.onpopstate = function(event) {
         document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
     };
 
-    // معالجة التسجيل وإرسال رسالة التأكيد
     function handleRegistration() {
         const email = document.getElementById('userEmail').value;
-        const name = document.getElementById('userName').value;
-
-        if(!email || !name) {
-            alert("يرجى ملء جميع الخانات المطلوبة.");
-            return;
-        }
-
-        alert("✅ شكراً " + name + "!\n\nلقد تم إرسال رسالة تأكيد إلى البريد: (" + email + "). يرجى مراجعة بريدك لتفعيل الحساب.");
+        if(!email) { alert("يرجى إدخال الإيميل لاستلام رسالة التأكيد."); return; }
+        alert("✅ تم الاستلام! ستصلك رسالة تأكيد فوراً على البريد: " + email);
     }
 </script>
 
