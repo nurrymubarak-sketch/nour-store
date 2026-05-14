@@ -3,178 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Noure Store | Premium Hub</title>
+    <title>Noure Store | Advertiser Portal</title>
     <style>
         :root {
             --gold: linear-gradient(135deg, #D4AF37, #F9F295, #B8860B);
             --dark-bg: #0d1117;
-            --card-gray: #161b22;
         }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0; background: var(--dark-bg); color: #fff; text-align: center;
+            margin: 0; background: var(--dark-bg); color: #fff; text-align: right;
+            padding-bottom: 50px;
         }
-
-        /* الهيدر */
         header {
             background: linear-gradient(to bottom, #16213e, #0f3460);
-            padding: 25px 0; border-bottom: 3px solid #D4AF37;
+            padding: 20px; text-align: center; border-bottom: 3px solid #D4AF37;
         }
-        .logo-box {
-            border: 2px solid #D4AF37; display: inline-block;
-            padding: 10px 25px; border-radius: 12px; background: #000;
+        .container { width: 90%; margin: auto; padding-top: 20px; }
+        
+        h2 { color: #D4AF37; text-align: center; margin-bottom: 25px; }
+        
+        label { display: block; margin-top: 15px; font-weight: bold; color: #D4AF37; font-size: 14px; }
+        
+        input, select, textarea {
+            width: 100%; padding: 12px; margin-top: 5px; border-radius: 10px;
+            border: 1px solid #333; background: #1a1a1a; color: #fff; box-sizing: border-box;
         }
-        .logo-n {
-            font-size: 50px; background: var(--gold);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            font-family: serif; margin: 0; line-height: 1;
+
+        .file-upload {
+            border: 2px dashed #D4AF37; padding: 20px; text-align: center;
+            border-radius: 10px; margin-top: 10px; background: rgba(212, 175, 55, 0.05);
         }
-        .logo-text { font-size: 20px; color: #D4AF37; font-weight: bold; }
 
-        /* التنقل والبحث */
-        .nav { background: rgba(255,255,255,0.05); padding: 12px; display: flex; justify-content: center; gap: 20px; }
-        .nav span { cursor: pointer; color: #ccc; font-size: 14px; }
-        .search-area { width: 90%; margin: 15px auto; display: flex; gap: 8px; }
-        .search-area input { flex: 1; padding: 12px; border-radius: 8px; border: 1px solid #333; background: #1a1a1a; color: #fff; }
-
-        .welcome { background: #D4AF37; color: #000; padding: 5px; font-size: 12px; font-weight: bold; }
-
-        /* الكروت */
-        .container { width: 92%; margin: 20px auto; padding-bottom: 60px; }
-        .card {
-            background: var(--card-gray); border-radius: 15px; margin-bottom: 20px;
-            overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.2);
-            display: flex; flex-direction: column; text-align: right;
+        .btn-gold {
+            background: var(--gold); color: #000; border: none;
+            padding: 15px; border-radius: 30px; font-weight: bold;
+            width: 100%; margin-top: 30px; cursor: pointer; font-size: 16px;
         }
-        .card-head { padding: 10px 15px; font-weight: bold; font-size: 14px; color: #fff; }
-        .bg-tk { background: linear-gradient(90deg, #ff0050, #00f2ea); }
-        .bg-re { background: #1e3a8a; }
-        .bg-car { background: #064e3b; }
-        .bg-ele { background: #431407; }
 
-        .card-body { padding: 15px; display: flex; gap: 15px; align-items: center; }
-        .card-img { width: 110px; height: 85px; border-radius: 10px; object-fit: cover; border: 1px solid #D4AF37; }
-        .card-info { flex: 1; }
-        .card-info h3 { margin: 0; font-size: 16px; color: #D4AF37; }
-        .card-info p { margin: 5px 0; font-size: 12px; color: #aaa; }
+        .home-footer {
+            margin-top: 40px; text-align: center; border-top: 1px solid #333; padding-top: 20px;
+        }
+        .btn-outline {
+            color: #D4AF37; text-decoration: none; border: 1px solid #D4AF37;
+            padding: 10px 25px; border-radius: 20px; display: inline-block;
+        }
 
-        .btn { background: var(--gold); color: #000; border: none; padding: 8px 18px; border-radius: 20px; font-weight: bold; cursor: pointer; }
-
-        /* الصفحات */
-        .page { display: none; position: fixed; inset: 0; background: #0d1117; z-index: 10000; padding: 20px; overflow-y: auto; text-align: right; }
-        input, select { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #333; background: #1a1a1a; color: #fff; }
+        .note { font-size: 11px; color: #aaa; margin-top: 10px; text-align: center; }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="logo-box">
-        <h1 class="logo-n">N</h1>
-        <div class="logo-text">Noure store</div>
+    <div style="border: 2px solid #D4AF37; display: inline-block; padding: 5px 20px; border-radius: 10px;">
+        <h1 style="margin:0; font-family: serif; background: var(--gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">N</h1>
     </div>
+    <div style="color:#D4AF37; font-weight:bold;">Noure store</div>
 </header>
 
-<div class="nav">
-    <span onclick="location.reload()">Home</span>
-    <span onclick="openPage('about')">حولنا</span>
-    <span onclick="openPage('contact')">اتصل بنا</span>
-</div>
-
-<div class="search-area">
-    <input type="text" placeholder="ابحث عن سيارات، عقارات، أو إلكترونيات...">
-    <button class="btn">بحث</button>
-</div>
-
-<div class="welcome">أهلاً بك في NOURE STORE - خدمات حصرية ومعتمدة</div>
-
 <div class="container">
-    
-    <button class="btn" style="width:100%; padding:15px; margin-bottom:20px;" onclick="openPage('register')">🔑 إنشاء حساب معلن (للتاجر)</button>
+    <h2>بوابة المعلنين الجديدة 🔑</h2>
 
-    <div class="card">
-        <div class="card-head bg-tk">🪙 TIKTOK EXCLUSIVE (بإدارة المتجر)</div>
-        <div class="card-body">
-            <img src="https://files.catbox.moe/p9o4b6.png" class="card-img" alt="TikTok">
-            <div class="card-info">
-                <h3>شحن عملات تيك توك</h3>
-                <p>خدمة مباشرة وحصرية من إدارة Noure Store.</p>
-                <button class="btn" onclick="openPage('tkOrder')">شحن الآن</button>
-            </div>
+    <form id="adForm">
+        <label>اسم المتجر / الشخص المعلن</label>
+        <input type="text" placeholder="أدخل اسمك أو اسم النشاط" required>
+
+        <label>قسم المنتج</label>
+        <select>
+            <option>عقارات</option>
+            <option>سيارات</option>
+            <option>إلكترونيات</option>
+        </select>
+
+        <label>وصف المنتج / الإعلان</label>
+        <textarea rows="4" placeholder="اكتب تفاصيل المنتج كاملة هنا..."></textarea>
+
+        <label>السعر (بالعملة المحلية)</label>
+        <input type="number" placeholder="مثال: 5000">
+
+        <label>وسيلة التواصل المفضلة</label>
+        <select id="contactMethod">
+            <option value="whatsapp">واتساب (WhatsApp)</option>
+            <option value="email">بريد إلكتروني (E-mail)</option>
+        </select>
+
+        <label>رقم التواصل أو البريد</label>
+        <input type="text" placeholder="أدخل الرقم أو الإيميل">
+
+        <label>رفع صور المنتج (يمكن اختيار أكثر من صورة)</label>
+        <div class="file-upload">
+            <input type="file" accept="image/*" multiple style="border:none; background:none;">
+            <p style="font-size: 12px; color: #D4AF37;">اسحب الصور هنا أو اضغط للاختيار</p>
         </div>
-    </div>
 
-    <div class="card">
-        <div class="card-head bg-re">🏙️ REAL ESTATE</div>
-        <div class="card-body">
-            <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=300" class="card-img" alt="Real Estate">
-            <div class="card-info">
-                <h3>قسم العقارات</h3>
-                <p>تصفح إعلانات المعلنين الموثوقين.</p>
-                <button class="btn" onclick="alert('فتح سوق العقارات')">تصفح</button>
-            </div>
+        <label>رفع فيديو للمنتج (اختياري)</label>
+        <div class="file-upload">
+            <input type="file" accept="video/*" style="border:none; background:none;">
         </div>
+
+        <button type="button" class="btn-gold" onclick="submitAd()">إرسال الطلب والتوثيق</button>
+        <p class="note">* سيتم إرسال بريد إلكتروني لتأكيد التسجيل فور مراجعة طلبك من قبل الإدارة.</p>
+    </form>
+
+    <div class="home-footer">
+        <a href="index.html" class="btn-outline">🏠 الرجوع للصفحة الرئيسية</a>
     </div>
-
-    <div class="card">
-        <div class="card-head bg-car">🚗 LUXURY CARS</div>
-        <div class="card-body">
-            <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=300" class="card-img" alt="Cars">
-            <div class="card-info">
-                <h3>قسم السيارات</h3>
-                <p>أفضل العروض من صالات العرض المعتمدة.</p>
-                <button class="btn" onclick="alert('فتح معرض السيارات')">مشاهدة</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-head bg-ele">📱 ELECTRONICS</div>
-        <div class="card-body">
-            <img src="https://images.unsplash.com/photo-1468495244123-6c6c332eeece?auto=format&fit=crop&w=300" class="card-img" alt="Electronics">
-            <div class="card-info">
-                <h3>الإلكترونيات</h3>
-                <p>تسوق أحدث الأجهزة التقنية المتاحة.</p>
-                <button class="btn" onclick="alert('فتح متجر التقنية')">تسوق</button>
-            </div>
-        </div>
-    </div>
-
-</div>
-
-<div id="register" class="page">
-    <span onclick="closePage('register')" style="cursor:pointer; color:#D4AF37;">🔙 رجوع</span>
-    <h2 style="color:#D4AF37;">بوابة المعلنين الجديدة 🔑</h2>
-    <input type="text" placeholder="اسم المتجر / الشخص">
-    <select id="regCat">
-        <option>عقارات</option>
-        <option>سيارات</option>
-        <option>إلكترونيات</option>
-    </select>
-    <input type="tel" placeholder="رقم الواتساب">
-    <p style="font-size:12px; color:#aaa;">* قسم تيك توك مخصص لإدارة المتجر فقط ولا يمكن الإعلان فيه.</p>
-    <button class="btn" style="width:100%; padding:15px;">إرسال طلب التوثيق</button>
-</div>
-
-<div id="tkOrder" class="page">
-    <span onclick="closePage('tkOrder')" style="cursor:pointer; color:#D4AF37;">🔙 رجوع</span>
-    <h2 style="color:#D4AF37;">شحن تيك توك المباشر 🪙</h2>
-    <input type="text" placeholder="ID الحساب (@)">
-    <select>
-        <option>100 عملة</option>
-        <option>1000 عملة</option>
-    </select>
-    <button class="btn" style="width:100%; padding:15px;" onclick="window.location.href='https://wa.me/971500000000'">اطلب الآن عبر واتساب المالك</button>
-</div>
-
-<div id="about" class="page">
-    <span onclick="closePage('about')" style="cursor:pointer; color:#D4AF37;">🔙 رجوع</span>
-    <h2>حول Noure Store</h2>
-    <p>منصة **Noure Store** هي وجهتك الأولى للخدمات الفاخرة. نحن نتفرد بتقديم خدمة شحن تيك توك المباشرة، مع إتاحة الفرصة للمعلنين الموثوقين لعرض عقاراتهم وسياراتهم وإلكترونياتهم لجمهورنا الواسع.</p>
 </div>
 
 <script>
-    function openPage(id) { document.getElementById(id).style.display = 'block'; }
-    function closePage(id) { document.getElementById(id).style.display = 'none'; }
+    function submitAd() {
+        alert("تم استلام طلبك بنجاح! سيصلك إيميل تأكيد على بريدك المسجل فور مراجعة الصور والبيانات.");
+        // هنا يمكن ربط الكود بـ API لإرسال الإيميل الحقيقي
+    }
 </script>
 
 </body>
