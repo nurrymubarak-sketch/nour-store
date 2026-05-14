@@ -28,7 +28,6 @@
             font-family: serif; margin: 0; line-height: 1;
         }
         
-        /* خانة البحث */
         .search-container { width: 90%; margin: 10px auto; }
         .search-bar {
             width: 100%; padding: 12px; border-radius: 25px; border: 1px solid #D4AF37;
@@ -49,8 +48,12 @@
         .bg-ele { background: #431407; }
 
         .card-inner { padding: 20px; display: flex; gap: 15px; align-items: center; }
-        .card-img-box { width: 130px; height: 95px; border-radius: 12px; border: 1.5px solid #D4AF37; overflow: hidden; }
-        .card-img-box img { width: 100%; height: 100%; object-fit: cover; }
+        .card-img-box { 
+            width: 130px; height: 95px; border-radius: 12px; 
+            border: 1.5px solid #D4AF37; overflow: hidden; background: #000;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .card-img-box img { width: 100%; height: 100%; object-fit: contain; }
         
         .btn-gold {
             background: var(--gold); color: #000; border: none; padding: 12px 25px;
@@ -62,6 +65,9 @@
         }
         input, select, textarea { width: 100%; padding: 14px; margin-top: 10px; border-radius: 10px; border: 1px solid #333; background: #1a1a1a; color: #fff; box-sizing: border-box; }
         label { display: block; margin-top: 20px; color: #D4AF37; font-weight: bold; }
+
+        /* ستايل زر التحميل */
+        #loading { display: none; color: #D4AF37; margin-top: 10px; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -88,10 +94,12 @@
     <div class="card">
         <div class="card-head bg-tk" style="padding:10px 15px; font-weight:bold;">🪙 شحن عملات تيك توك</div>
         <div class="card-inner">
-            <div class="card-img-box"><img src="https://files.catbox.moe/p9o4b6.png"></div>
+            <div class="card-img-box">
+                <img src="https://www.edigitalagency.com.au/wp-content/uploads/TikTok-logo-PNG.png" alt="TikTok Logo">
+            </div>
             <div style="flex:1">
                 <h3 style="margin:0; color:#D4AF37">شحن فوري وآمن</h3>
-                <button class="btn-gold" onclick="alert('سيتم توجيهك للمالك مباشرة')">اشحن الآن</button>
+                <button class="btn-gold" onclick="alert('سيتم توجيهك للمالك مباشرة للشحن')">اشحن الآن</button>
             </div>
         </div>
     </div>
@@ -100,10 +108,7 @@
         <div class="card-head bg-re" style="padding:10px 15px; font-weight:bold;">🏙️ عقارات مميزة</div>
         <div class="card-inner">
             <div class="card-img-box"><img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=300"></div>
-            <div style="flex:1">
-                <h3 style="margin:0; color:#D4AF37">فلل وقصور فاخرة</h3>
-                <button class="btn-gold">تصفح</button>
-            </div>
+            <div style="flex:1"><h3 style="margin:0; color:#D4AF37">تصفح العقارات</h3><button class="btn-gold">مشاهدة</button></div>
         </div>
     </div>
 
@@ -111,42 +116,28 @@
         <div class="card-head bg-car" style="padding:10px 15px; font-weight:bold;">🚗 سيارات فاخرة</div>
         <div class="card-inner">
             <div class="card-img-box"><img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=300"></div>
-            <div style="flex:1">
-                <h3 style="margin:0; color:#D4AF37">أحدث الموديلات</h3>
-                <button class="btn-gold">مشاهدة</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-head bg-ele" style="padding:10px 15px; font-weight:bold;">📱 إلكترونيات</div>
-        <div class="card-inner">
-            <div class="card-img-box"><img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=300"></div>
-            <div style="flex:1">
-                <h3 style="margin:0; color:#D4AF37">أجهزة وتقنيات حديثة</h3>
-                <button class="btn-gold">تسوق</button>
-            </div>
+            <div style="flex:1"><h3 style="margin:0; color:#D4AF37">أحدث الموديلات</h3><button class="btn-gold">تصفح</button></div>
         </div>
     </div>
 </div>
 
 <div id="regPage" class="page">
     <h2 style="color:#D4AF37; text-align:center;">بوابة المعلنين 🔑</h2>
-    <label>الاسم الكامل</label><input type="text" id="userName" placeholder="أدخل اسمك">
-    <label>البريد الإلكتروني (لتلقي رسالة التأكيد)</label><input type="email" id="userEmail" placeholder="example@mail.com">
-    <label>رقم الواتساب</label><input type="tel" placeholder="+249...">
-    <label>السعر</label><input type="number" placeholder="0.00">
-    <label>وصف المنتج</label><textarea rows="3"></textarea>
-    <label>رفع صور/فيديو</label><input type="file" multiple accept="image/*,video/*">
-    <button class="btn-gold" style="width:100%; margin-top:25px;" onclick="handleRegistration()">تأكيد وإرسال</button>
+    <form id="regForm" onsubmit="handleRegistration(event)">
+        <label>الاسم الكامل</label><input type="text" id="userName" required placeholder="أدخل اسمك">
+        <label>البريد الإلكتروني</label><input type="email" id="userEmail" required placeholder="example@mail.com">
+        <label>الوصف</label><textarea id="userDesc" rows="3" required placeholder="اكتب تفاصيل إعلانك"></textarea>
+        <label>رفع صور/فيديو</label><input type="file" id="userFiles" multiple accept="image/*,video/*">
+        
+        <button type="submit" class="btn-gold" style="width:100%; margin-top:25px; padding:18px;">تأكيد وإرسال الطلب</button>
+        <div id="loading">جاري معالجة الصور وإرسال الطلب... ⏳</div>
+    </form>
     <p style="text-align:center; margin-top:40px; color:#666; font-size:14px;">(استخدم سهم المتصفح للرجوع)</p>
 </div>
 
 <div id="aboutPage" class="page">
     <h2 style="color:#D4AF37; text-align:center;">حول Nore Store 💎</h2>
-    <p style="line-height:1.8; padding:20px; text-align: center;">
-        مرحباً بكم في **Nore Store**، المنصة الرائدة في تقديم الخدمات الرقمية والوساطة التجارية. نحن نتخصص في شحن عملات تيك توك بطريقة آمنة وموثوقة، كما نفتح أبوابنا للمعلنين المتميزين لعرض أفضل العقارات والسيارات والإلكترونيات لعملائنا في السودان والمنطقة.
-    </p>
+    <p style="line-height:1.8; padding:20px; text-align: center;">منصتكم الموثوقة لشحن العملات والوساطة التجارية.</p>
 </div>
 
 <script>
@@ -157,10 +148,22 @@
     window.onpopstate = function() {
         document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
     };
-    function handleRegistration() {
+
+    function handleRegistration(event) {
+        event.preventDefault(); // منع الصفحة من التحديث
+        
         const email = document.getElementById('userEmail').value;
-        if(!email) { alert("يرجى إدخال الإيميل."); return; }
-        alert("✅ تم الاستلام! ستصلك رسالة تأكيد على البريد: " + email);
+        const loading = document.getElementById('loading');
+        
+        // إظهار نص التحميل
+        loading.style.display = 'block';
+
+        // محاكاة عملية الرفع (3 ثواني)
+        setTimeout(() => {
+            loading.style.display = 'none';
+            alert("✅ تم رفع الصور وإرسال طلبك بنجاح!\n\nستصلك رسالة تأكيد على البريد: " + email);
+            document.getElementById('regForm').reset(); // تصفير البيانات بعد الإرسال
+        }, 3000);
     }
 </script>
 </body>
