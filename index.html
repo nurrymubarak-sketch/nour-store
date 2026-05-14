@@ -19,25 +19,22 @@
         .card { background: var(--card-bg); border-radius: 25px; margin-bottom: 25px; overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.2); text-align: right; }
         .card-header { padding: 12px 20px; font-weight: bold; font-size: 17px; color: #fff; }
         
-        .card-body { display: flex; padding: 15px; align-items: center; gap: 15px; }
-        .card-body img { width: 100px; height: 100px; border-radius: 15px; object-fit: cover; border: 2px solid var(--gold); }
-        
-        .btn-action { background: var(--gold); color: #000; padding: 10px 25px; border-radius: 25px; font-weight: bold; border: none; cursor: pointer; margin-top: 10px; }
-        
-        /* شكل الإعلان بعد النشر */
-        .ads-feed { background: #0f172a; border-top: 1px solid #334155; }
-        .ad-item { display: flex; padding: 15px; border-bottom: 1px solid #1e293b; gap: 15px; align-items: flex-start; }
-        .ad-item img { width: 80px; height: 80px; border-radius: 10px; object-fit: cover; }
-        .ad-info { text-align: right; }
-        .ad-info b { color: var(--gold); font-size: 16px; display: block; }
-        .ad-info small { color: #94a3b8; display: block; margin-bottom: 5px; }
-        .ad-info p { margin: 0; font-size: 13px; color: #cbd5e1; }
+        .btn-action { background: var(--gold); color: #000; padding: 12px 30px; border-radius: 25px; font-weight: bold; border: none; cursor: pointer; margin: 15px; font-size: 16px; }
 
-        /* نافذة النشر */
+        /* تعديل: جعل عرض الصور كبيراً كما في الفيديو */
+        .ads-feed { background: #0f172a; }
+        .ad-item { padding: 0; border-bottom: 5px solid #020617; background: #1e293b; margin-bottom: 15px; border-radius: 20px; overflow: hidden; }
+        .ad-item img { width: 100%; height: 250px; object-fit: cover; border-bottom: 2px solid var(--gold); }
+        .ad-info { padding: 15px; text-align: right; }
+        .ad-info b { color: var(--gold); font-size: 20px; display: block; margin-bottom: 5px; }
+        .ad-info small { color: #94a3b8; display: block; margin-bottom: 8px; font-size: 14px; }
+        .ad-info p { margin: 0; font-size: 15px; color: #cbd5e1; line-height: 1.6; }
+
         .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 9999; padding: 20px; overflow-y: auto; }
         .modal-content { background: var(--card-bg); padding: 25px; border-radius: 25px; border: 2px solid var(--gold); max-width: 450px; margin: auto; text-align: right; }
         input, textarea { width: 100%; padding: 12px; margin: 8px 0; border-radius: 10px; background: #020617; border: 1px solid #334155; color: #fff; box-sizing: border-box; }
         label { color: var(--gold); font-weight: bold; font-size: 13px; }
+        .file-input-label { background: #334155; color: white; padding: 10px; display: block; text-align: center; border-radius: 10px; cursor: pointer; border: 1px dashed var(--gold); }
     </style>
 </head>
 <body>
@@ -50,38 +47,38 @@
 </header>
 
 <div class="container">
-    <p>📢 انشر إعلانك الآن في الأقسام الستة</p>
-
-    <div class="card"><div class="card-header" style="background: #064e3b;">🏎️ سيارات</div><div class="card-body"><img src="https://via.placeholder.com/100/064e3b/ffffff?text=CARS"><div class="card-info"><h3>سوق السيارات</h3><button class="btn-action" onclick="openPost('cars')">أضف منتجك</button></div></div><div id="list-cars" class="ads-feed"></div></div>
-    <div class="card"><div class="card-header" style="background: #1e3a8a;">🏠 عقارات</div><div class="card-body"><img src="https://via.placeholder.com/100/1e3a8a/ffffff?text=HOUSE"><div class="card-info"><h3>بيوت وشقق</h3><button class="btn-action" onclick="openPost('house')">أضف منتجك</button></div></div><div id="list-house" class="ads-feed"></div></div>
-    <div class="card"><div class="card-header" style="background: #581c87;">📱 جوالات</div><div class="card-body"><img src="https://via.placeholder.com/100/581c87/ffffff?text=TECH"><div class="card-info"><h3>إلكترونيات</h3><button class="btn-action" onclick="openPost('tech')">أضف منتجك</button></div></div><div id="list-tech" class="ads-feed"></div></div>
-    <div class="card"><div class="card-header" style="background: #431407;">🛠️ صيانة</div><div class="card-body"><img src="https://via.placeholder.com/100/431407/ffffff?text=FIX"><div class="card-info"><h3>خدمات فنية</h3><button class="btn-action" onclick="openPost('fix')">أضف منتجك</button></div></div><div id="list-fix" class="ads-feed"></div></div>
-    <div class="card"><div class="card-header" style="background: #065f46;">💼 وظائف</div><div class="card-body"><img src="https://via.placeholder.com/100/065f46/ffffff?text=JOBS"><div class="card-info"><h3>فرص عمل</h3><button class="btn-action" onclick="openPost('jobs')">أضف منتجك</button></div></div><div id="list-jobs" class="ads-feed"></div></div>
-    <div class="card"><div class="card-header" style="background: #374151;">✨ منوعات</div><div class="card-body"><img src="https://via.placeholder.com/100/374151/ffffff?text=OTHER"><div class="card-info"><h3>أغراض متنوعة</h3><button class="btn-action" onclick="openPost('other')">أضف منتجك</button></div></div><div id="list-other" class="ads-feed"></div></div>
+    <div class="card"><div class="card-header" style="background: #064e3b;">🏎️ سيارات للبيع</div><button class="btn-action" onclick="openPost('cars')">اضف إعلانك مجاناً</button><div id="list-cars" class="ads-feed"></div></div>
+    <div class="card"><div class="card-header" style="background: #1e3a8a;">🏠 عقارات (إيجار/بيع)</div><button class="btn-action" onclick="openPost('house')">اضف إعلانك مجاناً</button><div id="list-house" class="ads-feed"></div></div>
+    <div class="card"><div class="card-header" style="background: #581c87;">📱 جوالات وإلكترونيات</div><button class="btn-action" onclick="openPost('tech')">اضف إعلانك مجاناً</button><div id="list-tech" class="ads-feed"></div></div>
+    <div class="card"><div class="card-header" style="background: #431407;">🛠️ صيانة ونظافة</div><button class="btn-action" onclick="openPost('fix')">اضف إعلانك مجاناً</button><div id="list-fix" class="ads-feed"></div></div>
+    <div class="card"><div class="card-header" style="background: #065f46;">💼 وظائف شاغرة</div><button class="btn-action" onclick="openPost('jobs')">اضف إعلانك مجاناً</button><div id="list-jobs" class="ads-feed"></div></div>
+    <div class="card"><div class="card-header" style="background: #374151;">✨ منوعات وأخرى</div><button class="btn-action" onclick="openPost('other')">اضف إعلانك مجاناً</button><div id="list-other" class="ads-feed"></div></div>
 </div>
 
 <div id="postModal" class="modal">
     <div class="modal-content">
-        <h3 style="color:var(--gold); text-align:center;">إضافة إعلان جديد 🚀</h3>
+        <h3 style="color:var(--gold); text-align:center;">إضافة منتج جديد 📸</h3>
         <input type="hidden" id="activeCat">
         
         <label>اسم المنتج</label>
-        <input type="text" id="pName" placeholder="مثلاً: تويوتا كورولا 2020">
+        <input type="text" id="pName" placeholder="مثلاً: آيفون 15 برو ماكس">
         
         <label>وصف المنتج</label>
-        <textarea id="pDesc" rows="3" placeholder="اكتب تفاصيل المنتج والسعر..."></textarea>
+        <textarea id="pDesc" rows="3" placeholder="اكتب المواصفات والسعر..."></textarea>
         
-        <label>رابط صورة المنتج</label>
-        <input type="text" id="pImg" placeholder="انسخ رابط الصورة وضعه هنا">
+        <label>رفع صورة المنتج</label>
+        <label for="pImgFile" class="file-input-label">اضغط هنا لاختيار صورة من جهازك</label>
+        <input type="file" id="pImgFile" accept="image/*" style="display:none" onchange="handleFile(this)">
+        <p id="fileStatus" style="font-size:11px; color:var(--gold); text-align:center;"></p>
         
         <label>البريد الإلكتروني</label>
-        <input type="email" id="pEmail" placeholder="example@mail.com">
+        <input type="email" id="pEmail" placeholder="mail@example.com">
         
-        <label>رقم الهاتف</label>
+        <label>رقم الهاتف (واتساب)</label>
         <input type="tel" id="pPhone" placeholder="09xxxxxxx">
         
-        <button class="btn-action" style="width:100%; padding:15px; margin-top:10px;" onclick="saveAd()">حفظ ونشر الإعلان ✅</button>
-        <button onclick="document.getElementById('postModal').style.display='none'" style="width:100%; background:none; color:grey; border:none; margin-top:10px;">إلغاء</button>
+        <button id="saveBtn" class="btn-action" style="width:100%; margin:10px 0;" onclick="saveAd()">حفظ ونشر الآن ✅</button>
+        <button onclick="document.getElementById('postModal').style.display='none'" style="width:100%; background:none; color:grey; border:none;">إلغاء</button>
     </div>
 </div>
 
@@ -96,36 +93,53 @@
 
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
+    let imageData = ""; 
+
+    function handleFile(input) {
+        const file = input.files[0];
+        if (file) {
+            document.getElementById('fileStatus').innerText = "جاري تجهيز الصورة...";
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                imageData = e.target.result;
+                document.getElementById('fileStatus').innerText = "تم اختيار الصورة بنجاح ✅";
+            };
+            reader.readAsDataURL(file);
+        }
+    }
 
     function openPost(cat) {
         document.getElementById('activeCat').value = cat;
         document.getElementById('postModal').style.display = 'block';
+        imageData = ""; 
+        document.getElementById('fileStatus').innerText = "";
     }
 
     function saveAd() {
         const cat = document.getElementById('activeCat').value;
         const name = document.getElementById('pName').value;
         const desc = document.getElementById('pDesc').value;
-        const img = document.getElementById('pImg').value;
         const email = document.getElementById('pEmail').value;
         const phone = document.getElementById('pPhone').value;
 
-        if (name && desc && phone) {
+        if (name && desc && phone && imageData) {
+            document.getElementById('saveBtn').innerText = "جاري النشر...";
             db.ref('ads/' + cat).push({
                 productName: name,
                 productDesc: desc,
-                productImg: img,
+                productImg: imageData,
                 userEmail: email,
-                userPhone: phone
+                userPhone: phone,
+                time: Date.now()
+            }).then(() => {
+                alert('تم نشر إعلانك بنجاح!');
+                location.reload(); 
             });
-            alert('تم الحفظ والنشر بنجاح!');
-            document.getElementById('postModal').style.display = 'none';
         } else {
-            alert('يرجى ملء الاسم والوصف ورقم الهاتف');
+            alert('يرجى ملء كافة الخانات واختيار صورة');
         }
     }
 
-    // جلب البيانات وعرضها في الصفحة الرئيسية فوراً
     const cats = ['cars', 'house', 'tech', 'fix', 'jobs', 'other'];
     cats.forEach(cat => {
         db.ref('ads/' + cat).on('value', (snap) => {
@@ -135,10 +149,10 @@
                 const ad = child.val();
                 container.innerHTML += `
                     <div class="ad-item">
-                        <img src="${ad.productImg || 'https://via.placeholder.com/80/D4AF37/000000?text=Product'}">
+                        <img src="${ad.productImg}">
                         <div class="ad-info">
                             <b>${ad.productName}</b>
-                            <small>📞 ${ad.userPhone} | ✉️ ${ad.userEmail || 'لا يوجد إيميل'}</small>
+                            <small>📞 تواصل: ${ad.userPhone} ${ad.userEmail ? ' | ✉️ ' + ad.userEmail : ''}</small>
                             <p>${ad.productDesc}</p>
                         </div>
                     </div>`;
