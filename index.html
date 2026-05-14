@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Noure Store | Premium Lifestyle Hub</title>
+    <title>متجر نوري | المنصة المميزة</title>
     <style>
         :root {
             --gold: linear-gradient(135deg, #D4AF37, #F9F295, #B8860B);
@@ -15,12 +15,12 @@
             margin: 0; background: var(--dark-bg); color: #fff; text-align: center;
         }
 
-        /* الهيدر الرئيسي */
+        /* الهيدر */
         header {
             background: linear-gradient(to bottom, #16213e, #0f3460);
             padding: 30px 0; border-bottom: 3px solid #D4AF37;
         }
-        .logo-container {
+        .logo-box {
             border: 2px solid #D4AF37; display: inline-block;
             padding: 15px 30px; border-radius: 15px; background: #000;
         }
@@ -29,192 +29,151 @@
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             font-family: serif; margin: 0; line-height: 1;
         }
-        .logo-subtitle { color: #D4AF37; font-size: 18px; font-weight: bold; margin-top: 5px; }
 
-        /* شريط التنقل العلوي */
-        .nav-bar {
-            background: rgba(255,255,255,0.05); padding: 15px;
-            display: flex; justify-content: center; gap: 20px; border-bottom: 1px solid #333;
-        }
-        .nav-bar span { cursor: pointer; color: #ccc; font-size: 15px; transition: 0.3s; }
-        .nav-bar span:hover { color: #D4AF37; }
+        .nav-bar { background: rgba(255,255,255,0.05); padding: 15px; display: flex; justify-content: center; gap: 20px; }
+        .nav-bar span { cursor: pointer; color: #ccc; font-size: 15px; }
 
-        /* شريط الترحيب */
-        .welcome-strip { background: #D4AF37; color: #000; padding: 8px; font-size: 13px; font-weight: bold; }
-
-        /* محتوى الصفحة الرئيسية */
-        .main-content { width: 92%; margin: 25px auto; padding-bottom: 80px; }
-        
-        .section-card {
+        /* الحاوية والكروت */
+        .container { width: 92%; margin: 25px auto; padding-bottom: 80px; }
+        .card {
             background: var(--card-gray); border-radius: 20px; margin-bottom: 25px;
-            overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.3);
-            text-align: right; box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.3); text-align: right;
         }
-        .section-header { padding: 12px 20px; font-weight: bold; font-size: 16px; color: #fff; }
-        .bg-tiktok { background: linear-gradient(90deg, #ff0050, #00f2ea); }
-        .bg-estate { background: #1e3a8a; }
-        .bg-cars { background: #064e3b; }
-        .bg-tech { background: #431407; }
+        .bg-tk { background: linear-gradient(90deg, #ff0050, #00f2ea); }
+        .bg-re { background: #1e3a8a; }
+        .bg-car { background: #064e3b; }
+        .bg-ele { background: #431407; }
 
-        .card-inner { padding: 20px; display: flex; gap: 20px; align-items: center; }
-        .card-preview-img { width: 140px; height: 100px; border-radius: 12px; object-fit: cover; border: 2px solid #D4AF37; }
-        .card-details { flex: 1; }
-        .card-details h3 { margin: 0; font-size: 18px; color: #D4AF37; }
-        .card-details p { margin: 8px 0; font-size: 13px; color: #bbb; line-height: 1.4; }
-
-        .btn-action {
-            background: var(--gold); color: #000; border: none;
-            padding: 10px 25px; border-radius: 25px; font-weight: bold; cursor: pointer; font-size: 14px;
+        .card-inner { padding: 20px; display: flex; gap: 15px; align-items: center; }
+        .card-img { width: 130px; height: 95px; border-radius: 12px; object-fit: cover; border: 1.5px solid #D4AF37; }
+        
+        .btn-gold {
+            background: var(--gold); color: #000; border: none; padding: 12px 25px;
+            border-radius: 25px; font-weight: bold; cursor: pointer; font-size: 14px;
         }
 
-        /* بوابة المعلنين (الصفحة المنبثقة) */
-        .portal-overlay {
-            display: none; position: fixed; inset: 0; background: #0d1117; 
-            z-index: 99999; padding: 25px; overflow-y: auto; text-align: right;
-        }
-        .portal-container { max-width: 600px; margin: auto; }
-        .close-portal { color: #D4AF37; font-size: 28px; cursor: pointer; float: left; }
+        /* الصفحات المنبثقة */
+        .page { display: none; position: fixed; inset: 0; background: #0d1117; z-index: 9999; padding: 25px; overflow-y: auto; text-align: right; }
+        input, select, textarea { width: 100%; padding: 14px; margin-top: 10px; border-radius: 10px; border: 1px solid #333; background: #1a1a1a; color: #fff; box-sizing: border-box; }
+        label { display: block; margin-top: 20px; color: #D4AF37; font-weight: bold; }
 
-        input, select, textarea {
-            width: 100%; padding: 14px; margin-top: 10px; border-radius: 12px;
-            border: 1px solid #333; background: #1a1a1a; color: #fff; box-sizing: border-box;
+        .footer-back {
+            margin-top: 40px; padding-top: 20px; border-top: 1px solid #333; text-align: center;
         }
-        label { display: block; margin-top: 20px; color: #D4AF37; font-weight: bold; font-size: 15px; }
-        .file-box { border: 2px dashed #D4AF37; padding: 25px; text-align: center; border-radius: 12px; margin-top: 10px; background: rgba(212,175,55,0.05); }
-
-        .footer-nav { margin-top: 50px; border-top: 1px solid #333; padding-top: 20px; text-align: center; font-size: 12px; color: #666; }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="logo-container">
+    <div class="logo-box">
         <h1 class="logo-n">N</h1>
-        <div class="logo-subtitle">Noure store</div>
+        <div style="color:#D4AF37; font-weight:bold;">متجر نوري</div>
     </div>
 </header>
 
 <div class="nav-bar">
-    <span onclick="location.reload()">Home</span>
-    <span onclick="alert('قسم العروض قريباً')">Offers</span>
-    <span onclick="openPortal()">Accounts</span>
-    <span onclick="alert('اتصل بنا عبر واتساب المالك')">Contact</span>
+    <span onclick="location.reload()">الرئيسية</span>
+    <span onclick="openPage('aboutPage')">حولنا</span>
+    <span onclick="alert('تواصل مع الإدارة عبر الواتساب')">اتصل بنا</span>
 </div>
 
-<div class="welcome-strip">WELCOME TO NOURE STORE | Explore exclusive services & premium goods</div>
+<div class="container">
+    <button class="btn-gold" style="width:100%; padding:20px; margin-bottom:25px; font-size:18px;" onclick="openPage('regPage')">🔑 إنشاء حساب معلن جديد</button>
 
-<div class="main-content">
+    <div class="card">
+        <div class="card-head bg-tk" style="padding:10px 15px; font-weight:bold;">🪙 شحن عملات تيك توك</div>
+        <div class="card-inner">
+            <img src="https://files.catbox.moe/p9o4b6.png" class="card-img" alt="شعار تيك توك">
+            <div style="flex:1">
+                <h3 style="margin:0; color:#D4AF37">شحن فوري وآمن</h3>
+                <p style="font-size:12px; color:#aaa">خدمة حصرية من إدارة متجر نوري.</p>
+                <button class="btn-gold" onclick="alert('سيتم توجيهك للمالك مباشرة')">اشحن الآن</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-head bg-re" style="padding:10px 15px; font-weight:bold;">🏙️ عقارات مميزة</div>
+        <div class="card-inner">
+            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=300" class="card-img" alt="عقارات">
+            <div style="flex:1">
+                <h3 style="margin:0; color:#D4AF37">فلل وقصور للاستثمار</h3>
+                <button class="btn-gold">تصفح العقارات</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-head bg-car" style="padding:10px 15px; font-weight:bold;">🚗 سيارات فاخرة</div>
+        <div class="card-inner">
+            <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=300" class="card-img" alt="سيارات">
+            <div style="flex:1">
+                <h3 style="margin:0; color:#D4AF37">أحدث موديلات السيارات</h3>
+                <button class="btn-gold">مشاهدة المعرض</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-head bg-ele" style="padding:10px 15px; font-weight:bold;">📱 إلكترونيات وتقنية</div>
+        <div class="card-inner">
+            <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=300" class="card-img" alt="إلكترونيات">
+            <div style="flex:1">
+                <h3 style="margin:0; color:#D4AF37">أجهزة وتقنيات حديثة</h3>
+                <button class="btn-gold">تسوق الآن</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="regPage" class="page">
+    <h2 style="color:#D4AF37; text-align:center;">بوابة المعلنين الجديدة 🔑</h2>
     
-    <button class="btn-action" style="width:100%; padding:20px; margin-bottom:30px; font-size:18px;" onclick="openPortal()">🔑 إنشاء حساب معلن جديد</button>
-
-    <div class="section-card">
-        <div class="section-header bg-tiktok">🪙 TIKTOK COINS TOP-UP</div>
-        <div class="card-inner">
-            <img src="https://files.catbox.moe/p9o4b6.png" class="card-preview-img" alt="TikTok">
-            <div class="card-details">
-                <h3>شحن تيك توك</h3>
-                <p>خدمة شحن فورية وآمنة برعاية إدارة المتجر.</p>
-                <button class="btn-action" onclick="alert('تواصل مع المالك للشحن')">Get Coins</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="section-card">
-        <div class="section-header bg-estate">🏙️ PREMIUM REAL ESTATE</div>
-        <div class="card-inner">
-            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=300" class="card-preview-img" alt="Real Estate">
-            <div class="card-details">
-                <h3>عقارات فاخرة</h3>
-                <p>تصفح أرقى الفلل والشقق المعروضة من معلنينا.</p>
-                <button class="btn-action">Explore Properties</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="section-card">
-        <div class="section-header bg-cars">🚗 LUXURY CARS</div>
-        <div class="card-inner">
-            <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=300" class="card-preview-img" alt="Cars">
-            <div class="card-details">
-                <h3>سيارات فاخرة</h3>
-                <p>أحدث الموديلات الحصرية للبيع والإيجار.</p>
-                <button class="btn-action">View Inventory</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="section-card">
-        <div class="section-header bg-tech">📱 TOP ELECTRONICS</div>
-        <div class="card-inner">
-            <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=300" class="card-preview-img" alt="Electronics">
-            <div class="card-details">
-                <h3>إلكترونيات متطورة</h3>
-                <p>تسوق أحدث الأجهزة والتقنيات العالمية.</p>
-                <button class="btn-action">Shop Now</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="footer-nav">
-        <p>© 2026 Noure Store | All rights reserved</p>
+    <label>اسم المتجر / المعلن</label>
+    <input type="text" placeholder="ادخل اسمك أو اسم النشاط">
+    
+    <label>القسم</label>
+    <select>
+        <option>عقارات</option>
+        <option>سيارات</option>
+        <option>إلكترونيات</option>
+    </select>
+    
+    <label>السعر (بالعملة المحلية)</label>
+    <input type="number" placeholder="مثال: 5000">
+    
+    <label>وصف المنتج / الإعلان</label>
+    <textarea rows="4" placeholder="اكتب تفاصيل المنتج هنا..."></textarea>
+    
+    <label>وسيلة التواصل</label>
+    <select>
+        <option>واتساب</option>
+        <option>بريد إلكتروني</option>
+    </select>
+    
+    <label>رفع صور / فيديو للمنتج</label>
+    <input type="file" multiple accept="image/*,video/*">
+    
+    <button class="btn-gold" style="width:100%; margin-top:25px; padding:18px;" onclick="showConfirm()">إرسال الطلب للتوثيق</button>
+    
+    <div class="footer-back">
+        <button class="btn-gold" style="background:transparent; color:#D4AF37; border:1px solid #D4AF37;" onclick="closePage('regPage')">🏠 الرجوع للصفحة الرئيسية</button>
     </div>
 </div>
 
-<div id="advertiserPortal" class="portal-overlay">
-    <div class="portal-container">
-        <span class="close-portal" onclick="closePortal()">🔙 رجوع</span>
-        <h2>بوابة المعلنين الجديدة 🔑</h2>
-        
-        <label>اسم المتجر / الشخص المعلن</label>
-        <input type="text" placeholder="أدخل اسمك أو اسم النشاط">
-
-        <label>قسم المنتج</label>
-        <select>
-            <option>عقارات</option>
-            <option>سيارات</option>
-            <option>إلكترونيات</option>
-        </select>
-
-        <label>وصف المنتج / الإعلان</label>
-        <textarea rows="4" placeholder="اكتب تفاصيل المنتج كاملة هنا..."></textarea>
-
-        <label>السعر (بالعملة المحلية)</label>
-        <input type="number" placeholder="مثال: 5000">
-
-        <label>وسيلة التواصل المفضلة</label>
-        <select id="contactType">
-            <option value="wa">واتساب (WhatsApp)</option>
-            <option value="mail">بريد إلكتروني (Email)</option>
-        </select>
-
-        <label>رقم التواصل أو البريد</label>
-        <input type="text" placeholder="أدخل الرقم أو الإيميل">
-
-        <label>رفع صور المنتج</label>
-        <div class="file-box">
-            <input type="file" multiple accept="image/*">
-            <p style="font-size:12px; margin-top:10px; color:#D4AF37;">يمكنك اختيار صور متعددة</p>
-        </div>
-
-        <label>رفع فيديو المنتج (اختياري)</label>
-        <div class="file-box">
-            <input type="file" accept="video/*">
-        </div>
-
-        <button class="btn-action" style="width:100%; padding:20px; margin-top:30px;" onclick="submitRequest()">إرسال الطلب والتوثيق</button>
-        <p style="font-size:11px; color:#aaa; text-align:center; margin-top:15px;">* سيتم إرسال بريد إلكتروني لتأكيد التسجيل فور مراجعة الإدارة.</p>
-        
-        <div style="text-align:center; margin-top:30px;">
-            <span style="cursor:pointer; color:#D4AF37; border-bottom:1px solid;" onclick="closePortal()">الرجوع للصفحة الرئيسية</span>
-        </div>
+<div id="aboutPage" class="page">
+    <h2 style="color:#D4AF37; text-align:center;">حول متجر نوري 💎</h2>
+    <p style="line-height:1.8;">نحن منصة **نوري ستور**، وجهتك الأولى للخدمات والمنتجات الفاخرة. نقدم خدمة شحن تيك توك بإشرافنا المباشر، ونوفر مساحة للمعلنين الموثوقين لعرض أفضل العقارات والسيارات والإلكترونيات لعملائنا المتميزين.</p>
+    <div class="footer-back">
+        <button class="btn-gold" onclick="closePage('aboutPage')">🏠 العودة للرئيسية</button>
     </div>
 </div>
 
 <script>
-    function openPortal() { document.getElementById('advertiserPortal').style.display = 'block'; window.scrollTo(0,0); }
-    function closePortal() { document.getElementById('advertiserPortal').style.display = 'none'; }
-    function submitRequest() {
-        alert("تم استلام طلبك! سيقوم فريق Noure Store بمراجعة البيانات وإرسال تأكيد لإيميلك.");
+    function openPage(id) { document.getElementById(id).style.display = 'block'; window.scrollTo(0,0); }
+    function closePage(id) { document.getElementById(id).style.display = 'none'; }
+    function showConfirm() {
+        alert("✅ تم استلام طلبك بنجاح!\n\nستصلك رسالة تأكيد على بريدك الإلكتروني فور مراجعة الإدارة للبيانات والصور.");
     }
 </script>
 
