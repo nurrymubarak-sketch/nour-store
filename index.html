@@ -9,7 +9,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
     <style>
-        :root { --gold: #D4AF37; --dark-bg: #020617; --card-gray: #1e293b; --red: #ff4d4d; --green: #25d366; }
+        :root { --gold: #D4AF37; --dark-bg: #020617; --card-gray: #1e293b; --red: #ff4d4d; --green: #25d366; --blue: #3b82f6; }
         body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: var(--dark-bg); color: #fff; text-align: center; }
         
         header { background: linear-gradient(to bottom, #16213e, #020617); padding: 20px; border-bottom: 3px solid var(--gold); }
@@ -18,6 +18,11 @@
         
         .slogan-ar { color: var(--gold); font-size: 22px; font-weight: bold; margin-top: 10px; }
         .slogan-en { color: #94a3b8; font-size: 14px; font-style: italic; margin-bottom: 20px; }
+
+        /* خانة البحث */
+        .search-bar { width: 90%; max-width: 500px; margin: 15px auto; position: relative; }
+        .search-bar input { width: 100%; padding: 12px 40px 12px 15px; border-radius: 25px; border: 1.5px solid var(--gold); background: #0f172a; color: white; outline: none; box-sizing: border-box; }
+        .search-bar::after { content: '🔍'; position: absolute; right: 15px; top: 50%; transform: translateY(-50%); }
 
         .container { width: 95%; max-width: 600px; margin: 10px auto; padding-bottom: 100px; }
         
@@ -28,14 +33,16 @@
 
         .btn-open { background: var(--gold); color: #000; padding: 10px 20px; border-radius: 25px; font-weight: bold; border: none; cursor: pointer; font-size: 14px; }
         
-        .ad-box { background: #020617; border-radius: 15px; margin: 10px; overflow: hidden; border: 1px solid #334155; position: relative; }
+        .ad-box { background: #020617; border-radius: 15px; margin: 10px; overflow: hidden; border: 1px solid #334155; position: relative; transition: 0.3s; }
         .ad-box img { width: 100%; height: auto; max-height: 400px; object-fit: cover; border-bottom: 2px solid var(--gold); }
         .ad-content { padding: 15px; }
-        .ad-content h3 { margin: 0; color: var(--gold); font-size: 20px; margin-bottom: 10px; }
+        .ad-content h3 { margin: 0; color: var(--gold); font-size: 20px; }
         
-        /* زر الواتساب الجديد */
-        .btn-whatsapp { display: inline-flex; align-items: center; gap: 8px; background: var(--green); color: white; padding: 8px 15px; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 14px; margin-top: 5px; }
+        .ad-actions { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
+        .btn-whatsapp { flex: 1; background: var(--green); color: white; padding: 10px; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 13px; text-align: center; }
+        .btn-share { background: var(--blue); color: white; padding: 10px; border-radius: 10px; cursor: pointer; font-size: 13px; border: none; font-weight: bold; }
         
+        .view-count { font-size: 11px; color: #94a3b8; margin-top: 8px; display: block; }
         .del-btn { background: var(--red); color: white; border: none; padding: 8px 15px; border-radius: 10px; cursor: pointer; font-weight: bold; display: none; margin-top: 10px; width: 100%; }
 
         .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 2000; padding: 20px; overflow-y: auto; }
@@ -51,6 +58,10 @@
     <div class="slogan-ar">عالمك للإعلان والخدمات الموثوقة</div>
     <div class="slogan-en">Your World for Advertising & Trusted Services</div>
 </header>
+
+<div class="search-bar">
+    <input type="text" id="srch" onkeyup="searching()" placeholder="ابحث عن سيارة، عقار، أو أي شيء...">
+</div>
 
 <div class="container">
     <div class="section-card"><div class="section-header" style="background: #064e3b;"><div class="header-title"><img src="https://cdn-icons-png.flaticon.com/128/741/741407.png"><span>سيارات للبيع</span></div><button class="btn-open" onclick="showPost('cars')">انشر مجاناً</button></div><div id="list-cars"></div></div>
@@ -92,12 +103,27 @@
         if (prompt("كلمة السر للحذف:") === "123") {
             canDelete = true;
             document.querySelectorAll('.del-btn').forEach(b => b.style.display = 'block');
-            alert("وضع الحذف مفعّل");
         }
     }
 
     function removeAd(cat, key) {
-        if(confirm("حذف نهائي؟")) db.ref('ads/' + cat + '/' + key).remove();
+        if(confirm("حذف؟")) db.ref('ads/' + cat + '/' + key).remove();
+    }
+
+    function searching() {
+        let val = document.getElementById('srch').value.toLowerCase();
+        document.querySelectorAll('.ad-box').forEach(ad => {
+            ad.style.display = ad.innerText.toLowerCase().includes(val) ? 'block' : 'none';
+        });
+    }
+
+    function shareAd(title, phone) {
+        const text = `شوف الإعلان ده في متجر نوري: ${title}. للتواصل: ${phone}`;
+        window.open(`https://wa.me/?text=${encodeURIComponent(text)}`);
+    }
+
+    function updateViews(cat, key, currentViews) {
+        db.ref('ads/' + cat + '/' + key).update({ views: (currentViews || 0) + 1 });
     }
 
     function showPost(cat) { document.getElementById('targetCat').value = cat; document.getElementById('postModal').style.display = 'block'; }
@@ -116,7 +142,7 @@
         const title = document.getElementById('pTitle').value;
         const phone = document.getElementById('pPhone').value;
         if (title && phone && finalImg) {
-            db.ref('ads/' + cat).push({ title, phone, image: finalImg, desc: document.getElementById('pText').value }).then(() => location.reload());
+            db.ref('ads/' + cat).push({ title, phone, image: finalImg, desc: document.getElementById('pText').value, views: 0 }).then(() => location.reload());
         } else { alert("أكمل البيانات"); }
     }
 
@@ -127,12 +153,16 @@
             snap.forEach(ch => {
                 const d = ch.val();
                 list.innerHTML += `
-                    <div class="ad-box">
+                    <div class="ad-box" onclick="updateViews('${c}', '${ch.key}', ${d.views})">
                         <img src="${d.image}">
                         <div class="ad-content">
                             <h3>${d.title}</h3>
                             <p>${d.desc}</p>
-                            <a href="https://wa.me/${d.phone}" class="btn-whatsapp">واتساب: ${d.phone} 💬</a>
+                            <span class="view-count">👁️ عدد المشاهدات: ${d.views || 0}</span>
+                            <div class="ad-actions">
+                                <a href="https://wa.me/${d.phone}" class="btn-whatsapp">واتساب 💬</a>
+                                <button class="btn-share" onclick="shareAd('${d.title}', '${d.phone}')">مشاركة 🔗</button>
+                            </div>
                             <button class="del-btn" onclick="removeAd('${c}', '${ch.key}')">حذف 🗑️</button>
                         </div>
                     </div>`;
