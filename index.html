@@ -9,76 +9,114 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
     <style>
-        :root { --gold: #D4AF37; --dark-bg: #020617; --card-bg: #1e293b; }
+        :root { --gold: #D4AF37; --dark-bg: #020617; --card-gray: #1e293b; }
         body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--dark-bg); color: #fff; text-align: center; }
-        header { background: linear-gradient(to bottom, #16213e, #020617); padding: 30px; border-bottom: 3px solid var(--gold); }
-        .logo-box { border: 2.5px solid var(--gold); display: inline-block; padding: 10px 30px; border-radius: 20px; background: #000; }
-        .logo-n { font-size: 60px; color: var(--gold); font-family: serif; margin: 0; }
         
-        .container { width: 95%; max-width: 600px; margin: 20px auto; padding-bottom: 100px; }
-        .card { background: var(--card-bg); border-radius: 25px; margin-bottom: 25px; overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.2); text-align: right; }
-        .card-header { padding: 12px 20px; font-weight: bold; font-size: 17px; color: #fff; }
+        header { background: linear-gradient(to bottom, #16213e, #020617); padding: 20px; border-bottom: 3px solid var(--gold); }
+        .logo-box { border: 2.5px solid var(--gold); display: inline-block; padding: 10px 30px; border-radius: 15px; background: #000; margin-bottom: 10px; }
+        .logo-n { font-size: 50px; color: var(--gold); font-family: serif; margin: 0; }
         
-        .btn-action { background: var(--gold); color: #000; padding: 12px 30px; border-radius: 25px; font-weight: bold; border: none; cursor: pointer; margin: 15px; font-size: 16px; }
+        /* الجملة المحذوفة رجعت */
+        .slogan-ar { color: var(--gold); font-size: 20px; font-weight: bold; margin-top: 10px; }
+        .slogan-en { color: #94a3b8; font-size: 13px; font-style: italic; margin-bottom: 20px; }
 
-        /* تعديل: جعل عرض الصور كبيراً كما في الفيديو */
-        .ads-feed { background: #0f172a; }
-        .ad-item { padding: 0; border-bottom: 5px solid #020617; background: #1e293b; margin-bottom: 15px; border-radius: 20px; overflow: hidden; }
-        .ad-item img { width: 100%; height: 250px; object-fit: cover; border-bottom: 2px solid var(--gold); }
-        .ad-info { padding: 15px; text-align: right; }
-        .ad-info b { color: var(--gold); font-size: 20px; display: block; margin-bottom: 5px; }
-        .ad-info small { color: #94a3b8; display: block; margin-bottom: 8px; font-size: 14px; }
-        .ad-info p { margin: 0; font-size: 15px; color: #cbd5e1; line-height: 1.6; }
+        .container { width: 95%; max-width: 600px; margin: 10px auto; padding-bottom: 100px; }
+        
+        /* تصميم الكروت والأيقونات */
+        .section-card { background: var(--card-gray); border-radius: 20px; margin-bottom: 25px; overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.2); text-align: right; }
+        .section-header { padding: 15px; font-weight: bold; font-size: 18px; display: flex; justify-content: space-between; align-items: center; color: #fff; }
+        .header-title { display: flex; align-items: center; gap: 10px; }
+        .header-title img { width: 30px; height: 30px; }
 
-        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 9999; padding: 20px; overflow-y: auto; }
-        .modal-content { background: var(--card-bg); padding: 25px; border-radius: 25px; border: 2px solid var(--gold); max-width: 450px; margin: auto; text-align: right; }
+        .btn-open { background: var(--gold); color: #000; padding: 10px 20px; border-radius: 25px; font-weight: bold; border: none; cursor: pointer; font-size: 14px; }
+
+        /* عرض الإعلانات */
+        .ad-box { background: #020617; border-radius: 15px; margin: 10px; overflow: hidden; border: 1px solid #334155; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        .ad-box img { width: 100%; height: auto; max-height: 400px; object-fit: cover; border-bottom: 2px solid var(--gold); }
+        .ad-content { padding: 15px; text-align: right; }
+        .ad-content h3 { margin: 0; color: var(--gold); font-size: 22px; }
+        .ad-content p { color: #cbd5e1; margin: 10px 0; font-size: 15px; line-height: 1.5; }
+        .ad-meta { font-size: 13px; color: #94a3b8; border-top: 1px solid #1e293b; padding-top: 10px; display: flex; gap: 15px; }
+
+        /* نافذة النشر */
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 2000; padding: 20px; overflow-y: auto; }
+        .modal-body { background: var(--card-gray); padding: 25px; border-radius: 20px; border: 2px solid var(--gold); max-width: 450px; margin: auto; text-align: right; }
         input, textarea { width: 100%; padding: 12px; margin: 8px 0; border-radius: 10px; background: #020617; border: 1px solid #334155; color: #fff; box-sizing: border-box; }
-        label { color: var(--gold); font-weight: bold; font-size: 13px; }
-        .file-input-label { background: #334155; color: white; padding: 10px; display: block; text-align: center; border-radius: 10px; cursor: pointer; border: 1px dashed var(--gold); }
+        label { color: var(--gold); font-weight: bold; font-size: 13px; margin-top: 8px; display: block; }
+        .file-box { background: #334155; border: 2px dashed var(--gold); padding: 15px; text-align: center; border-radius: 12px; cursor: pointer; }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="logo-box">
-        <h1 class="logo-n">N</h1>
-        <div style="color:var(--gold); font-weight:bold;">Nore Store</div>
-    </div>
+    <div class="logo-box"><h1 class="logo-n">N</h1><div style="color:var(--gold); font-weight:bold;">Nore Store</div></div>
+    <div class="slogan-ar">عالمك للإعلان والخدمات الموثوقة</div>
+    <div class="slogan-en">Your World for Advertising & Trusted Services</div>
 </header>
 
 <div class="container">
-    <div class="card"><div class="card-header" style="background: #064e3b;">🏎️ سيارات للبيع</div><button class="btn-action" onclick="openPost('cars')">اضف إعلانك مجاناً</button><div id="list-cars" class="ads-feed"></div></div>
-    <div class="card"><div class="card-header" style="background: #1e3a8a;">🏠 عقارات (إيجار/بيع)</div><button class="btn-action" onclick="openPost('house')">اضف إعلانك مجاناً</button><div id="list-house" class="ads-feed"></div></div>
-    <div class="card"><div class="card-header" style="background: #581c87;">📱 جوالات وإلكترونيات</div><button class="btn-action" onclick="openPost('tech')">اضف إعلانك مجاناً</button><div id="list-tech" class="ads-feed"></div></div>
-    <div class="card"><div class="card-header" style="background: #431407;">🛠️ صيانة ونظافة</div><button class="btn-action" onclick="openPost('fix')">اضف إعلانك مجاناً</button><div id="list-fix" class="ads-feed"></div></div>
-    <div class="card"><div class="card-header" style="background: #065f46;">💼 وظائف شاغرة</div><button class="btn-action" onclick="openPost('jobs')">اضف إعلانك مجاناً</button><div id="list-jobs" class="ads-feed"></div></div>
-    <div class="card"><div class="card-header" style="background: #374151;">✨ منوعات وأخرى</div><button class="btn-action" onclick="openPost('other')">اضف إعلانك مجاناً</button><div id="list-other" class="ads-feed"></div></div>
+    <div class="section-card">
+        <div class="section-header" style="background: #064e3b;">
+            <div class="header-title"><img src="https://cdn-icons-png.flaticon.com/128/741/741407.png"><span>سيارات للبيع</span></div>
+            <button class="btn-open" onclick="showPost('cars')">انشر مجاناً</button>
+        </div>
+        <div id="list-cars"></div>
+    </div>
+
+    <div class="section-card">
+        <div class="section-header" style="background: #1e3a8a;">
+            <div class="header-title"><img src="https://cdn-icons-png.flaticon.com/128/609/609803.png"><span>عقارات</span></div>
+            <button class="btn-open" onclick="showPost('house')">انشر مجاناً</button>
+        </div>
+        <div id="list-house"></div>
+    </div>
+
+    <div class="section-card">
+        <div class="section-header" style="background: #581c87;">
+            <div class="header-title"><img src="https://cdn-icons-png.flaticon.com/128/644/644458.png"><span>جوالات</span></div>
+            <button class="btn-open" onclick="showPost('tech')">انشر مجاناً</button>
+        </div>
+        <div id="list-tech"></div>
+    </div>
+
+    <div class="section-card">
+        <div class="section-header" style="background: #431407;">
+            <div class="header-title"><img src="https://cdn-icons-png.flaticon.com/128/9539/9539474.png"><span>صيانة</span></div>
+            <button class="btn-open" onclick="showPost('fix')">انشر مجاناً</button>
+        </div>
+        <div id="list-fix"></div>
+    </div>
+
+    <div class="section-card">
+        <div class="section-header" style="background: #065f46;">
+            <div class="header-title"><img src="https://cdn-icons-png.flaticon.com/128/3850/3850285.png"><span>وظائف</span></div>
+            <button class="btn-open" onclick="showPost('jobs')">انشر مجاناً</button>
+        </div>
+        <div id="list-jobs"></div>
+    </div>
+
+    <div class="section-card">
+        <div class="section-header" style="background: #374151;">
+            <div class="header-title"><img src="https://cdn-icons-png.flaticon.com/128/3514/3514491.png"><span>منوعات</span></div>
+            <button class="btn-open" onclick="showPost('other')">انشر مجاناً</button>
+        </div>
+        <div id="list-other"></div>
+    </div>
 </div>
 
 <div id="postModal" class="modal">
-    <div class="modal-content">
-        <h3 style="color:var(--gold); text-align:center;">إضافة منتج جديد 📸</h3>
-        <input type="hidden" id="activeCat">
-        
-        <label>اسم المنتج</label>
-        <input type="text" id="pName" placeholder="مثلاً: آيفون 15 برو ماكس">
-        
-        <label>وصف المنتج</label>
-        <textarea id="pDesc" rows="3" placeholder="اكتب المواصفات والسعر..."></textarea>
-        
-        <label>رفع صورة المنتج</label>
-        <label for="pImgFile" class="file-input-label">اضغط هنا لاختيار صورة من جهازك</label>
-        <input type="file" id="pImgFile" accept="image/*" style="display:none" onchange="handleFile(this)">
-        <p id="fileStatus" style="font-size:11px; color:var(--gold); text-align:center;"></p>
-        
-        <label>البريد الإلكتروني</label>
-        <input type="email" id="pEmail" placeholder="mail@example.com">
-        
-        <label>رقم الهاتف (واتساب)</label>
-        <input type="tel" id="pPhone" placeholder="09xxxxxxx">
-        
-        <button id="saveBtn" class="btn-action" style="width:100%; margin:10px 0;" onclick="saveAd()">حفظ ونشر الآن ✅</button>
-        <button onclick="document.getElementById('postModal').style.display='none'" style="width:100%; background:none; color:grey; border:none;">إلغاء</button>
+    <div class="modal-body">
+        <h3 style="color:var(--gold); text-align:center;">إضافة إعلان جديد 🚀</h3>
+        <input type="hidden" id="targetCat">
+        <label>اسم المنتج</label><input type="text" id="pTitle" placeholder="مثلاً: آيفون 15">
+        <label>وصف المنتج</label><textarea id="pText" rows="3" placeholder="السعر والمواصفات..."></textarea>
+        <label>صورة المنتج (من جهازك)</label>
+        <div class="file-box" onclick="document.getElementById('fileIn').click()"><span id="fileTxt">اضغط لرفع صورة 📸</span></div>
+        <input type="file" id="fileIn" accept="image/*" style="display:none" onchange="loadFile()">
+        <label>البريد الإلكتروني</label><input type="email" id="pMail" placeholder="mail@example.com">
+        <label>رقم الهاتف</label><input type="tel" id="pPhone" placeholder="09xxxxxxx">
+        <button class="btn-open" style="width:100%; padding:15px; margin-top:15px;" onclick="doPublish()">حفظ ونشر الإعلان ✅</button>
+        <button onclick="document.getElementById('postModal').style.display='none'" style="width:100%; background:none; color:grey; border:none; margin-top:10px;">إلغاء</button>
     </div>
 </div>
 
@@ -90,70 +128,49 @@
       databaseURL: "https://norestore-efa4e-default-rtdb.firebaseio.com",
       appId: "1:501643206128:web:b26650c9f9324fb9d35135"
     };
-
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
-    let imageData = ""; 
+    let finalImg = "";
 
-    function handleFile(input) {
-        const file = input.files[0];
+    function showPost(cat) { document.getElementById('targetCat').value = cat; document.getElementById('postModal').style.display = 'block'; }
+    
+    function loadFile() {
+        const file = document.getElementById('fileIn').files[0];
         if (file) {
-            document.getElementById('fileStatus').innerText = "جاري تجهيز الصورة...";
             const reader = new FileReader();
-            reader.onload = function(e) {
-                imageData = e.target.result;
-                document.getElementById('fileStatus').innerText = "تم اختيار الصورة بنجاح ✅";
-            };
+            reader.onloadend = () => { finalImg = reader.result; document.getElementById('fileTxt').innerText = "تم اختيار الصورة ✅"; }
             reader.readAsDataURL(file);
         }
     }
 
-    function openPost(cat) {
-        document.getElementById('activeCat').value = cat;
-        document.getElementById('postModal').style.display = 'block';
-        imageData = ""; 
-        document.getElementById('fileStatus').innerText = "";
-    }
-
-    function saveAd() {
-        const cat = document.getElementById('activeCat').value;
-        const name = document.getElementById('pName').value;
-        const desc = document.getElementById('pDesc').value;
-        const email = document.getElementById('pEmail').value;
+    function doPublish() {
+        const cat = document.getElementById('targetCat').value;
+        const title = document.getElementById('pTitle').value;
         const phone = document.getElementById('pPhone').value;
-
-        if (name && desc && phone && imageData) {
-            document.getElementById('saveBtn').innerText = "جاري النشر...";
+        if (title && phone && finalImg) {
             db.ref('ads/' + cat).push({
-                productName: name,
-                productDesc: desc,
-                productImg: imageData,
-                userEmail: email,
-                userPhone: phone,
-                time: Date.now()
-            }).then(() => {
-                alert('تم نشر إعلانك بنجاح!');
-                location.reload(); 
-            });
-        } else {
-            alert('يرجى ملء كافة الخانات واختيار صورة');
-        }
+                title, phone, 
+                image: finalImg, 
+                desc: document.getElementById('pText').value, 
+                mail: document.getElementById('pMail').value 
+            }).then(() => { alert("تم النشر!"); location.reload(); });
+        } else { alert("أكمل البيانات وارفع الصورة يا بطل"); }
     }
 
     const cats = ['cars', 'house', 'tech', 'fix', 'jobs', 'other'];
-    cats.forEach(cat => {
-        db.ref('ads/' + cat).on('value', (snap) => {
-            const container = document.getElementById('list-' + cat);
-            container.innerHTML = "";
-            snap.forEach(child => {
-                const ad = child.val();
-                container.innerHTML += `
-                    <div class="ad-item">
-                        <img src="${ad.productImg}">
-                        <div class="ad-info">
-                            <b>${ad.productName}</b>
-                            <small>📞 تواصل: ${ad.userPhone} ${ad.userEmail ? ' | ✉️ ' + ad.userEmail : ''}</small>
-                            <p>${ad.productDesc}</p>
+    cats.forEach(c => {
+        db.ref('ads/' + c).on('value', (snap) => {
+            const list = document.getElementById('list-' + c);
+            list.innerHTML = "";
+            snap.forEach(ch => {
+                const d = ch.val();
+                list.innerHTML += `
+                    <div class="ad-box">
+                        <img src="${d.image}">
+                        <div class="ad-content">
+                            <h3>${d.title}</h3>
+                            <p>${d.desc}</p>
+                            <div class="ad-meta"><span>📞 ${d.phone}</span><span>✉️ ${d.mail || ''}</span></div>
                         </div>
                     </div>`;
             });
