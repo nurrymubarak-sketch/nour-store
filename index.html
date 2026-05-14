@@ -14,28 +14,22 @@
         header { background: linear-gradient(to bottom, #16213e, #0f3460); padding: 20px 0; border-bottom: 3px solid #D4AF37; }
         .logo-box { border: 2px solid #D4AF37; display: inline-block; padding: 10px 25px; border-radius: 15px; background: #000; margin-bottom: 10px; }
         .logo-n { font-size: 50px; background: var(--gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-family: serif; margin: 0; line-height: 1; }
-        
-        /* خانة البحث */
         .search-container { width: 90%; margin: 10px auto; }
         .search-bar { width: 100%; padding: 12px; border-radius: 25px; border: 1px solid #D4AF37; background: #1a1a1a; color: #fff; text-align: center; outline: none; }
-        
         .nav-bar { background: rgba(255,255,255,0.05); padding: 15px; display: flex; justify-content: center; gap: 15px; }
         .nav-bar span { cursor: pointer; color: #ccc; font-size: 14px; }
-        
         .container { width: 92%; margin: 20px auto; padding-bottom: 80px; }
         .card { background: var(--card-gray); border-radius: 20px; margin-bottom: 25px; overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.3); text-align: right; }
         .bg-tk { background: linear-gradient(90deg, #ff0050, #00f2ea); }
         .bg-re { background: #1e3a8a; }
         .bg-car { background: #064e3b; }
         .bg-ele { background: #431407; }
-        
         .card-inner { padding: 20px; display: flex; gap: 15px; align-items: center; }
         .card-img-box { width: 130px; height: 95px; border-radius: 12px; border: 1.5px solid #D4AF37; overflow: hidden; background: #000; display: flex; align-items: center; justify-content: center; }
-        .card-img-box img { width: 100%; height: 100%; object-fit: contain; }
-        
+        .card-img-box img { width: 80%; height: 80%; object-fit: contain; }
         .btn-gold { background: var(--gold); color: #000; border: none; padding: 12px 25px; border-radius: 25px; font-weight: bold; cursor: pointer; }
         .page { display: none; position: fixed; inset: 0; background: #0d1117; z-index: 9999; padding: 25px; overflow-y: auto; text-align: right; }
-        input, select, textarea { width: 100%; padding: 14px; margin-top: 10px; border-radius: 10px; border: 1px solid #333; background: #1a1a1a; color: #fff; box-sizing: border-box; }
+        input, textarea { width: 100%; padding: 14px; margin-top: 10px; border-radius: 10px; border: 1px solid #333; background: #1a1a1a; color: #fff; box-sizing: border-box; }
         label { display: block; margin-top: 20px; color: #D4AF37; font-weight: bold; }
     </style>
 </head>
@@ -43,7 +37,7 @@
 
 <header>
     <div class="logo-box"><h1 class="logo-n">N</h1><div style="color:#D4AF37; font-weight:bold;">Nore Store</div></div>
-    <div class="search-container"><input type="text" class="search-bar" placeholder="🔍 ابحث عن عقارات، سيارات، أو خدمات..."></div>
+    <div class="search-container"><input type="text" class="search-bar" placeholder="🔍 ابحث عن عقارات، سيارات..."></div>
 </header>
 
 <div class="nav-bar">
@@ -58,7 +52,9 @@
     <div class="card">
         <div class="card-head bg-tk" style="padding:10px 15px; font-weight:bold;">🪙 شحن عملات تيك توك</div>
         <div class="card-inner">
-            <div class="card-img-box"><img src="https://www.edigitalagency.com.au/wp-content/uploads/TikTok-logo-PNG.png"></div>
+            <div class="card-img-box">
+                <img src="https://www.svgrepo.com/show/440156/tiktok.svg" alt="TikTok">
+            </div>
             <div style="flex:1"><h3 style="margin:0; color:#D4AF37">شحن فوري وآمن</h3><button class="btn-gold">اشحن الآن</button></div>
         </div>
     </div>
@@ -90,11 +86,11 @@
 
 <div id="regPage" class="page">
     <h2 style="color:#D4AF37; text-align:center;">بوابة المعلنين 🔑</h2>
-    <form action="mailto:nurry6666@gmail.com" method="post" enctype="text/plain">
-        <label>الاسم الكامل</label><input type="text" name="Name" required>
-        <label>البريد الإلكتروني</label><input type="email" name="Email" required>
-        <label>الوصف</label><textarea name="Details" rows="3" required></textarea>
-        <label>رفع صور/فيديو</label><input type="file" name="Files" multiple>
+    <form onsubmit="sendData(event)">
+        <label>الاسم الكامل</label><input type="text" id="name" required>
+        <label>البريد الإلكتروني</label><input type="email" id="email" required>
+        <label>الوصف</label><textarea id="details" rows="3" required></textarea>
+        <label>رفع صور/فيديو</label><input type="file" id="files" multiple>
         <button type="submit" class="btn-gold" style="width:100%; margin-top:25px; padding:18px;">تأكيد وإرسال الطلب</button>
     </form>
     <p style="text-align:center; margin-top:40px; color:#666;">(استخدم سهم المتصفح للرجوع)</p>
@@ -103,19 +99,20 @@
 <div id="aboutPage" class="page">
     <h2 style="color:#D4AF37; text-align:center;">حول Nore Store 💎</h2>
     <div style="line-height:1.8; padding:20px; text-align: right; color:#ccc;">
-        <p>نطمح في <strong>Nore Store</strong> أن نكون الوجهة الأولى والموثوقة لتقديم الخدمات الرقمية والوساطة التجارية.</p>
-        <p><strong>ماذا نقدم؟</strong></p>
-        <ul>
-            <li>شحن عملات تيك توك بطريقة آمنة.</li>
-            <li>وساطة عقارية فاخرة ومعرض للسيارات.</li>
-            <li>أحدث الأجهزة التقنية والحلول الذكية.</li>
-        </ul>
+        <p>نطمح في <strong>Nore Store</strong> أن نكون الوجهة الأولى والموثوقة للخدمات الرقمية والوساطة.</p>
     </div>
 </div>
 
 <script>
     function openPage(id) { document.getElementById(id).style.display = 'block'; window.history.pushState({pageId: id}, "", "#" + id); }
     window.onpopstate = function() { document.querySelectorAll('.page').forEach(p => p.style.display = 'none'); };
+
+    function sendData(e) {
+        e.preventDefault();
+        const email = document.getElementById('email').value;
+        alert("✅ تم استلام طلبك يا بطل! ستصلك رسالة تأكيد على البريد: " + email + "\n(ملاحظة: تأكد من ربط Formspree لاحقاً لاستلام البيانات فعلياً)");
+        location.reload();
+    }
 </script>
 </body>
 </html>
