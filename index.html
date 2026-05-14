@@ -3,252 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nour Store | منصة الشركاء</title>
+    <title>Nour Real Estate | عقارات دبي</title>
     <style>
-        :root {
-            --bg-color: #ffffff;
-            --card-coral: #ff7f50; 
-            --card-green: #2d5a43; 
-            --text-dark: #1a1a1a;
-        }
-        body { 
-            background-color: var(--bg-color); 
-            color: var(--text-dark); 
-            font-family: 'Segoe UI', Tahoma, sans-serif; 
-            margin: 0; 
-            padding: 0; 
-            overflow-x: hidden;
-        }
-        
-        header { 
-            background: #1a1a1a; 
-            padding: 15px 5%; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            color: white; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        }
-        .currency-bar { 
-            background: rgba(255,255,255,0.1); 
-            padding: 5px 12px; 
-            border-radius: 20px; 
-            font-size: 0.75em; 
-        }
-
-        /* شعار Nour Store الدائري */
-        .logo-section { 
-            text-align: center; 
-            padding: 50px 20px; 
-            background: linear-gradient(to bottom, var(--card-green) 50%, var(--card-coral) 50%); 
-        }
-        .circle-logo { 
-            width: 120px; 
-            height: 120px; 
-            border: 6px solid #3CB371; 
-            border-radius: 50%; 
-            margin: 0 auto; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
-            background: white; 
-            color: var(--card-green); 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2); 
-        }
-        .circle-logo span { font-size: 3.5em; font-weight: bold; line-height: 1; }
-        .circle-logo small { color: #333; font-size: 0.8em; font-weight: bold; }
-
-        .welcome-msg { text-align: center; padding: 30px 20px; font-size: 1.4em; font-weight: bold; }
-
-        /* أزرار الخدمات */
-        .main-grid { 
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            gap: 15px; 
-            padding: 0 20px 30px 20px; 
-        }
-        .box { 
-            border-radius: 20px; 
-            padding: 20px; 
-            text-align: center; 
-            color: white; 
-            height: 140px; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
-            text-decoration: none;
-            transition: transform 0.2s;
-        }
-        .box:active { transform: scale(0.95); }
-        .box-coral { background: var(--card-coral); }
-        .box-green { background: var(--card-green); }
-        .box strong { font-size: 1.1em; display: block; margin-bottom: 5px; }
-        .box small { font-size: 0.75em; opacity: 0.9; }
-
-        /* نافذة التسجيل (Modal) */
-        #signupModal { 
-            display:none; 
-            position:fixed; 
-            top:0; left:0; 
-            width:100%; height:100%; 
-            background:rgba(0,0,0,0.85); 
-            z-index:9999; 
-            justify-content:center; 
-            align-items:center; 
-        }
-        .modal-content { 
-            background:white; 
-            padding:30px; 
-            border-radius:25px; 
-            width:85%; 
-            max-width:350px; 
-            text-align:center; 
-            position: relative;
-        }
-        input { 
-            width: 100%; 
-            padding: 12px; 
-            margin: 10px 0; 
-            border: 1.5px solid #eee; 
-            border-radius: 12px; 
-            box-sizing: border-box; 
-            background: #f9f9f9;
-        }
-        .btn-confirm { 
-            background: var(--card-green); 
-            color: white; 
-            border: none; 
-            padding: 14px; 
-            width: 100%; 
-            border-radius: 12px; 
-            font-weight: bold; 
-            margin-top: 10px;
-            cursor: pointer;
-        }
-
-        .status-feed { 
-            background: #f4f4f4; 
-            margin: 20px; 
-            border-radius: 15px; 
-            padding: 15px; 
-            border-right: 5px solid var(--card-green);
-        }
+        :root { --gold: #D4AF37; --dark: #1a1a1a; --bg: #f4f4f4; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: var(--bg); color: var(--dark); }
+        header { background: var(--dark); color: var(--gold); padding: 20px; text-align: center; font-size: 1.5em; font-weight: bold; border-bottom: 3px solid var(--gold); }
+        .hero { background: var(--dark); color: white; padding: 40px 20px; text-align: center; }
+        .container { padding: 20px; max-width: 600px; margin: auto; }
+        .card { background: white; border-radius: 20px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-bottom: 25px; border-top: 5px solid var(--gold); }
+        input, select, button { width: 100%; padding: 14px; margin: 10px 0; border-radius: 12px; border: 1px solid #ddd; box-sizing: border-box; font-size: 1em; }
+        button { background: var(--dark); color: var(--gold); font-weight: bold; border: 1px solid var(--gold); cursor: pointer; transition: 0.3s; }
+        button:hover { background: var(--gold); color: var(--dark); }
+        .hidden { display: none; }
+        .property-card { background: white; border-radius: 15px; padding: 15px; margin: 15px 0; border-right: 8px solid var(--gold); text-align: right; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .price { color: #2d5a43; font-weight: bold; font-size: 1.2em; }
+        .location { color: #666; font-size: 0.9em; }
     </style>
 </head>
 <body>
 
-<header>
-    <div style="font-weight: bold; font-size: 1.2em;">Nour Store</div>
-    <div class="currency-bar">🇸🇩 SDG | 🇸🇦 SAR | 🇺🇸 USD</div>
-</header>
+<header>NOUR REAL ESTATE | نُور للعقارات</header>
 
-<div class="logo-section">
-    <div class="circle-logo">
-        <span>N</span>
-        <small>Nour Store</small>
-    </div>
+<div class="hero">
+    <h2>استثمر في مستقبل دبي 🏗️</h2>
+    <p>المنصة الأولى لربط المطورين العقاريين بالمستثمرين</p>
 </div>
 
-<div class="welcome-msg">مرحباً بك في Nour Store</div>
-
-<div style="text-align: center; margin-bottom: 30px;">
-    <button onclick="openModal()" style="background: var(--card-green); color: white; border: none; padding: 15px 35px; border-radius: 30px; font-weight: bold; font-size: 1em; box-shadow: 0 4px 15px rgba(45,90,67,0.3);">
-        تسجيل شركة جديدة 📝
-    </button>
-</div>
-
-<div class="main-grid">
-    <div class="box box-coral">
-        <strong>Partners Portal</strong>
-        <small>عرض بضائع الشركات</small>
+<div class="container">
+    <div id="authSection" class="card">
+        <h3>تسجيل المطورين والوكلاء</h3>
+        <input type="email" id="email" placeholder="البريد الإلكتروني للشركة">
+        <input type="password" id="password" placeholder="كلمة السر">
+        <button onclick="login()">دخول الوكلاء</button>
+        <button onclick="register()" style="background: var(--gold); color: var(--dark);">تسجيل شركة عقارية جديدة</button>
     </div>
-    <div class="box box-green">
-        <strong>Python Services</strong>
-        <small>أتمتة وبرمجة ذكية</small>
-    </div>
-    <div class="box box-green">
-        <strong>Governance</strong>
-        <small>دستور رُفَقاء المحبة</small>
-    </div>
-    <div class="box box-coral">
-        <strong>Affiliate</strong>
-        <small>نظام التسويق بالعمولة</small>
-    </div>
-</div>
 
-<div class="status-feed">
-    <div style="font-weight: bold; color: var(--card-green); margin-bottom: 5px;">تحديثات المنصة:</div>
-    <div id="lastUpdate" style="font-size: 0.85em; color: #666;">بانتظار تسجيل أول شريك في قاعدة البيانات...</div>
-</div>
+    <div id="dashboardSection" class="card hidden">
+        <h3 id="welcomeMsg">مرحباً بك في لوحة الإدراج</h3>
+        <div style="border-top: 1px solid #eee; padding-top: 10px;">
+            <h4>إضافة عقار جديد بالمنصة 🏠</h4>
+            <input type="text" id="propName" placeholder="اسم المشروع (مثلاً: برج خليفة)">
+            <select id="propLocation">
+                <option value="دبي مارينا">دبي مارينا</option>
+                <option value="نخلة جميرا">نخلة جميرا</option>
+                <option value="وسط مدينة دبي (DownTown)">وسط مدينة دبي</option>
+                <option value="الخليج التجاري">الخليج التجاري</option>
+                <option value="قرية جميرا الدائرية (JVC)">JVC</option>
+            </select>
+            <input type="number" id="propPrice" placeholder="السعر (AED)">
+            <button onclick="addProperty()">نشر العقار الآن</button>
+        </div>
+        <button onclick="logout()" style="background:#eee; color:#333; border:none; margin-top:20px;">تسجيل خروج</button>
+    </div>
 
-<div id="signupModal">
-    <div class="modal-content">
-        <h2 style="color: var(--card-green); margin-top: 0;">انضم كشريك</h2>
-        <p style="font-size: 0.85em; color: #777;">ادخل بيانات شركتك ليتم عرضها في المتجر</p>
-        
-        <input type="text" id="compName" placeholder="اسم الشركة أو النشاط">
-        <input type="text" id="userName" placeholder="اسم المستخدم (Username)">
-        
-        <button id="saveBtn" class="btn-confirm" onclick="saveData()">تأكيد وإرسال البيانات</button>
-        <button onclick="closeModal()" style="background:none; border:none; color:#999; margin-top:15px; cursor:pointer;">إلغاء</button>
+    <div class="card">
+        <h3 style="color: var(--gold);">العقارات المتاحة في دبي 📍</h3>
+        <div id="propertiesList">جاري تحميل أحدث العروض...</div>
     </div>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
 
 <script>
-  // إعدادات مشروعك يا Nour التي استخرجناها سوياً
-  const firebaseConfig = {
-    apiKey: "AIzaSyB9Ff0ku07M5FT8O4PVxBL0fkb70h8OaFY",
-    authDomain: "nour-store-platform.firebaseapp.com",
-    projectId: "nour-store-platform",
-    storageBucket: "nour-store-platform.firebasestorage.app",
-    messagingSenderId: "1058922024981",
-    appId: "1:1058922024981:web:8317653906d138ec8bfe1c"
-  };
+    const firebaseConfig = {
+        apiKey: "AIzaSyB9Ff0ku07M5FT8O4PVxBL0fkb70h8OaFY",
+        authDomain: "nour-store-platform.firebaseapp.com",
+        projectId: "nour-store-platform",
+        storageBucket: "nour-store-platform.firebasestorage.app",
+        messagingSenderId: "1058922024981",
+        appId: "1:1058922024981:web:8317653906d138ec8bfe1c"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
 
-  // تشغيل المحرك
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
+    async function register() {
+        const e = document.getElementById('email').value;
+        const p = document.getElementById('password').value;
+        try { await auth.createUserWithEmailAndPassword(e, p); alert("تم إنشاء حساب شركتكم بنجاح!"); }
+        catch(err) { alert("خطأ في التسجيل: " + err.message); }
+    }
 
-  function openModal() { document.getElementById('signupModal').style.display = 'flex'; }
-  function closeModal() { document.getElementById('signupModal').style.display = 'none'; }
+    async function login() {
+        const e = document.getElementById('email').value;
+        const p = document.getElementById('password').value;
+        try { await auth.signInWithEmailAndPassword(e, p); }
+        catch(err) { alert("تأكد من بيانات الدخول"); }
+    }
 
-  async function saveData() {
-      const company = document.getElementById('compName').value;
-      const user = document.getElementById('userName').value;
-      const btn = document.getElementById('saveBtn');
+    function logout() { auth.signOut(); location.reload(); }
 
-      if(company && user) {
-          btn.innerText = "جاري الحفظ في السحاب...";
-          btn.disabled = true;
+    auth.onAuthStateChanged(user => {
+        if (user) {
+            document.getElementById('authSection').classList.add('hidden');
+            document.getElementById('dashboardSection').classList.remove('hidden');
+            document.getElementById('welcomeMsg').innerText = "الوكيل: " + user.email;
+        }
+    });
 
-          try {
-              // إرسال البيانات لمجموعة تسمى partners
-              await db.collection("partners").add({
-                  companyName: company,
-                  username: user,
-                  timestamp: firebase.firestore.FieldValue.serverTimestamp()
-              });
+    async function addProperty() {
+        const name = document.getElementById('propName').value;
+        const loc = document.getElementById('propLocation').value;
+        const price = document.getElementById('propPrice').value;
+        
+        if(name && price) {
+            await db.collection("properties").add({
+                propertyName: name,
+                location: loc,
+                price: price,
+                agent: auth.currentUser.email,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            });
+            alert("تم إدراج العقار بنجاح!");
+            document.getElementById('propName').value = "";
+            document.getElementById('propPrice').value = "";
+        }
+    }
 
-              alert(`مبروك يا ${user}! تم تسجيل شركة (${company}) في Nour Store.`);
-              document.getElementById('lastUpdate').innerText = `آخر نشاط: تم تسجيل شركة ${company} بنجاح!`;
-              closeModal();
-          } catch (error) {
-              console.error(error);
-              alert("حدث خطأ! تأكد من تفعيل Firestore في وضع Test Mode.");
-          } finally {
-              btn.innerText = "تأكيد وإرسال البيانات";
-              btn.disabled = false;
-          }
-      } else {
-          alert("من فضلك أكمل البيانات أولاً");
-      }
-  }
+    // عرض العقارات وتحديثها لحظياً
+    db.collection("properties").orderBy("createdAt", "desc").onSnapshot(snap => {
+        let html = "";
+        snap.forEach(doc => {
+            const p = doc.data();
+            html += `<div class="property-card">
+                <strong>🏙️ ${p.propertyName}</strong> <br>
+                <span class="location">📍 الموقع: ${p.location}</span> <br>
+                <span class="price">💰 السعر: ${Number(p.price).toLocaleString()} AED</span> <br>
+                <small style="color:#999">المعلن: ${p.agent}</small>
+            </div>`;
+        });
+        document.getElementById('propertiesList').innerHTML = html || "لا توجد عقارات مدرجة حالياً";
+    });
 </script>
-
 </body>
 </html>
