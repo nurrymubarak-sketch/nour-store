@@ -1,170 +1,354 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nore Store | متجر نوري</title>
+    <title>Noure Store | Your Premium Lifestyle Hub</title>
     <style>
-        :root {
-            --gold: linear-gradient(135deg, #D4AF37, #F9F295, #B8860B);
-            --dark-bg: #0d1117;
-            --card-gray: #161b22;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0; background: var(--dark-bg); color: #fff; text-align: center;
+            background: white;
+            color: #1a1a2e;
         }
-        header {
-            background: linear-gradient(to bottom, #16213e, #0f3460);
-            padding: 20px 0; border-bottom: 3px solid #D4AF37;
+
+        /* Main container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 30px;
         }
-        .logo-box {
-            border: 2px solid #D4AF37; display: inline-block;
-            padding: 10px 25px; border-radius: 15px; background: #000; margin-bottom: 10px;
-        }
-        .logo-n {
-            font-size: 50px; background: var(--gold);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            font-family: serif; margin: 0; line-height: 1;
+
+        /* Logo Section */
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
         }
         
-        .search-container { width: 90%; margin: 10px auto; }
-        .search-bar {
-            width: 100%; padding: 12px; border-radius: 25px; border: 1px solid #D4AF37;
-            background: #1a1a1a; color: #fff; text-align: center; outline: none;
+        .logo h1 {
+            font-size: 48px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #1a1a2e;
         }
-
-        .nav-bar { background: rgba(255,255,255,0.05); padding: 15px; display: flex; justify-content: center; gap: 15px; }
-        .nav-bar span { cursor: pointer; color: #ccc; font-size: 14px; }
-
-        .container { width: 92%; margin: 20px auto; padding-bottom: 80px; }
-        .card {
-            background: var(--card-gray); border-radius: 20px; margin-bottom: 25px;
-            overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.3); text-align: right;
-        }
-        .bg-tk { background: linear-gradient(90deg, #ff0050, #00f2ea); }
-        .bg-re { background: #1e3a8a; }
-        .bg-car { background: #064e3b; }
-        .bg-ele { background: #431407; }
-
-        .card-inner { padding: 20px; display: flex; gap: 15px; align-items: center; }
-        .card-img-box { 
-            width: 130px; height: 95px; border-radius: 12px; 
-            border: 1.5px solid #D4AF37; overflow: hidden; background: #000;
-            display: flex; align-items: center; justify-content: center;
-        }
-        .card-img-box img { width: 100%; height: 100%; object-fit: contain; }
         
-        .btn-gold {
-            background: var(--gold); color: #000; border: none; padding: 12px 25px;
-            border-radius: 25px; font-weight: bold; cursor: pointer;
+        .logo .N {
+            font-size: 60px;
+            font-weight: 800;
+            display: inline-block;
         }
-        .page { 
-            display: none; position: fixed; inset: 0; background: #0d1117; 
-            z-index: 9999; padding: 25px; overflow-y: auto; text-align: right; 
+        
+        .logo p {
+            font-size: 14px;
+            color: #666;
+            letter-spacing: 3px;
+            margin-top: 5px;
         }
-        input, select, textarea { width: 100%; padding: 14px; margin-top: 10px; border-radius: 10px; border: 1px solid #333; background: #1a1a1a; color: #fff; box-sizing: border-box; }
-        label { display: block; margin-top: 20px; color: #D4AF37; font-weight: bold; }
 
-        /* ستايل زر التحميل */
-        #loading { display: none; color: #D4AF37; margin-top: 10px; font-weight: bold; }
+        /* Navigation Bar */
+        .navbar {
+            text-align: center;
+            padding: 15px 0;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 40px;
+        }
+        
+        .navbar a {
+            text-decoration: none;
+            color: #333;
+            margin: 0 20px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .navbar a:hover {
+            color: #c9a03d;
+        }
+        
+        .search {
+            color: #333;
+            margin: 0 20px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: default;
+        }
+
+        /* Welcome Section */
+        .welcome {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .welcome h2 {
+            font-size: 28px;
+            font-weight: 600;
+            color: #1a1a2e;
+            letter-spacing: 1px;
+        }
+        
+        .welcome h2 span {
+            font-weight: 700;
+        }
+
+        /* Services Grid - 4 cards exactly like image */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        @media (max-width: 900px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .navbar a {
+                margin: 0 10px;
+            }
+            .container {
+                padding: 20px 15px;
+            }
+        }
+        
+        @media (max-width: 500px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Service Card */
+        .service-card {
+            text-align: center;
+            padding: 30px 20px;
+            background: #fafafa;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            border: 1px solid #f0f0f0;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-color: #e0d5b9;
+        }
+        
+        .service-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #1a1a2e;
+            margin-bottom: 10px;
+        }
+        
+        .service-card .duplicate-title {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #c9a03d;
+            margin-bottom: 15px;
+            border-top: 1px solid #e0e0e0;
+            display: inline-block;
+            padding-top: 10px;
+        }
+        
+        .service-card p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .service-card button {
+            background: transparent;
+            border: 2px solid #c9a03d;
+            padding: 10px 28px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #c9a03d;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+        
+        .service-card button:hover {
+            background: #c9a03d;
+            color: white;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px 0 20px;
+            border-top: 1px solid #eee;
+            margin-top: 20px;
+        }
+        
+        .footer p {
+            font-size: 11px;
+            color: #999;
+            line-height: 1.6;
+        }
+
+        /* Popup modal for buttons */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 30px 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 350px;
+            width: 90%;
+        }
+        
+        .modal-content h3 {
+            margin-bottom: 15px;
+            color: #c9a03d;
+        }
+        
+        .modal-content p {
+            margin-bottom: 20px;
+            color: #555;
+        }
+        
+        .modal-content button {
+            background: #c9a03d;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 30px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 30px;
+            cursor: pointer;
+            color: white;
+        }
     </style>
 </head>
 <body>
 
-<header>
-    <div class="logo-box">
-        <h1 class="logo-n">N</h1>
-        <div style="color:#D4AF37; font-weight:bold;">Nore Store</div>
-    </div>
-    <div class="search-container">
-        <input type="text" class="search-bar" placeholder="🔍 ابحث عن عقارات، سيارات، أو خدمات...">
-    </div>
-</header>
-
-<div class="nav-bar">
-    <span onclick="location.reload()">الرئيسية</span>
-    <span onclick="openPage('aboutPage')">حولنا</span>
-    <span onclick="alert('تواصل معنا عبر واتساب: +249XXXXXXXXX')">اتصل بنا</span>
-</div>
-
 <div class="container">
-    <button class="btn-gold" style="width:100%; padding:20px; margin-bottom:25px; font-size: 18px;" onclick="openPage('regPage')">🔑 إنشاء حساب معلن جديد</button>
-
-    <div class="card">
-        <div class="card-head bg-tk" style="padding:10px 15px; font-weight:bold;">🪙 شحن عملات تيك توك</div>
-        <div class="card-inner">
-            <div class="card-img-box">
-                <img src="https://www.edigitalagency.com.au/wp-content/uploads/TikTok-logo-PNG.png" alt="TikTok Logo">
-            </div>
-            <div style="flex:1">
-                <h3 style="margin:0; color:#D4AF37">شحن فوري وآمن</h3>
-                <button class="btn-gold" onclick="alert('سيتم توجيهك للمالك مباشرة للشحن')">اشحن الآن</button>
-            </div>
-        </div>
+    <!-- Logo Section - exactly as image -->
+    <div class="logo">
+        <h1><span class="N">N</span><br>Noure store</h1>
+        <p>Your Premium Lifestyle Hub</p>
     </div>
-
-    <div class="card">
-        <div class="card-head bg-re" style="padding:10px 15px; font-weight:bold;">🏙️ عقارات مميزة</div>
-        <div class="card-inner">
-            <div class="card-img-box"><img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=300"></div>
-            <div style="flex:1"><h3 style="margin:0; color:#D4AF37">تصفح العقارات</h3><button class="btn-gold">مشاهدة</button></div>
-        </div>
+    
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <a href="#">Home</a> |
+        <a href="#">About Us</a> |
+        <a href="#">Offers</a> |
+        <a href="#">Accounts</a> |
+        <a href="#">Contact</a> |
+        <span class="search">Search</span>
     </div>
-
-    <div class="card">
-        <div class="card-head bg-car" style="padding:10px 15px; font-weight:bold;">🚗 سيارات فاخرة</div>
-        <div class="card-inner">
-            <div class="card-img-box"><img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=300"></div>
-            <div style="flex:1"><h3 style="margin:0; color:#D4AF37">أحدث الموديلات</h3><button class="btn-gold">تصفح</button></div>
-        </div>
+    
+    <!-- Welcome Message -->
+    <div class="welcome">
+        <h2>WELCOME TO <span>NOURE STORE</span> | Explore exclusive services & premium goods.</h2>
     </div>
-</div>
-
-<div id="regPage" class="page">
-    <h2 style="color:#D4AF37; text-align:center;">بوابة المعلنين 🔑</h2>
-    <form id="regForm" onsubmit="handleRegistration(event)">
-        <label>الاسم الكامل</label><input type="text" id="userName" required placeholder="أدخل اسمك">
-        <label>البريد الإلكتروني</label><input type="email" id="userEmail" required placeholder="example@mail.com">
-        <label>الوصف</label><textarea id="userDesc" rows="3" required placeholder="اكتب تفاصيل إعلانك"></textarea>
-        <label>رفع صور/فيديو</label><input type="file" id="userFiles" multiple accept="image/*,video/*">
+    
+    <!-- Services Grid - 4 cards with duplicated titles -->
+    <div class="services-grid">
+        <!-- TikTok Coins Card -->
+        <div class="service-card">
+            <h3>TIKTOK COINS TOP-UP</h3>
+            <div class="duplicate-title">TIKTOK COINS TOP-UP</div>
+            <p>Instant, Secure Top-up</p>
+            <button onclick="showMessage('TikTok Coins')">Get Coins</button>
+        </div>
         
-        <button type="submit" class="btn-gold" style="width:100%; margin-top:25px; padding:18px;">تأكيد وإرسال الطلب</button>
-        <div id="loading">جاري معالجة الصور وإرسال الطلب... ⏳</div>
-    </form>
-    <p style="text-align:center; margin-top:40px; color:#666; font-size:14px;">(استخدم سهم المتصفح للرجوع)</p>
+        <!-- Premium Real Estate Card -->
+        <div class="service-card">
+            <h3>PREMIUM REAL ESTATE</h3>
+            <div class="duplicate-title">PREMIUM REAL ESTATE</div>
+            <p>Buy, Rent, Investments</p>
+            <button onclick="showMessage('Real Estate')">Explore properties</button>
+        </div>
+        
+        <!-- Luxury Cars Card -->
+        <div class="service-card">
+            <h3>LUXURY CARS</h3>
+            <div class="duplicate-title">LUXURY CARS</div>
+            <p>Exquisite Vehicles For Sale</p>
+            <button onclick="showMessage('Luxury Cars')">View inventory</button>
+        </div>
+        
+        <!-- Top Electronics Card -->
+        <div class="service-card">
+            <h3>TOP ELECTRONICS</h3>
+            <div class="duplicate-title">TOP ELECTRONICS</div>
+            <p>Latest Gadgets & Tech</p>
+            <button onclick="showMessage('Electronics')">Shop Now</button>
+        </div>
+    </div>
+    
+    <!-- Footer - exact text from image -->
+    <div class="footer">
+        <p>This combines the klu prepestion and famed and applications awe snn an mosoly,<br>
+        controlled your technical imsty, inc. All rights reserved.</p>
+    </div>
 </div>
 
-<div id="aboutPage" class="page">
-    <h2 style="color:#D4AF37; text-align:center;">حول Nore Store 💎</h2>
-    <p style="line-height:1.8; padding:20px; text-align: center;">منصتكم الموثوقة لشحن العملات والوساطة التجارية.</p>
+<!-- Popup Modal -->
+<div id="popupModal" class="modal" onclick="closeModalOnOutside(event)">
+    <div class="modal-content">
+        <h3><span id="modalTitle">Service</span></h3>
+        <p id="modalMessage">Thank you for your interest! Our team will contact you shortly.</p>
+        <button onclick="closeModal()">Close</button>
+    </div>
 </div>
 
 <script>
-    function openPage(id) {
-        document.getElementById(id).style.display = 'block';
-        window.history.pushState({pageId: id}, "", "#" + id);
+    function showMessage(service) {
+        var modal = document.getElementById('popupModal');
+        var title = document.getElementById('modalTitle');
+        title.textContent = service;
+        modal.style.display = 'flex';
     }
-    window.onpopstate = function() {
-        document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
-    };
-
-    function handleRegistration(event) {
-        event.preventDefault(); // منع الصفحة من التحديث
-        
-        const email = document.getElementById('userEmail').value;
-        const loading = document.getElementById('loading');
-        
-        // إظهار نص التحميل
-        loading.style.display = 'block';
-
-        // محاكاة عملية الرفع (3 ثواني)
-        setTimeout(() => {
-            loading.style.display = 'none';
-            alert("✅ تم رفع الصور وإرسال طلبك بنجاح!\n\nستصلك رسالة تأكيد على البريد: " + email);
-            document.getElementById('regForm').reset(); // تصفير البيانات بعد الإرسال
-        }, 3000);
+    
+    function closeModal() {
+        document.getElementById('popupModal').style.display = 'none';
     }
+    
+    function closeModalOnOutside(event) {
+        if (event.target === document.getElementById('popupModal')) {
+            closeModal();
+        }
+    }
+    
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            closeModal();
+        }
+    });
 </script>
+
 </body>
 </html>
