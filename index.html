@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nore Store | منصة الإعلانات المتخصصة</title>
+    <title>Nore Store | منصة الإعلانات المباشرة</title>
     <style>
         :root {
             --gold: linear-gradient(135deg, #D4AF37, #F9F295, #B8860B);
@@ -16,31 +16,32 @@
         .logo-box { border: 2px solid #D4AF37; display: inline-block; padding: 10px 25px; border-radius: 15px; background: #000; }
         .logo-n { font-size: 50px; background: var(--gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-family: serif; margin: 0; line-height: 1; }
         
-        /* العنوان التحفيزي الجديد */
         .hero-text { margin: 20px auto; width: 90%; }
         .hero-text h2 { color: #D4AF37; font-size: 20px; margin-bottom: 5px; }
-        .hero-text p { color: #ccc; font-size: 14px; margin-top: 0; }
 
-        .container { width: 92%; margin: auto; padding-bottom: 80px; }
-        .card { background: var(--card-gray); border-radius: 20px; margin-bottom: 25px; overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.3); text-align: right; }
-        .card-head { padding: 12px 15px; font-weight: bold; display: flex; align-items: center; gap: 10px; font-size: 14px; }
+        .container { width: 92%; margin: auto; padding-bottom: 100px; }
         
-        /* ألوان الأقسام الستة المربحة */
-        .bg-car { background: #064e3b; } .bg-house { background: #1e3a8a; } .bg-serv { background: #431407; }
-        .bg-phone { background: #581c87; } .bg-furn { background: #78350f; } .bg-job { background: #164e63; }
-
+        /* تصميم البطاقة */
+        .card { background: var(--card-gray); border-radius: 20px; margin-bottom: 25px; overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.3); text-align: right; }
+        .card-head { padding: 12px 15px; font-weight: bold; background: #333; font-size: 14px; color: #fff; }
+        
         .card-inner { padding: 15px; display: flex; gap: 12px; align-items: center; }
         .card-img-box { width: 110px; height: 90px; border-radius: 12px; border: 1.5px solid #D4AF37; overflow: hidden; flex-shrink: 0; }
         .card-img-box img { width: 100%; height: 100%; object-fit: cover; }
         
         .info-side { flex: 1; }
         .info-side h3 { margin: 0; color: #D4AF37; font-size: 16px; }
-        .promo-tag { font-size: 11px; color: #2ecc71; display: block; margin: 4px 0; }
+        .price-tag { color: #2ecc71; font-weight: bold; font-size: 13px; display: block; margin-top: 5px; }
 
-        /* أزرار الفعل الجديدة */
-        .actions { display: flex; gap: 8px; margin-top: 10px; }
-        .btn-main { background: var(--gold); color: #000; border: none; padding: 8px 12px; border-radius: 15px; font-weight: bold; font-size: 12px; cursor: pointer; flex: 1; text-align: center; text-decoration: none; }
-        .btn-sub { background: #333; color: #fff; border: 1px solid #444; padding: 8px 12px; border-radius: 15px; font-size: 12px; flex: 1; text-align: center; text-decoration: none; }
+        .btn-wa { background: var(--gold); color: #000; border: none; padding: 10px; border-radius: 12px; font-weight: bold; font-size: 13px; cursor: pointer; text-align: center; text-decoration: none; display: block; margin-top: 10px; }
+
+        /* زر الإضافة العائم */
+        .add-fab { position: fixed; bottom: 25px; left: 25px; width: 65px; height: 65px; background: var(--gold); border-radius: 50%; font-size: 35px; color: #000; border: none; cursor: pointer; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+
+        /* نافذة إضافة إعلان */
+        .modal { display: none; position: fixed; inset: 0; background: #0d1117; z-index: 9999; padding: 20px; overflow-y: auto; text-align: right; }
+        input, select, textarea { width: 100%; padding: 14px; margin-top: 10px; border-radius: 10px; border: 1px solid #333; background: #1a1a1a; color: #fff; box-sizing: border-box; }
+        label { display: block; margin-top: 15px; color: #D4AF37; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -53,103 +54,86 @@
 </header>
 
 <div class="hero-text">
-    <h2>أعلن مجاناً.. وادفع عند النتائج 🚀</h2>
-    <p>المنصة الأولى المتخصصة في السيارات، العقارات، والخدمات</p>
+    <h2>تواصل مع المعلن مباشرة 🤝</h2>
 </div>
 
-<div class="container">
+<div class="container" id="adsContainer">
+    </div>
+
+<button class="add-fab" onclick="document.getElementById('addModal').style.display='block'">+</button>
+
+<div id="addModal" class="modal">
+    <h2 style="color:#D4AF37; text-align:center;">انشر إعلانك الآن 🚀</h2>
     
-    <div class="card">
-        <div class="card-head bg-car">🚗 سيارات مستعملة</div>
-        <div class="card-inner">
-            <div class="card-img-box"><img src="https://images.unsplash.com/photo-1550355291-bbee04a92027?q=80&w=300"></div>
-            <div class="info-side">
-                <h3>سوق السيارات</h3>
-                <span class="promo-tag">أول إعلان مجاني تماماً</span>
-                <div class="actions">
-                    <a href="https://wa.me/971551505027?text=أريد_إضافة_إعلان_سيارة" class="btn-main">أضف إعلانك</a>
-                    <a href="#" class="btn-sub">تصفح</a>
-                </div>
-            </div>
-        </div>
-    </div>
+    <label>القسم</label>
+    <select id="p-cat">
+        <option value="🚗 سيارات مستعملة">🚗 سيارات مستعملة</option>
+        <option value="🏠 عقارات (إيجار)">🏠 عقارات (إيجار)</option>
+        <option value="🛠️ صيانة ونظافة">🛠️ صيانة ونظافة</option>
+        <option value="📱 جوالات وإلكترونيات">📱 جوالات وإلكترونيات</option>
+        <option value="🛋️ أثاث مستعمل">🛋️ أثاث مستعمل</option>
+        <option value="💼 وظائف وطلبات">💼 وظائف وطلبات</option>
+    </select>
 
-    <div class="card">
-        <div class="card-head bg-house">🏠 عقارات (إيجار)</div>
-        <div class="card-inner">
-            <div class="card-img-box"><img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=300"></div>
-            <div class="info-side">
-                <h3>شقق وبيوت</h3>
-                <span class="promo-tag">عمولة 1% فقط عند التأجير</span>
-                <div class="actions">
-                    <a href="https://wa.me/971551505027?text=أريد_عرض_عقار_للإيجار" class="btn-main">أعلن هنا</a>
-                    <a href="#" class="btn-sub">شاهد الصور</a>
-                </div>
-            </div>
-        </div>
-    </div>
+    <label>عنوان الإعلان</label>
+    <input type="text" id="p-title" placeholder="مثال: تويوتا كورولا 2015">
+    
+    <label>السعر</label>
+    <input type="text" id="p-price" placeholder="السعر أو اكتب (اتصل)">
+    
+    <label>رقم واتساب المعلن (بدون أصفار)</label>
+    <input type="tel" id="p-wa" placeholder="مثال: 9665XXXXXXXX">
+    
+    <label>صورة المنتج</label>
+    <input type="file" id="p-img" accept="image/*">
 
-    <div class="card">
-        <div class="card-head bg-serv">🛠️✨ صيانة ونظافة</div>
-        <div class="card-inner">
-            <div class="card-img-box"><img src="https://images.unsplash.com/photo-1621905235294-75416075e840?q=80&w=300"></div>
-            <div class="info-side">
-                <h3>خدمات منزلية</h3>
-                <span class="promo-tag">انضم كفني معتمد مجاناً</span>
-                <div class="actions">
-                    <a href="https://wa.me/971551505027?text=أريد_تقديم_خدمة_صيانة" class="btn-main">سجل كفني</a>
-                    <a href="#" class="btn-sub">اطلب خدمة</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-head bg-phone">📱 جوالات وإلكترونيات</div>
-        <div class="card-inner">
-            <div class="card-img-box"><img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=300"></div>
-            <div class="info-side">
-                <h3>أحدث الموديلات</h3>
-                <span class="promo-tag">أعلن عن جهازك بـ 5$ فقط</span>
-                <div class="actions">
-                    <a href="https://wa.me/971551505027?text=أريد_بيع_جهاز_إلكتروني" class="btn-main">أضف جهاز</a>
-                    <a href="#" class="btn-sub">تصفح</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-head bg-furn">🛋️ أثاث مستعمل</div>
-        <div class="card-inner">
-            <div class="card-img-box"><img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=300"></div>
-            <div class="info-side">
-                <h3>بيع أثاث بيتك</h3>
-                <span class="promo-tag">عرض خاص لنهاية الشهر</span>
-                <div class="actions">
-                    <a href="https://wa.me/971551505027?text=أريد_بيع_أثاث" class="btn-main">أضف إعلان</a>
-                    <a href="#" class="btn-sub">مشاهدة</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-head bg-job">💼 وظائف وطلبات عمل</div>
-        <div class="card-inner">
-            <div class="card-img-box"><img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=300"></div>
-            <div class="info-side">
-                <h3>فرص عمل حقيقية</h3>
-                <span class="promo-tag">وظف الأفضل لمؤسستك</span>
-                <div class="actions">
-                    <a href="https://wa.me/971551505027?text=لدي_وظيفة_شاغرة" class="btn-main">أعلن عن وظيفة</a>
-                    <a href="#" class="btn-sub">تصفح</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    <button class="btn-wa" style="width:100%; margin-top:30px; padding:20px;" onclick="publishAd()">نشر الإعلان فوراً</button>
+    <button onclick="document.getElementById('addModal').style.display='none'" style="background:none; border:none; color:#666; width:100%; margin-top:15px;">إلغاء</button>
 </div>
 
+<script>
+    function publishAd() {
+        const title = document.getElementById('p-title').value;
+        const price = document.getElementById('p-price').value;
+        const cat = document.getElementById('p-cat').value;
+        const wa = document.getElementById('p-wa').value;
+        const file = document.getElementById('p-img').files[0];
+
+        if(title && wa && file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                let ads = JSON.parse(localStorage.getItem('nore_direct_ads')) || [];
+                ads.unshift({title, price, cat, wa, img: e.target.result});
+                localStorage.setItem('nore_direct_ads', JSON.stringify(ads));
+                location.reload();
+            };
+            reader.readAsDataURL(file);
+        } else { alert("يا SoOo، لازم تعبي كل البيانات وتختار صورة!"); }
+    }
+
+    window.onload = function() {
+        const container = document.getElementById('adsContainer');
+        const ads = JSON.parse(localStorage.getItem('nore_direct_ads')) || [];
+        
+        if(ads.length === 0) {
+            container.innerHTML = '<p style="color:#666; margin-top:50px;">لا توجد إعلانات حالياً.. كن أول من يعلن!</p>';
+        }
+
+        ads.forEach(ad => {
+            container.innerHTML += `
+                <div class="card">
+                    <div class="card-head">${ad.cat}</div>
+                    <div class="card-inner">
+                        <div class="card-img-box"><img src="${ad.img}"></div>
+                        <div class="info-side">
+                            <h3>${ad.title}</h3>
+                            <span class="price-tag">${ad.price}</span>
+                            <a href="https://wa.me/${ad.wa}?text=بخصوص_إعلانك_في_NoreStore" class="btn-wa">تواصل مع صاحب الإعلان</a>
+                        </div>
+                    </div>
+                </div>`;
+        });
+    }
+</script>
 </body>
 </html>
