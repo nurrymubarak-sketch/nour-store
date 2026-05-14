@@ -6,123 +6,110 @@
     <title>Nore Store | متجر نوري</title>
     <style>
         :root {
-            --gold: linear-gradient(45deg, #D4AF37, #F9F295, #B8860B, #D4AF37);
-            --dark-bg: #05070a;
-            --glass: rgba(255, 255, 255, 0.03);
-            --accent: #D4AF37;
+            --gold: #D4AF37;
+            --dark-bg: #0b0e14;
+            --card-bg: #161b22;
         }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: var(--dark-bg); color: #fff; text-align: center; overflow-x: hidden; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: var(--dark-bg); color: #fff; text-align: center; }
 
-        /* شريط الأقسام العلوي */
-        .category-bar { display: flex; gap: 15px; overflow-x: auto; padding: 15px; background: rgba(0,0,0,0.3); border-bottom: 1px solid #222; scrollbar-width: none; }
-        .category-bar::-webkit-scrollbar { display: none; }
-        .cat-item { min-width: 80px; padding: 10px; background: var(--glass); border-radius: 15px; border: 1px solid #333; font-size: 11px; cursor: pointer; transition: 0.3s; }
-        .cat-item.active { background: var(--gold); color: #000; border: none; font-weight: bold; }
+        header { background: var(--dark-bg); padding: 20px 0; border-bottom: 2px solid var(--gold); position: sticky; top: 0; z-index: 1000; }
+        .logo { font-size: 35px; font-weight: bold; color: var(--gold); text-decoration: none; }
 
-        header { padding: 25px 0; border-bottom: 2px solid var(--accent); position: sticky; top: 0; z-index: 1000; background: rgba(5, 7, 10, 0.95); backdrop-filter: blur(15px); }
-        .logo { font-size: 38px; font-weight: 900; background: var(--gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -2px; }
+        .search-area { width: 90%; margin: 15px auto; }
+        .search-box { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #333; background: #1a1a1a; color: #fff; outline: none; }
 
-        .container { width: 94%; margin: auto; padding-bottom: 120px; }
+        /* الأقسام بشكل بسيط جداً */
+        .cats { display: flex; gap: 10px; overflow-x: auto; padding: 10px; width: 90%; margin: auto; scrollbar-width: none; }
+        .cats span { background: #1a1a1a; padding: 5px 15px; border-radius: 20px; font-size: 12px; border: 1px solid #333; white-space: nowrap; cursor: pointer; }
+        .cats span.active { background: var(--gold); color: #000; border: none; }
 
-        /* بطاقة الإعلان الماسية */
-        .card { background: #0d1117; border-radius: 25px; margin-top: 20px; overflow: hidden; border: 1px solid #222; position: relative; text-align: right; transition: 0.4s; }
-        .card.diamond { border: 2px solid transparent; background-image: linear-gradient(#0d1117, #0d1117), var(--gold); background-origin: border-box; background-clip: padding-box, border-box; box-shadow: 0 0 20px rgba(212, 175, 55, 0.2); }
+        .container { width: 95%; margin: auto; padding-bottom: 100px; }
 
-        .card-img { width: 100%; height: 250px; object-fit: cover; }
+        /* التصميم القديم: بطاقات عمودية واضحة */
+        .card { background: var(--card-bg); border-radius: 15px; margin-bottom: 20px; overflow: hidden; border: 1px solid #222; text-align: right; display: flex; flex-direction: column; }
         
-        .card-body { padding: 20px; position: relative; }
-        .fav-btn { position: absolute; top: -25px; left: 20px; background: #1a1a1a; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid #333; cursor: pointer; font-size: 20px; }
-        .fav-btn.active { color: #f1c40f; border-color: #f1c40f; }
+        .card-img { width: 100%; height: auto; max-height: 350px; object-fit: cover; border-bottom: 1px solid #222; }
 
-        .price-badge { font-size: 22px; font-weight: 900; color: #2ecc71; display: block; margin-bottom: 5px; }
-        .ad-title { font-size: 20px; margin: 0; color: #fff; }
-        .time-ago { font-size: 11px; color: #666; margin-top: 5px; display: block; }
+        .card-body { padding: 15px; position: relative; }
+        .ad-title { font-size: 20px; color: var(--gold); margin: 0; }
+        .verified { font-size: 12px; color: #3897f0; margin-right: 5px; }
+        
+        .stats { font-size: 10px; color: #666; margin-top: 5px; display: block; }
+        .price { color: #2ecc71; font-weight: bold; font-size: 18px; margin: 8px 0; display: block; }
+        .desc { font-size: 14px; color: #aaa; line-height: 1.6; }
 
-        .actions { display: flex; gap: 10px; margin-top: 20px; }
-        .btn-wa { flex: 4; background: var(--gold); color: #000; border: none; padding: 15px; border-radius: 18px; font-weight: bold; cursor: pointer; font-size: 16px; }
-        .btn-share { flex: 1; background: var(--glass); border: 1px solid #333; border-radius: 18px; cursor: pointer; color: #fff; }
+        .btn-wa { background: var(--gold); color: #000; border: none; padding: 14px; border-radius: 10px; font-weight: bold; cursor: pointer; text-align: center; text-decoration: none; display: block; margin-top: 15px; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.02); } 100% { transform: scale(1); } }
 
-        .fab-add { position: fixed; bottom: 30px; right: 30px; width: 70px; height: 70px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 35px; color: #000; box-shadow: 0 10px 30px rgba(0,0,0,0.5); cursor: pointer; border: none; z-index: 2000; }
+        .add-btn { position: fixed; bottom: 25px; right: 25px; width: 65px; height: 65px; background: var(--gold); border-radius: 50%; border: none; font-size: 35px; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.5); z-index: 2000; }
 
-        /* مودال النشر */
-        .modal { display: none; position: fixed; inset: 0; background: var(--dark-bg); z-index: 3000; padding: 25px; overflow-y: auto; text-align: right; }
-        input, select, textarea { width: 100%; padding: 16px; margin-top: 12px; border-radius: 15px; border: 1px solid #222; background: #0d1117; color: #fff; font-size: 16px; box-sizing: border-box; }
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 3000; padding: 25px; overflow-y: auto; text-align: right; }
+        input, textarea, select { width: 100%; padding: 14px; margin-top: 10px; border-radius: 10px; border: 1px solid #333; background: #111; color: #fff; box-sizing: border-box; }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="logo">NORE</div>
-    <div style="color:var(--accent); font-size:10px; font-weight:bold; letter-spacing: 4px;">ULTIMATE MARKET</div>
+    <div class="logo">NORE STORE</div>
 </header>
 
-<div class="category-bar">
-    <div class="cat-item active">🏠 الكل</div>
-    <div class="cat-item">🪙 شحن عملات</div>
-    <div class="cat-item">📱 إلكترونيات</div>
-    <div class="cat-item">🚗 سيارات</div>
-    <div class="cat-item">💼 خدمات</div>
+<div class="search-area">
+    <input type="text" id="search" class="search-box" placeholder="ابحث عن إعلان..." onkeyup="filter()">
+</div>
+
+<div class="cats">
+    <span class="active">الكل</span>
+    <span>شحن عملات</span>
+    <span>إلكترونيات</span>
+    <span>خدمات</span>
 </div>
 
 <div class="container" id="adsGrid">
-    <div class="card diamond">
+    <div class="card ad-item">
         <img src="https://cdn.pixabay.com/photo/2021/01/30/06/42/tiktok-5962992_1280.png" class="card-img">
         <div class="card-body">
-            <div class="fav-btn" onclick="this.classList.toggle('active')">⭐</div>
-            <span class="price-badge">أفضل سعر</span>
-            <h3 class="ad-title">شحن تيك توك فوري (رسمي)</h3>
-            <span class="time-ago">🕒 نُشر الآن</span>
-            <div class="actions">
-                <button class="btn-wa" onclick="window.open('https://wa.me/971551505027')">💬 تواصل الآن</button>
-                <button class="btn-share" onclick="alert('تم نسخ رابط الإعلان!')">📤</button>
-            </div>
+            <h3 class="ad-title">شحن تيك توك رسمي <span class="verified">☑️ موثوق</span></h3>
+            <span class="stats">👁️ 1.2k مشاهدة • نُشر مؤخراً</span>
+            <span class="price">فوري - آمن 100%</span>
+            <p class="desc">اشحن حسابك في ثواني برقم الآيدي فقط. متوفر على مدار الساعة لخدمتكم.</p>
+            <a href="https://wa.me/971551505027?text=أريد_استفسار_عن_شحن_تيك_توك" class="btn-wa">💬 تواصل الآن واتساب</a>
         </div>
     </div>
 </div>
 
-<button class="fab-add" onclick="document.getElementById('postModal').style.display='block'">+</button>
+<button class="add-btn" onclick="document.getElementById('postModal').style.display='block'">+</button>
 
 <div id="postModal" class="modal">
-    <h2 style="color:var(--accent); text-align:center;">إضافة إعلان جديد 🚀</h2>
-    
-    <label style="font-size:12px; color:#666;">اختر القسم</label>
-    <select id="p-cat">
-        <option value="🪙 شحن عملات">شحن عملات</option>
-        <option value="📱 إلكترونيات">إلكترونيات</option>
-        <option value="🚗 سيارات">سيارات</option>
-        <option value="💼 خدمات">خدمات عامة</option>
-    </select>
-
-    <input type="text" id="p-title" placeholder="عنوان الإعلان">
-    <input type="text" id="p-price" placeholder="السعر">
-    <input type="file" id="p-img" accept="image/*">
-    <input type="text" id="p-wa" placeholder="رقم الواتساب">
-    <textarea id="p-desc" rows="4" placeholder="اكتب تفاصيل الإعلان هنا..."></textarea>
-    
-    <div style="margin-top:15px; padding:10px; background:rgba(212,175,55,0.05); border-radius:15px;">
-        <input type="checkbox" id="p-diamond" style="width:auto;"> <span style="color:var(--accent); font-size:13px;">تمييز الإعلان (إطار ماسي 💎)</span>
-    </div>
-
-    <button class="btn-wa" style="width:100%; margin-top:25px; padding:20px; font-size:18px;" onclick="publish()">تأكيد ونشر</button>
-    <p style="text-align:center; margin-top:20px; color:#444;" onclick="this.parentElement.style.display='none'">إلغاء</p>
+    <h2 style="color:var(--gold); text-align:center;">إضافة إعلان جديد 🚀</h2>
+    <input type="text" id="m-title" placeholder="عنوان الإعلان">
+    <input type="text" id="m-price" placeholder="السعر">
+    <input type="file" id="m-img" accept="image/*">
+    <input type="text" id="m-wa" placeholder="رقم الواتساب">
+    <textarea id="m-desc" rows="4" placeholder="وصف المنتج..."></textarea>
+    <button class="btn-wa" style="width:100%; animation:none;" onclick="saveAd()">🚀 انشر إعلاني الآن</button>
+    <p style="text-align:center; color:#666; margin-top:20px;" onclick="this.parentElement.style.display='none'">إلغاء</p>
 </div>
 
 <script>
-    function publish() {
-        const title = document.getElementById('p-title').value;
-        const price = document.getElementById('p-price').value;
-        const wa = document.getElementById('p-wa').value;
-        const desc = document.getElementById('p-desc').value;
-        const cat = document.getElementById('p-cat').value;
-        const isDiamond = document.getElementById('p-diamond').checked;
-        const file = document.getElementById('p-img').files[0];
+    function filter() {
+        let val = document.getElementById('search').value.toLowerCase();
+        let items = document.querySelectorAll('.ad-item');
+        items.forEach(i => i.style.display = i.innerText.toLowerCase().includes(val) ? 'flex' : 'none');
+    }
+
+    function saveAd() {
+        const title = document.getElementById('m-title').value;
+        const price = document.getElementById('m-price').value;
+        const wa = document.getElementById('m-wa').value;
+        const desc = document.getElementById('m-desc').value;
+        const file = document.getElementById('m-img').files[0];
 
         if(title && wa && file) {
             const reader = new FileReader();
             reader.onload = function(e) {
-                let ads = JSON.parse(localStorage.getItem('nore_v20')) || [];
-                ads.unshift({title, price, wa, desc, cat, isDiamond, img: e.target.result, time: new Date().getTime()});
-                localStorage.setItem('nore_v20', JSON.stringify(ads));
+                let list = JSON.parse(localStorage.getItem('nore_vFinal')) || [];
+                list.unshift({title, price, wa, desc, img: e.target.result});
+                localStorage.setItem('nore_vFinal', JSON.stringify(list));
                 location.reload();
             };
             reader.readAsDataURL(file);
@@ -131,22 +118,17 @@
 
     window.onload = function() {
         const grid = document.getElementById('adsGrid');
-        const ads = JSON.parse(localStorage.getItem('nore_v20')) || [];
-        ads.forEach(ad => {
-            const diamondClass = ad.isDiamond ? 'diamond' : '';
+        const list = JSON.parse(localStorage.getItem('nore_vFinal')) || [];
+        list.forEach(ad => {
             grid.innerHTML += `
-                <div class="card ${diamondClass}">
+                <div class="card ad-item">
                     <img src="${ad.img}" class="card-img">
                     <div class="card-body">
-                        <div class="fav-btn" onclick="this.classList.toggle('active')">⭐</div>
-                        <span style="font-size:10px; color:var(--accent);">${ad.cat}</span>
-                        <span class="price-badge">${ad.price || 'اتصل'}</span>
-                        <h3 class="ad-title">${ad.title}</h3>
-                        <span class="time-ago">🕒 منذ قليل</span>
-                        <div class="actions">
-                            <button class="btn-wa" onclick="window.open('https://wa.me/${ad.wa}')">💬 تواصل</button>
-                            <button class="btn-share" onclick="alert('تم نسخ الرابط!')">📤</button>
-                        </div>
+                        <h3 class="ad-title">${ad.title} <span class="verified">☑️</span></h3>
+                        <span class="stats">👁️ ${Math.floor(Math.random()*100)} مشاهدة</span>
+                        <span class="price">${ad.price || 'اتصل'}</span>
+                        <p class="desc">${ad.desc}</p>
+                        <a href="https://wa.me/${ad.wa}?text=أريد_الاستفسار_عن:_${ad.title}" class="btn-wa">💬 تواصل واتساب</a>
                     </div>
                 </div>`;
         });
