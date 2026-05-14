@@ -19,6 +19,7 @@
         .nav-bar { background: rgba(255,255,255,0.05); padding: 15px; display: flex; justify-content: center; gap: 15px; }
         .nav-bar span { cursor: pointer; color: #ccc; font-size: 14px; }
         .container { width: 92%; margin: 20px auto; padding-bottom: 80px; }
+        
         .card { background: var(--card-gray); border-radius: 20px; margin-bottom: 25px; overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.3); text-align: right; }
         .card-head { padding: 10px 15px; font-weight: bold; }
         .bg-tk { background: linear-gradient(90deg, #ff0050, #00f2ea); }
@@ -26,9 +27,11 @@
         .bg-car { background: #064e3b; }
         .bg-ele { background: #431407; }
         .bg-user { background: var(--gold); color: #000; }
+        
         .card-inner { padding: 20px; display: flex; gap: 15px; align-items: center; }
         .card-img-box { width: 130px; height: 95px; border-radius: 12px; border: 1.5px solid #D4AF37; overflow: hidden; background: #000; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
         .card-img-box img { width: 100%; height: 100%; object-fit: contain; }
+        
         .btn-gold { background: var(--gold); color: #000; border: none; padding: 12px 25px; border-radius: 25px; font-weight: bold; cursor: pointer; }
         .page { display: none; position: fixed; inset: 0; background: #0d1117; z-index: 9999; padding: 25px; overflow-y: auto; text-align: right; }
         input, textarea { width: 100%; padding: 14px; margin-top: 10px; border-radius: 10px; border: 1px solid #333; background: #1a1a1a; color: #fff; box-sizing: border-box; }
@@ -56,57 +59,38 @@
     <div class="card">
         <div class="card-head bg-tk">🪙 شحن عملات تيك توك</div>
         <div class="card-inner">
-            <div class="card-img-box"><img src="https://cdn.pixabay.com/photo/2021/06/15/12/28/tiktok-6338429_1280.png" alt="TikTok"></div>
-            <div style="flex:1"><h3 style="margin:0; color:#D4AF37">شحن فوري وآمن</h3><button class="btn-gold" onclick="location.href='https://wa.me/971551505027'">اشحن الآن</button></div>
+            <div class="card-img-box">
+                <img src="https://www.edigitalagency.com.au/wp-content/uploads/TikTok-logo-PNG.png" alt="TikTok Logo">
+            </div>
+            <div style="flex:1">
+                <h3 style="margin:0; color:#D4AF37">شحن فوري وآمن</h3>
+                <button class="btn-gold" onclick="location.href='https://wa.me/971551505027'">اشحن الآن</button>
+            </div>
         </div>
     </div>
 
-    <div class="card">
-        <div class="card-head bg-re">🏙️ عقارات مميزة</div>
-        <div class="card-inner">
-            <div class="card-img-box"><img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=300"></div>
-            <div style="flex:1"><h3 style="margin:0; color:#D4AF37">أفضل العقارات</h3><button class="btn-gold">مشاهدة</button></div>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-head bg-car">🚗 سيارات فاخرة</div>
-        <div class="card-inner">
-            <div class="card-img-box"><img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=300"></div>
-            <div style="flex:1"><h3 style="margin:0; color:#D4AF37">أحدث الموديلات</h3><button class="btn-gold">تصفح</button></div>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-head bg-ele">📱 إلكترونيات</div>
-        <div class="card-inner">
-            <div class="card-img-box"><img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=300"></div>
-            <div style="flex:1"><h3 style="margin:0; color:#D4AF37">أجهزة حديثة (تسوق)</h3><button class="btn-gold">تسوق الآن</button></div>
-        </div>
-    </div>
+    <div class="card"><div class="card-head bg-re">🏙️ عقارات مميزة</div><div class="card-inner"><div class="card-img-box"><img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=300"></div><div style="flex:1"><h3 style="margin:0; color:#D4AF37">أفضل العقارات</h3><button class="btn-gold">مشاهدة</button></div></div></div>
+    <div class="card"><div class="card-head bg-car">🚗 سيارات فاخرة</div><div class="card-inner"><div class="card-img-box"><img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=300"></div><div style="flex:1"><h3 style="margin:0; color:#D4AF37">أحدث الموديلات</h3><button class="btn-gold">تصفح</button></div></div></div>
+    <div class="card"><div class="card-head bg-ele">📱 إلكترونيات</div><div class="card-inner"><div class="card-img-box"><img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=300"></div><div style="flex:1"><h3 style="margin:0; color:#D4AF37">أجهزة حديثة (تسوق)</h3><button class="btn-gold">تسوق</button></div></div></div>
 </div>
 
 <div id="regPage" class="page">
-    <h2 style="color:#D4AF37; text-align:center;">بيانات المعلن والمنتج 🚀</h2>
-    <label>الاسم الكامل</label><input type="text" id="m-name" required>
+    <h2 style="color:#D4AF37; text-align:center;">بيانات الإعلان 🚀</h2>
     
-    <label>رفع صورة المنتج</label>
-    <input type="file" id="m-file" accept="image/*" style="padding: 10px;">
+    <label>اسم المعلن</label>
+    <input type="text" id="m-name" placeholder="ادخل اسمك">
     
-    <label>وسيلة التواصل (واتساب/هاتف)</label><input type="text" id="m-contact" required>
-    <label>وصف المنتج والسعر</label><textarea id="m-desc" rows="4" required></textarea>
+    <label>تحميل صورة المنتج من جوالك</label>
+    <input type="file" id="m-file" accept="image/*" style="padding: 10px; border: 1px solid #333;">
+    
+    <label>وسيلة التواصل</label>
+    <input type="text" id="m-contact" placeholder="رقم الواتساب">
+    
+    <label>وصف المنتج وتفاصيل السعر</label>
+    <textarea id="m-desc" rows="5" placeholder="اكتب وصف المنتج هنا..."></textarea>
     
     <button class="btn-gold" style="width:100%; margin-top:25px; padding:18px;" onclick="saveAndShow()">نشر الإعلان فوراً</button>
-    <p style="text-align:center; margin-top:30px; color:#666;" onclick="window.history.back()">رجوع</p>
-</div>
-
-<div id="aboutPage" class="page">
-    <h2 style="color:#D4AF37; text-align:center;">حول Nore Store 💎</h2>
-    <div style="line-height:1.8; text-align: center;">
-        <p>نحن نعمل على توفير أفضل خدمات الوساطة التجارية وشحن العملات الرقمية.</p>
-        <p>تواصل معنا: nurry6666@gmail.com</p>
-    </div>
-    <p style="text-align:center; color:#666;" onclick="window.history.back()">رجوع</p>
+    <p style="text-align:center; margin-top:30px; color:#666;" onclick="window.history.back()">رجوع للرئيسية</p>
 </div>
 
 <script>
@@ -119,25 +103,21 @@
         const desc = document.getElementById('m-desc').value;
         const fileInput = document.getElementById('m-file');
 
-        if(name && contact && desc) {
+        if(name && contact && desc && fileInput.files[0]) {
             let reader = new FileReader();
             reader.onload = function(e) {
-                let ads = JSON.parse(localStorage.getItem('nore_v3_ads')) || [];
+                let ads = JSON.parse(localStorage.getItem('nore_vfinal_ads')) || [];
                 ads.unshift({name, contact, desc, img: e.target.result});
-                localStorage.setItem('nore_v3_ads', JSON.stringify(ads));
+                localStorage.setItem('nore_vfinal_ads', JSON.stringify(ads));
                 location.reload();
             };
-            if(fileInput.files[0]) {
-                reader.readAsDataURL(fileInput.files[0]);
-            } else {
-                alert("يرجى اختيار صورة للمنتج");
-            }
-        } else { alert("يرجى إكمال البيانات"); }
+            reader.readAsDataURL(fileInput.files[0]);
+        } else { alert("يا غالي، لازم ترفع صورة وتكتب الوصف وتملأ كل الخانات"); }
     }
 
     window.onload = function() {
         const container = document.getElementById('userAdsContainer');
-        const ads = JSON.parse(localStorage.getItem('nore_v3_ads')) || [];
+        const ads = JSON.parse(localStorage.getItem('nore_vfinal_ads')) || [];
         ads.forEach(ad => {
             container.innerHTML += `
                 <div class="card">
@@ -146,7 +126,7 @@
                         <div class="card-img-box"><img src="${ad.img}" style="width:100%; height:100%; object-fit:cover;"></div>
                         <div style="flex:1">
                             <h3 style="margin:0; color:#D4AF37">${ad.desc}</h3>
-                            <button class="btn-gold" style="padding:5px 15px; font-size:12px; margin-top:10px;" onclick="alert('اتصل بالمعلن: ${ad.contact}')">تواصل الآن</button>
+                            <button class="btn-gold" style="padding:5px 15px; font-size:12px; margin-top:10px;" onclick="alert('تواصل مع ${ad.name} عبر: ${ad.contact}')">تواصل الآن</button>
                         </div>
                     </div>
                 </div>`;
