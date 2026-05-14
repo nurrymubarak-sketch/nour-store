@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>متجر نوري | Noure Store</title>
+    <title>Nore Store | متجر نوري</title>
     <style>
         :root {
             --gold: linear-gradient(135deg, #D4AF37, #F9F295, #B8860B);
@@ -16,18 +16,29 @@
         }
         header {
             background: linear-gradient(to bottom, #16213e, #0f3460);
-            padding: 30px 0; border-bottom: 3px solid #D4AF37;
+            padding: 20px 0; border-bottom: 3px solid #D4AF37;
         }
         .logo-box {
             border: 2px solid #D4AF37; display: inline-block;
-            padding: 15px 30px; border-radius: 15px; background: #000;
+            padding: 10px 25px; border-radius: 15px; background: #000; margin-bottom: 10px;
         }
         .logo-n {
-            font-size: 60px; background: var(--gold);
+            font-size: 50px; background: var(--gold);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             font-family: serif; margin: 0; line-height: 1;
         }
-        .container { width: 92%; margin: 25px auto; padding-bottom: 80px; }
+        
+        /* خانة البحث */
+        .search-container { width: 90%; margin: 10px auto; }
+        .search-bar {
+            width: 100%; padding: 12px; border-radius: 25px; border: 1px solid #D4AF37;
+            background: #1a1a1a; color: #fff; text-align: center; outline: none;
+        }
+
+        .nav-bar { background: rgba(255,255,255,0.05); padding: 15px; display: flex; justify-content: center; gap: 15px; }
+        .nav-bar span { cursor: pointer; color: #ccc; font-size: 14px; }
+
+        .container { width: 92%; margin: 20px auto; padding-bottom: 80px; }
         .card {
             background: var(--card-gray); border-radius: 20px; margin-bottom: 25px;
             overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.3); text-align: right;
@@ -38,10 +49,7 @@
         .bg-ele { background: #431407; }
 
         .card-inner { padding: 20px; display: flex; gap: 15px; align-items: center; }
-        .card-img-box { 
-            width: 130px; height: 95px; border-radius: 12px; 
-            border: 1.5px solid #D4AF37; overflow: hidden;
-        }
+        .card-img-box { width: 130px; height: 95px; border-radius: 12px; border: 1.5px solid #D4AF37; overflow: hidden; }
         .card-img-box img { width: 100%; height: 100%; object-fit: cover; }
         
         .btn-gold {
@@ -54,8 +62,6 @@
         }
         input, select, textarea { width: 100%; padding: 14px; margin-top: 10px; border-radius: 10px; border: 1px solid #333; background: #1a1a1a; color: #fff; box-sizing: border-box; }
         label { display: block; margin-top: 20px; color: #D4AF37; font-weight: bold; }
-        .nav-bar { background: rgba(255,255,255,0.05); padding: 15px; display: flex; justify-content: center; gap: 20px; }
-        .nav-bar span { cursor: pointer; color: #ccc; }
     </style>
 </head>
 <body>
@@ -63,13 +69,17 @@
 <header>
     <div class="logo-box">
         <h1 class="logo-n">N</h1>
-        <div style="color:#D4AF37; font-weight:bold;">متجر نوري</div>
+        <div style="color:#D4AF37; font-weight:bold;">Nore Store</div>
+    </div>
+    <div class="search-container">
+        <input type="text" class="search-bar" placeholder="🔍 ابحث عن عقارات، سيارات، أو خدمات...">
     </div>
 </header>
 
 <div class="nav-bar">
     <span onclick="location.reload()">الرئيسية</span>
     <span onclick="openPage('aboutPage')">حولنا</span>
+    <span onclick="alert('تواصل معنا عبر واتساب: +249XXXXXXXXX')">اتصل بنا</span>
 </div>
 
 <div class="container">
@@ -81,7 +91,7 @@
             <div class="card-img-box"><img src="https://files.catbox.moe/p9o4b6.png"></div>
             <div style="flex:1">
                 <h3 style="margin:0; color:#D4AF37">شحن فوري وآمن</h3>
-                <button class="btn-gold" onclick="alert('تواصل مع الإدارة للشحن')">اشحن الآن</button>
+                <button class="btn-gold" onclick="alert('سيتم توجيهك للمالك مباشرة')">اشحن الآن</button>
             </div>
         </div>
     </div>
@@ -91,8 +101,8 @@
         <div class="card-inner">
             <div class="card-img-box"><img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=300"></div>
             <div style="flex:1">
-                <h3 style="margin:0; color:#D4AF37">تصفح أفضل العقارات</h3>
-                <button class="btn-gold">مشاهدة</button>
+                <h3 style="margin:0; color:#D4AF37">فلل وقصور فاخرة</h3>
+                <button class="btn-gold">تصفح</button>
             </div>
         </div>
     </div>
@@ -102,39 +112,41 @@
         <div class="card-inner">
             <div class="card-img-box"><img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=300"></div>
             <div style="flex:1">
-                <h3 style="margin:0; color:#D4AF37">أحدث موديلات السيارات</h3>
-                <button class="btn-gold">مشاهدة المعرض</button>
+                <h3 style="margin:0; color:#D4AF37">أحدث الموديلات</h3>
+                <button class="btn-gold">مشاهدة</button>
             </div>
         </div>
     </div>
 
     <div class="card">
-        <div class="card-head bg-ele" style="padding:10px 15px; font-weight:bold;">📱 إلكترونيات وتقنية</div>
+        <div class="card-head bg-ele" style="padding:10px 15px; font-weight:bold;">📱 إلكترونيات</div>
         <div class="card-inner">
             <div class="card-img-box"><img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=300"></div>
             <div style="flex:1">
                 <h3 style="margin:0; color:#D4AF37">أجهزة وتقنيات حديثة</h3>
-                <button class="btn-gold">تسوق الآن</button>
+                <button class="btn-gold">تسوق</button>
             </div>
         </div>
     </div>
 </div>
 
 <div id="regPage" class="page">
-    <h2 style="color:#D4AF37; text-align:center;">بوابة المعلنين الجديدة 🔑</h2>
-    <label>الاسم الكامل</label><input type="text" id="userName" placeholder="أدخل اسمك أو اسم النشاط">
+    <h2 style="color:#D4AF37; text-align:center;">بوابة المعلنين 🔑</h2>
+    <label>الاسم الكامل</label><input type="text" id="userName" placeholder="أدخل اسمك">
     <label>البريد الإلكتروني (لتلقي رسالة التأكيد)</label><input type="email" id="userEmail" placeholder="example@mail.com">
     <label>رقم الواتساب</label><input type="tel" placeholder="+249...">
-    <label>السعر (بالعملة المحلية)</label><input type="number" placeholder="مثال: 5000">
-    <label>وصف المنتج / الإعلان</label><textarea rows="3" placeholder="تفاصيل المنتج هنا..."></textarea>
-    <label>رفع صور / فيديو للمنتج</label><input type="file" multiple accept="image/*,video/*">
-    <button class="btn-gold" style="width:100%; margin-top:25px; padding:18px;" onclick="handleRegistration()">تأكيد وإرسال للتوثيق</button>
-    <p style="text-align:center; margin-top:40px; color:#666; font-size:14px;">(استخدم سهم المتصفح في الأسفل للعودة للرئيسية)</p>
+    <label>السعر</label><input type="number" placeholder="0.00">
+    <label>وصف المنتج</label><textarea rows="3"></textarea>
+    <label>رفع صور/فيديو</label><input type="file" multiple accept="image/*,video/*">
+    <button class="btn-gold" style="width:100%; margin-top:25px;" onclick="handleRegistration()">تأكيد وإرسال</button>
+    <p style="text-align:center; margin-top:40px; color:#666; font-size:14px;">(استخدم سهم المتصفح للرجوع)</p>
 </div>
 
 <div id="aboutPage" class="page">
-    <h2 style="color:#D4AF37; text-align:center;">حول متجر نوري 💎</h2>
-    <p style="line-height:1.8; padding: 20px;">نحن منصة متخصصة في تقديم الخدمات الرقمية المتميزة، نوفر شحن عملات تيك توك ومساحة للمعلنين الموثوقين لعرض منتجاتهم الفاخرة.</p>
+    <h2 style="color:#D4AF37; text-align:center;">حول Nore Store 💎</h2>
+    <p style="line-height:1.8; padding:20px; text-align: center;">
+        مرحباً بكم في **Nore Store**، المنصة الرائدة في تقديم الخدمات الرقمية والوساطة التجارية. نحن نتخصص في شحن عملات تيك توك بطريقة آمنة وموثوقة، كما نفتح أبوابنا للمعلنين المتميزين لعرض أفضل العقارات والسيارات والإلكترونيات لعملائنا في السودان والمنطقة.
+    </p>
 </div>
 
 <script>
@@ -147,8 +159,7 @@
     };
     function handleRegistration() {
         const email = document.getElementById('userEmail').value;
-        const name = document.getElementById('userName').value;
-        if(!email || !name) { alert("يرجى ملء الخانات الأساسية."); return; }
+        if(!email) { alert("يرجى إدخال الإيميل."); return; }
         alert("✅ تم الاستلام! ستصلك رسالة تأكيد على البريد: " + email);
     }
 </script>
