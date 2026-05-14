@@ -3,126 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nore Store | متجر نوري</title>
+    <title>Nore Store | متجر النور</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --gold: linear-gradient(135deg, #D4AF37, #F9F295, #B8860B);
-            --dark-bg: #0d1117;
-            --card-gray: #161b22;
+            --primary-color: #ff0050;
+            --secondary-color: #00f2ea;
+            --bg-color: #000000;
+            --text-color: #ffffff;
         }
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--dark-bg); color: #fff; text-align: center; }
-        header { background: linear-gradient(to bottom, #16213e, #0f3460); padding: 20px 0; border-bottom: 3px solid #D4AF37; }
-        .logo-box { border: 2px solid #D4AF37; display: inline-block; padding: 10px 25px; border-radius: 15px; background: #000; margin-bottom: 10px; }
-        .logo-n { font-size: 50px; background: var(--gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-family: serif; margin: 0; line-height: 1; }
-        .search-container { width: 90%; margin: 10px auto; }
-        .search-bar { width: 100%; padding: 12px; border-radius: 25px; border: 1px solid #D4AF37; background: #1a1a1a; color: #fff; text-align: center; outline: none; }
-        .nav-bar { background: rgba(255,255,255,0.05); padding: 15px; display: flex; justify-content: center; gap: 15px; }
-        .nav-bar span { cursor: pointer; color: #ccc; font-size: 14px; }
-        .container { width: 92%; margin: 20px auto; padding-bottom: 80px; }
-        .card { background: var(--card-gray); border-radius: 20px; margin-bottom: 25px; overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.3); text-align: right; }
-        .bg-tk { background: linear-gradient(90deg, #ff0050, #00f2ea); }
-        .bg-re { background: #1e3a8a; }
-        .bg-car { background: #064e3b; }
-        .bg-ele { background: #431407; }
-        .card-inner { padding: 20px; display: flex; gap: 15px; align-items: center; }
-        .card-img-box { width: 130px; height: 95px; border-radius: 12px; border: 1.5px solid #D4AF37; overflow: hidden; background: #000; display: flex; align-items: center; justify-content: center; }
-        .card-img-box img { width: 80%; height: 80%; object-fit: contain; }
-        .btn-gold { background: var(--gold); color: #000; border: none; padding: 12px 25px; border-radius: 25px; font-weight: bold; cursor: pointer; }
-        .page { display: none; position: fixed; inset: 0; background: #0d1117; z-index: 9999; padding: 25px; overflow-y: auto; text-align: right; }
-        input, select, textarea { width: 100%; padding: 14px; margin-top: 10px; border-radius: 10px; border: 1px solid #333; background: #1a1a1a; color: #fff; box-sizing: border-box; }
-        label { display: block; margin-top: 20px; color: #D4AF37; font-weight: bold; }
-        #status-msg { display: none; margin-top: 15px; font-weight: bold; color: #00ffcc; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(255, 0, 80, 0.3);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: #1a1a1a;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #333;
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--secondary-color);
+        }
+
+        h2 {
+            color: var(--secondary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #444;
+            background: #2a2a2a;
+            color: white;
+            box-sizing: border-box;
+        }
+
+        button {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: opacity 0.3s;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 2em;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        .tiktok-icon {
+            width: 40px;
+            vertical-align: middle;
+        }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="logo-box"><h1 class="logo-n">N</h1><div style="color:#D4AF37; font-weight:bold;">Nore Store</div></div>
-    <div class="search-container"><input type="text" class="search-bar" placeholder="🔍 ابحث عن عقارات، سيارات، أو خدمات..."></div>
+    <h1>Nore Store <i class="fas fa-shopping-cart"></i></h1>
+    <p>مرحباً بك في متجر النور - وجهتك للخدمات الرقمية</p>
 </header>
 
-<div class="nav-bar">
-    <span onclick="location.reload()">الرئيسية</span>
-    <span onclick="openPage('aboutPage')">حولنا</span>
-    <span onclick="alert('للتواصل المباشر: nurry6666@gmail.com')">اتصل بنا</span>
-</div>
-
 <div class="container">
-    <button class="btn-gold" style="width:100%; padding:20px; margin-bottom:25px; font-size: 18px;" onclick="openPage('regPage')">🔑 إنشاء حساب معلن جديد</button>
-
     <div class="card">
-        <div class="card-head bg-tk" style="padding:10px 15px; font-weight:bold;">🪙 شحن عملات تيك توك</div>
-        <div class="card-inner">
-            <div class="card-img-box">
-                <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok">
+        <h2><i class="fas fa-bullhorn"></i> بوابة المعلنين</h2>
+        <p>اطلب خدمة الإعلان أو تواصل معنا عبر النموذج التالي:</p>
+        
+        <form action="https://formspree.io/f/xdabranz" method="POST">
+            <div class="form-group">
+                <label>الاسم الكامل:</label>
+                <input type="text" name="name" required placeholder="ادخل اسمك هنا">
             </div>
-            <div style="flex:1"><h3 style="margin:0; color:#D4AF37">شحن فوري وآمن</h3><button class="btn-gold">اشحن الآن</button></div>
-        </div>
+            
+            <div class="form-group">
+                <label>نوع الخدمة:</label>
+                <select name="service">
+                    <option value="tiktok">شحن عملات تيك توك</option>
+                    <option value="ads">إعلانات تجارية</option>
+                    <option value="cars">خدمات سيارات</option>
+                    <option value="realestate">عقارات</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>تفاصيل الطلب:</label>
+                <textarea name="message" rows="4" required placeholder="اكتب تفاصيل طلبك هنا..."></textarea>
+            </div>
+            
+            <button type="submit">تأكيد وإرسال الطلب</button>
+        </form>
     </div>
 
-    <div class="card">
-        <div class="card-head bg-re" style="padding:10px 15px; font-weight:bold;">🏙️ عقارات مميزة</div>
-        <div class="card-inner">
-            <div class="card-img-box"><img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=300"></div>
-            <div style="flex:1"><h3 style="margin:0; color:#D4AF37">تصفح العقارات</h3><button class="btn-gold">مشاهدة</button></div>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-head bg-car" style="padding:10px 15px; font-weight:bold;">🚗 سيارات فاخرة</div>
-        <div class="card-inner">
-            <div class="card-img-box"><img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=300"></div>
-            <div style="flex:1"><h3 style="margin:0; color:#D4AF37">أحدث الموديلات</h3><button class="btn-gold">تصفح</button></div>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-head bg-ele" style="padding:10px 15px; font-weight:bold;">📱 إلكترونيات وتقنية</div>
-        <div class="card-inner">
-            <div class="card-img-box"><img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=300"></div>
-            <div style="flex:1"><h3 style="margin:0; color:#D4AF37">أجهزة حديثة</h3><button class="btn-gold">تسوق</button></div>
-        </div>
-    </div>
-</div>
-
-<div id="regPage" class="page">
-    <h2 style="color:#D4AF37; text-align:center;">بوابة المعلنين 🔑</h2>
-    <form id="advertiser-form">
-        <label>الاسم الكامل</label><input type="text" id="name" required>
-        <label>البريد الإلكتروني</label><input type="email" id="email" required>
-        <label>الوصف</label><textarea id="details" rows="3" required></textarea>
-        <label>رفع صور/فيديو</label><input type="file" id="file-input" multiple>
-        <button type="button" class="btn-gold" style="width:100%; margin-top:25px; padding:18px;" onclick="sendData()">تأكيد وإرسال الطلب</button>
-        <div id="status-msg">جاري الإرسال...</div>
-    </form>
-    <p style="text-align:center; margin-top:40px; color:#666;">(استخدم سهم المتصفح للرجوع)</p>
-</div>
-
-<div id="aboutPage" class="page">
-    <h2 style="color:#D4AF37; text-align:center;">حول Nore Store 💎</h2>
-    <div style="line-height:1.8; padding:20px; text-align: right; color:#ccc;">
-        <p>نطمح في <strong>Nore Store</strong> أن نكون الوجهة الأولى والموثوقة لتقديم الخدمات الرقمية والوساطة التجارية.</p>
+    <div class="social-links">
+        <a href="https://www.tiktok.com/@norestore" target="_blank">
+            <img src="https://cdn.pixabay.com/photo/2021/01/30/06/42/tiktok-5962992_1280.png" class="tiktok-icon" alt="TikTok">
+        </a>
+        <a href="#"><i class="fab fa-whatsapp"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
     </div>
 </div>
 
-<script>
-    function openPage(id) { document.getElementById(id).style.display = 'block'; window.history.pushState({pageId: id}, "", "#" + id); }
-    window.onpopstate = function() { document.querySelectorAll('.page').forEach(p => p.style.display = 'none'); };
-
-    function sendData() {
-        const msg = document.getElementById('status-msg');
-        const email = document.getElementById('email').value;
-        if (!email) { alert("يرجى إدخال البريد الإلكتروني"); return; }
-        
-        msg.style.display = 'block';
-        msg.innerText = "جاري الإرسال...";
-        
-        // محاكاة إرسال البيانات بنجاح بدون فتح تطبيق البريد
-        setTimeout(() => {
-            msg.innerText = "✅ تم الإرسال بنجاح! ستصلك رسالة تأكيد على البريد: " + email;
-            document.getElementById('advertiser-form').reset();
-        }, 2000);
-    }
-</script>
 </body>
 </html>
