@@ -3,156 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elnour Store | الإمبراطورية التقنية</title>
+    <title>Nour Store | الإمبراطورية التقنية</title>
     <style>
         :root { 
-            --primary: #3CB371; --secondary: #228B22; --accent: #FFD700; 
-            --bg: #f8faf8; --text: #1a1a1a; --card: #ffffff; --shadow: rgba(0,0,0,0.1);
+            --primary-green: #2D5A43; /* الأخضر الداكن الفخم */
+            --light-green: #3CB371; /* الأخضر المرجاني */
+            --coral-accent: #FF7F50; /* لون المرجان الجذاب */
+            --gold: #D4AF37; /* الذهبي الملكي */
+            --bg: #F4F7F6; --card: #ffffff; --text: #1a1a1a;
         }
-        .dark-theme { 
-            --bg: #0d0d0d; --text: #e0e0e0; --card: #1a1a1a; --shadow: rgba(0,0,0,0.5);
-        }
-        body { background-color: var(--bg); color: var(--text); font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; transition: 0.4s; overflow-x: hidden; }
+        .dark-theme { --bg: #0D1B15; --card: #162B23; --text: #E0E0E0; }
         
-        /* شريط الدستور المتحرك */
-        .ticker { background: #000; color: var(--primary); padding: 10px; overflow: hidden; white-space: nowrap; font-weight: bold; border-bottom: 2px solid var(--secondary); }
-        .ticker div { display: inline-block; animation: scroll 30s linear infinite; }
-        @keyframes scroll { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
-
-        /* الهيدر */
-        header { background: var(--card); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px var(--shadow); position: sticky; top: 0; z-index: 1000; }
-        .logo { font-size: 1.6em; font-weight: 900; color: var(--secondary); letter-spacing: 1px; }
+        body { background-color: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin: 0; transition: 0.4s; }
         
-        /* منطقة الترحيب وحالة السيرفر */
-        .hero { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; padding: 60px 20px; text-align: center; position: relative; }
-        .server-status { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.3); padding: 5px 15px; border-radius: 20px; font-size: 0.8em; display: flex; align-items: center; gap: 8px; }
-        .pulse { width: 10px; height: 10px; background: #00ff00; border-radius: 50%; box-shadow: 0 0 10px #00ff00; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+        /* الهيدر واللوجو الدائري */
+        header { background: var(--card); padding: 10px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 12px rgba(0,0,0,0.08); position: sticky; top: 0; z-index: 1000; border-bottom: 3px solid var(--gold); }
+        .logo-area { text-align: center; display: flex; flex-direction: column; align-items: center; }
+        .circle-logo { width: 60px; height: 60px; border: 3px solid var(--primary-green); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: var(--primary-green); font-size: 1.5em; background: white; box-shadow: 0 0 10px var(--gold); }
+        .logo-text { font-weight: 900; font-size: 1.1em; color: var(--primary-green); margin-top: 5px; }
 
-        /* حاسبة الأرباح للمسوقين */
-        .affiliate-box { background: var(--card); margin: 20px 5%; padding: 25px; border-radius: 15px; box-shadow: 0 4px 15px var(--shadow); text-align: center; border: 2px dashed var(--primary); }
-        input[type=range] { width: 80%; accent-color: var(--primary); }
+        /* منطقة الترحيب */
+        .hero { background: linear-gradient(135deg, var(--primary-green), var(--light-green)); color: white; padding: 50px 20px; text-align: center; }
 
-        /* الشبكة والمنتجات */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; padding: 40px 5%; }
-        .card { background: var(--card); border-radius: 20px; overflow: hidden; transition: 0.3s; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 10px 20px var(--shadow); }
-        .card:hover { transform: translateY(-10px); }
-        .card-img { width: 100%; height: 200px; object-fit: cover; }
-        .card-content { padding: 20px; text-align: center; }
-        .price { font-size: 1.5em; font-weight: bold; color: #e63946; margin: 10px 0; }
-        
-        /* قسم التحديثات (The Feed) */
-        .feed { padding: 40px 5%; background: rgba(60, 179, 113, 0.05); }
-        .post { background: var(--card); padding: 20px; border-right: 5px solid var(--primary); margin-bottom: 15px; border-radius: 0 10px 10px 0; }
+        /* بوابة الشركاء (Partners Portal) */
+        .portal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 15px; padding: 20px 5%; }
+        .portal-item { background: var(--coral-accent); color: white; padding: 20px; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(255,127,80,0.3); cursor: pointer; transition: 0.3s; }
+        .portal-item:hover { transform: scale(1.05); }
+        .portal-item.green { background: var(--primary-green); box-shadow: 0 5px 15px rgba(45,90,67,0.3); }
 
-        /* الأزرار والقوائم */
-        .btn { padding: 12px 25px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; text-decoration: none; display: inline-block; transition: 0.3s; }
-        .btn-main { background: var(--accent); color: #000; width: 100%; }
-        .btn-theme { background: none; border: 1px solid var(--primary); color: var(--text); padding: 5px 15px; border-radius: 20px; }
-        select { padding: 8px; border-radius: 8px; border: 1px solid var(--primary); background: var(--card); color: var(--text); }
+        /* المنتجات */
+        .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; padding: 20px 5%; }
+        .card { background: var(--card); border-radius: 20px; overflow: hidden; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 8px 20px rgba(0,0,0,0.06); }
+        .price { font-size: 1.4em; font-weight: bold; color: var(--coral-accent); margin: 10px 0; }
 
-        footer { background: #000; color: white; padding: 50px 20px; text-align: center; }
+        /* شريط التحديثات */
+        .feed-section { background: white; margin: 20px 5%; border-radius: 15px; padding: 20px; border-top: 5px solid var(--primary-green); }
+        .status-tag { float: left; color: var(--light-green); font-weight: bold; font-size: 0.8em; }
+
+        .btn { padding: 12px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; width: 100%; transition: 0.2s; }
+        .btn-buy { background: var(--primary-green); color: white; }
     </style>
 </head>
 <body>
 
-<div class="ticker">
-    <div>دستور رُفَقاء المحبة: التعاون أساسنا • الشفافية في العمولات (15%) • Elnour Mubarak يرحب بجميع المبدعين • الموقع الرسمي لإمبراطورية النور التقنية • </div>
-</div>
-
 <header>
-    <div class="logo">ELNOUR STORE</div>
-    <div style="display: flex; gap: 15px; align-items: center;">
-        <select id="currency" onchange="updateAll()">
+    <div class="logo-area">
+        <div class="circle-logo">N</div>
+        <div class="logo-text">Nour Store</div>
+    </div>
+    <div style="display: flex; gap: 10px; align-items: center;">
+        <select id="curr" onchange="update()" style="border: 1px solid var(--gold); border-radius: 5px; padding: 5px;">
             <option value="SAR">🇸🇦 SAR</option>
             <option value="USD">🇺🇸 USD</option>
             <option value="SDG">🇸🇩 SDG</option>
             <option value="AED">🇦🇪 AED</option>
         </select>
-        <button class="btn-theme" onclick="document.body.classList.toggle('dark-theme')">🌙/☀️</button>
+        <button onclick="document.body.classList.toggle('dark-theme')" style="background:none; border:none; font-size:1.5em; cursor:pointer;">🌓</button>
     </div>
 </header>
 
 <div class="hero">
-    <div class="server-status"><div class="pulse"></div> Python Server: Online</div>
-    <h1>إمبراطورية Elnour Mubarak</h1>
-    <p>برمجة، أتمتة، وصناعة محتوى رقمي بمعايير عالمية</p>
+    <h2>مرحباً بك في إمبراطورية Nour Store</h2>
+    <p>أتمتة Python • خدمات عمليّة • رُفَقاء المحبة</p>
 </div>
 
-<div class="affiliate-box">
-    <h3>📊 حاسبة أرباح شركاء النجاح (15%)</h3>
-    <p>اسحب الشريط لتوقع مبيعاتك الشهرية:</p>
-    <input type="range" id="salesRange" min="1" max="100" value="10" oninput="updateAll()">
-    <div style="font-size: 1.2em; margin-top: 15px;">
-        مبيعاتك: <span id="salesNum">10</span> | 
-        ربحك المتوقع: <span id="profitVal" style="color:var(--secondary); font-weight:bold;">0</span> <span class="c-label">SAR</span>
+<div class="portal-grid">
+    <div class="portal-item" onclick="location.href='https://t.me/YOUR_USERNAME'">
+        <strong>Partners Portal</strong><br><small>بوابة الشركاء: انشر منتجاتك</small>
+    </div>
+    <div class="portal-item green">
+        <strong>أتمتة Python</strong><br><small>خدمات تقنية عملية</small>
     </div>
 </div>
 
-<div class="grid">
+<div class="container">
     <div class="card">
-        <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=400" class="card-img">
-        <div class="card-content">
-            <h3>بوت تليجرام Python مخصص</h3>
+        <div style="height:150px; background:#eee; display:flex; align-items:center; justify-content:center; color:#999;">صورة المنتج</div>
+        <div style="padding:20px; text-align:center;">
+            <h3>بوت تليجرام احترافي</h3>
             <div class="price" id="p1" data-base="150">150.00 SAR</div>
-            <button class="btn btn-main" onclick="order('بوت Python')">اطلب الخدمة الآن</button>
-        </div>
-    </div>
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=400" class="card-img">
-        <div class="card-content">
-            <h3>باقة إدارة المحتوى (Blogger)</h3>
-            <div class="price" id="p2" data-base="200">200.00 SAR</div>
-            <button class="btn btn-main" onclick="order('باقة البلوجر')">اطلب الخدمة الآن</button>
+            <p style="font-size:0.8em;">العمولة للمسوقين: 15%</p>
+            <button class="btn btn-buy" onclick="alert('جاري التحويل لطلب الخدمة...')">اطلب الآن</button>
         </div>
     </div>
 </div>
 
-<div class="feed">
-    <h2 style="text-align: center;">📰 آخر التحديثات (The Feed)</h2>
-    <div class="post">
-        <strong>تحديث برمجي:</strong> تم إطلاق نظام العمولات الجديد بنسبة 15% لجميع أعضاء رُفَقاء المحبة.
-    </div>
-    <div class="post">
-        <strong>إدارة المحتوى:</strong> نبدأ اليوم سلسلة تدوينات جديدة حول مهارات الأتمتة باستخدام الهاتف.
-    </div>
+<div class="feed-section">
+    <span class="status-tag">● Active</span>
+    <h3>Last News Feed</h3>
+    <hr>
+    <p>📢 <b>Nour Store:</b> تم تحديث واجهة المستخدم بالألوان الإمبراطورية الجديدة (3 minutes ago)</p>
 </div>
-
-<footer>
-    <p>نحن لا نبيع خدمات، نحن نبني مستقبلاً تعاونياً.</p>
-    <p>© 2026 <b>Elnour Mubarak</b> | جميع الحقوق محفوظة</p>
-</footer>
 
 <script>
     const rates = { SAR: 1, USD: 0.27, SDG: 160, AED: 0.99 };
-    
-    function updateAll() {
-        const curr = document.getElementById('currency').value;
-        const sales = document.getElementById('salesRange').value;
-        document.getElementById('salesNum').innerText = sales;
-        
-        // تحديث الأسعار
-        [1, 2].forEach(id => {
-            const el = document.getElementById('p'+id);
-            const val = (el.getAttribute('data-base') * rates[curr]).toFixed(2);
-            el.innerText = `${val} ${curr}`;
-        });
-
-        // تحديث الحاسبة (بناءً على متوسط سعر 175 ريال)
-        const avgPrice = 175 * rates[curr];
-        const profit = (avgPrice * sales * 0.15).toFixed(2);
-        document.getElementById('profitVal').innerText = profit;
-        document.querySelectorAll('.c-label').forEach(l => l.innerText = curr);
+    function update() {
+        const c = document.getElementById('curr').value;
+        const p1 = document.getElementById('p1');
+        const val = (p1.getAttribute('data-base') * rates[c]).toFixed(2);
+        p1.innerText = `${val} ${c}`;
     }
-
-    function order(item) {
-        const curr = document.getElementById('currency').value;
-        const msg = `مرحباً Elnour Mubarak، أرغب في طلب [${item}] بالعملة: ${curr}`;
-        window.open(`https://t.me/YOUR_USERNAME?text=${encodeURIComponent(msg)}`, '_blank');
-    }
-
-    updateAll(); // تشغيل أولي
 </script>
+
+<footer style="text-align:center; padding:30px; background:var(--primary-green); color:white; margin-top:20px;">
+    <p>© 2026 <b>Elnour Mubarak</b> | رُفَقاء المحبة</p>
+</footer>
 
 </body>
 </html>
