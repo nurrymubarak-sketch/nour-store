@@ -28,7 +28,7 @@
         .bg-user { background: var(--gold); color: #000; }
         .card-inner { padding: 20px; display: flex; gap: 15px; align-items: center; }
         .card-img-box { width: 130px; height: 95px; border-radius: 12px; border: 1.5px solid #D4AF37; overflow: hidden; background: #000; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        .card-img-box img { width: 85%; height: 85%; object-fit: contain; }
+        .card-img-box img { width: 100%; height: 100%; object-fit: contain; }
         .btn-gold { background: var(--gold); color: #000; border: none; padding: 12px 25px; border-radius: 25px; font-weight: bold; cursor: pointer; }
         .page { display: none; position: fixed; inset: 0; background: #0d1117; z-index: 9999; padding: 25px; overflow-y: auto; text-align: right; }
         input, textarea { width: 100%; padding: 14px; margin-top: 10px; border-radius: 10px; border: 1px solid #333; background: #1a1a1a; color: #fff; box-sizing: border-box; }
@@ -56,7 +56,7 @@
     <div class="card">
         <div class="card-head bg-tk">🪙 شحن عملات تيك توك</div>
         <div class="card-inner">
-            <div class="card-img-box"><img src="https://cdn.pixabay.com/photo/2021/06/15/12/28/tiktok-6338429_1280.png"></div>
+            <div class="card-img-box"><img src="https://cdn.pixabay.com/photo/2021/06/15/12/28/tiktok-6338429_1280.png" alt="TikTok"></div>
             <div style="flex:1"><h3 style="margin:0; color:#D4AF37">شحن فوري وآمن</h3><button class="btn-gold" onclick="location.href='https://wa.me/971551505027'">اشحن الآن</button></div>
         </div>
     </div>
@@ -81,7 +81,7 @@
         <div class="card-head bg-ele">📱 إلكترونيات</div>
         <div class="card-inner">
             <div class="card-img-box"><img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=300"></div>
-            <div style="flex:1"><h3 style="margin:0; color:#D4AF37">أجهزة حديثة</h3><button class="btn-gold">تسوق</button></div>
+            <div style="flex:1"><h3 style="margin:0; color:#D4AF37">أجهزة حديثة (تسوق)</h3><button class="btn-gold">تسوق الآن</button></div>
         </div>
     </div>
 </div>
@@ -89,19 +89,24 @@
 <div id="regPage" class="page">
     <h2 style="color:#D4AF37; text-align:center;">بيانات المعلن والمنتج 🚀</h2>
     <label>الاسم الكامل</label><input type="text" id="m-name" required>
-    <label>رابط صورة المنتج (URL)</label><input type="text" id="m-img" required>
+    
+    <label>رفع صورة المنتج</label>
+    <input type="file" id="m-file" accept="image/*" style="padding: 10px;">
+    
     <label>وسيلة التواصل (واتساب/هاتف)</label><input type="text" id="m-contact" required>
-    <label>وصف المنتج / الإعلان</label><textarea id="m-desc" rows="4" required></textarea>
+    <label>وصف المنتج والسعر</label><textarea id="m-desc" rows="4" required></textarea>
+    
     <button class="btn-gold" style="width:100%; margin-top:25px; padding:18px;" onclick="saveAndShow()">نشر الإعلان فوراً</button>
-    <p style="text-align:center; margin-top:30px; color:#666;" onclick="window.history.back()">إلغاء والرجوع</p>
+    <p style="text-align:center; margin-top:30px; color:#666;" onclick="window.history.back()">رجوع</p>
 </div>
 
 <div id="aboutPage" class="page">
     <h2 style="color:#D4AF37; text-align:center;">حول Nore Store 💎</h2>
     <div style="line-height:1.8; text-align: center;">
         <p>نحن نعمل على توفير أفضل خدمات الوساطة التجارية وشحن العملات الرقمية.</p>
-        <p>مهمتنا هي تسهيل عمليات البيع والشراء للمعلنين وضمان الأمان التام للعملاء.</p>
+        <p>تواصل معنا: nurry6666@gmail.com</p>
     </div>
+    <p style="text-align:center; color:#666;" onclick="window.history.back()">رجوع</p>
 </div>
 
 <script>
@@ -110,21 +115,29 @@
 
     function saveAndShow() {
         const name = document.getElementById('m-name').value;
-        const img = document.getElementById('m-img').value;
         const contact = document.getElementById('m-contact').value;
         const desc = document.getElementById('m-desc').value;
+        const fileInput = document.getElementById('m-file');
 
-        if(name && img && contact && desc) {
-            let ads = JSON.parse(localStorage.getItem('nore_final_ads')) || [];
-            ads.unshift({name, img, contact, desc});
-            localStorage.setItem('nore_final_ads', JSON.stringify(ads));
-            location.reload();
-        } else { alert("أكمل البيانات يا غالي"); }
+        if(name && contact && desc) {
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                let ads = JSON.parse(localStorage.getItem('nore_v3_ads')) || [];
+                ads.unshift({name, contact, desc, img: e.target.result});
+                localStorage.setItem('nore_v3_ads', JSON.stringify(ads));
+                location.reload();
+            };
+            if(fileInput.files[0]) {
+                reader.readAsDataURL(fileInput.files[0]);
+            } else {
+                alert("يرجى اختيار صورة للمنتج");
+            }
+        } else { alert("يرجى إكمال البيانات"); }
     }
 
     window.onload = function() {
         const container = document.getElementById('userAdsContainer');
-        const ads = JSON.parse(localStorage.getItem('nore_final_ads')) || [];
+        const ads = JSON.parse(localStorage.getItem('nore_v3_ads')) || [];
         ads.forEach(ad => {
             container.innerHTML += `
                 <div class="card">
