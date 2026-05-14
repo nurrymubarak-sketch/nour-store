@@ -3,111 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nour Store | الإمبراطورية التقنية</title>
+    <title>Nour Store | الإمبراطورية</title>
     <style>
-        :root { 
-            --primary-green: #2D5A43; /* الأخضر الداكن الفخم */
-            --light-green: #3CB371; /* الأخضر المرجاني */
-            --coral-accent: #FF7F50; /* لون المرجان الجذاب */
-            --gold: #D4AF37; /* الذهبي الملكي */
-            --bg: #F4F7F6; --card: #ffffff; --text: #1a1a1a;
+        :root {
+            --bg-color: #0d1b15; /* خلفية داكنة فخمة */
+            --card-coral: #ff7f50; /* المرجاني */
+            --card-green: #2d5a43; /* الأخضر الداكن */
+            --card-gold: #d4af37; /* الذهبي */
+            --text-white: #ffffff;
         }
-        .dark-theme { --bg: #0D1B15; --card: #162B23; --text: #E0E0E0; }
+        body { background-color: var(--bg-color); color: var(--text-white); font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; padding: 0; }
         
-        body { background-color: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin: 0; transition: 0.4s; }
+        /* الهيدر العلوي */
+        header { background: #1a1a1a; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #333; }
+        .currency-bar { background: rgba(255,255,255,0.1); padding: 5px 15px; border-radius: 20px; display: flex; gap: 10px; font-size: 0.8em; align-items: center; }
+
+        /* شعار Nour Store الدائري */
+        .logo-section { text-align: center; padding: 30px 20px; background: linear-gradient(to bottom, #2d5a43, #ff7f50); }
+        .circle-logo { width: 120px; height: 120px; border: 5px solid white; border-radius: 50%; margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; background: white; color: var(--card-green); }
+        .circle-logo span { font-size: 3em; font-weight: bold; line-height: 1; }
+        .logo-name { font-weight: bold; font-size: 1.5em; margin-top: 10px; }
+
+        .welcome-msg { text-align: center; padding: 20px; font-size: 1.2em; font-weight: bold; }
+
+        /* نظام المربعات (Grid) مثل الصورة تماماً */
+        .main-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 20px; }
         
-        /* الهيدر واللوجو الدائري */
-        header { background: var(--card); padding: 10px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 12px rgba(0,0,0,0.08); position: sticky; top: 0; z-index: 1000; border-bottom: 3px solid var(--gold); }
-        .logo-area { text-align: center; display: flex; flex-direction: column; align-items: center; }
-        .circle-logo { width: 60px; height: 60px; border: 3px solid var(--primary-green); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: var(--primary-green); font-size: 1.5em; background: white; box-shadow: 0 0 10px var(--gold); }
-        .logo-text { font-weight: 900; font-size: 1.1em; color: var(--primary-green); margin-top: 5px; }
+        .box { border-radius: 15px; padding: 20px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: 0.3s; cursor: pointer; height: 150px; }
+        .box:hover { transform: scale(1.02); }
+        
+        .box-coral { background-color: var(--card-coral); }
+        .box-green { background-color: var(--card-green); }
+        
+        .box i { font-size: 2.5em; margin-bottom: 10px; }
+        .box-title { font-weight: bold; font-size: 1.1em; }
+        .box-sub { font-size: 0.8em; margin-top: 5px; opacity: 0.9; }
 
-        /* منطقة الترحيب */
-        .hero { background: linear-gradient(135deg, var(--primary-green), var(--light-green)); color: white; padding: 50px 20px; text-align: center; }
-
-        /* بوابة الشركاء (Partners Portal) */
-        .portal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 15px; padding: 20px 5%; }
-        .portal-item { background: var(--coral-accent); color: white; padding: 20px; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(255,127,80,0.3); cursor: pointer; transition: 0.3s; }
-        .portal-item:hover { transform: scale(1.05); }
-        .portal-item.green { background: var(--primary-green); box-shadow: 0 5px 15px rgba(45,90,67,0.3); }
-
-        /* المنتجات */
-        .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; padding: 20px 5%; }
-        .card { background: var(--card); border-radius: 20px; overflow: hidden; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 8px 20px rgba(0,0,0,0.06); }
-        .price { font-size: 1.4em; font-weight: bold; color: var(--coral-accent); margin: 10px 0; }
-
-        /* شريط التحديثات */
-        .feed-section { background: white; margin: 20px 5%; border-radius: 15px; padding: 20px; border-top: 5px solid var(--primary-green); }
-        .status-tag { float: left; color: var(--light-green); font-weight: bold; font-size: 0.8em; }
-
-        .btn { padding: 12px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; width: 100%; transition: 0.2s; }
-        .btn-buy { background: var(--primary-green); color: white; }
+        /* شريط التحديثات الأسفل */
+        .news-feed { background: white; color: black; margin: 20px; border-radius: 10px; padding: 15px; }
+        .status-active { color: #2ecc71; font-weight: bold; float: left; }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="logo-area">
-        <div class="circle-logo">N</div>
-        <div class="logo-text">Nour Store</div>
-    </div>
-    <div style="display: flex; gap: 10px; align-items: center;">
-        <select id="curr" onchange="update()" style="border: 1px solid var(--gold); border-radius: 5px; padding: 5px;">
-            <option value="SAR">🇸🇦 SAR</option>
-            <option value="USD">🇺🇸 USD</option>
-            <option value="SDG">🇸🇩 SDG</option>
-            <option value="AED">🇦🇪 AED</option>
-        </select>
-        <button onclick="document.body.classList.toggle('dark-theme')" style="background:none; border:none; font-size:1.5em; cursor:pointer;">🌓</button>
+    <div style="font-weight: bold;">Nour Store</div>
+    <div class="currency-bar">
+        🇸🇦 SAR | 🇺🇸 USD | 🇸🇩 SDG | 🇦🇪 AED
     </div>
 </header>
 
-<div class="hero">
-    <h2>مرحباً بك في إمبراطورية Nour Store</h2>
-    <p>أتمتة Python • خدمات عمليّة • رُفَقاء المحبة</p>
-</div>
-
-<div class="portal-grid">
-    <div class="portal-item" onclick="location.href='https://t.me/YOUR_USERNAME'">
-        <strong>Partners Portal</strong><br><small>بوابة الشركاء: انشر منتجاتك</small>
+<div class="logo-section">
+    <div class="circle-logo">
+        <span>N</span>
+        <small style="color:black; font-size: 0.3em;">Nour Store</small>
     </div>
-    <div class="portal-item green">
-        <strong>أتمتة Python</strong><br><small>خدمات تقنية عملية</small>
+    <div class="logo-name">Nour Store</div>
+</div>
+
+<div class="welcome-msg">مرحباً بك في إمبراطورية Nour Store</div>
+
+<div class="main-grid">
+    <div class="box box-coral" onclick="location.href='https://t.me/YOUR_USERNAME'">
+        <div style="font-size: 2em;">👥</div>
+        <div class="box-title">Partners Portal</div>
+        <div class="box-sub">بوابة الشركاء: انشر منتجاتك</div>
+    </div>
+
+    <div class="box box-green">
+        <div style="font-size: 2em;">🐍</div>
+        <div class="box-title">أتمتة Python:</div>
+        <div class="box-sub">خدمات عملية</div>
+    </div>
+
+    <div class="box box-green">
+        <div style="font-size: 2em;">📜</div>
+        <div class="box-title">Constitution Ticker</div>
+    </div>
+
+    <div class="box box-coral">
+        <div style="font-size: 2.2em; font-weight: bold;">15%</div>
+        <div class="box-title">Affiliate Calculator</div>
     </div>
 </div>
 
-<div class="container">
-    <div class="card">
-        <div style="height:150px; background:#eee; display:flex; align-items:center; justify-content:center; color:#999;">صورة المنتج</div>
-        <div style="padding:20px; text-align:center;">
-            <h3>بوت تليجرام احترافي</h3>
-            <div class="price" id="p1" data-base="150">150.00 SAR</div>
-            <p style="font-size:0.8em;">العمولة للمسوقين: 15%</p>
-            <button class="btn btn-buy" onclick="alert('جاري التحويل لطلب الخدمة...')">اطلب الآن</button>
-        </div>
+<div class="news-feed">
+    <span class="status-active">Active</span>
+    <div style="font-weight: bold; border-bottom: 1px solid #ddd; padding-bottom: 5px;">Last News Feed</div>
+    <p style="font-size: 0.9em; margin-top: 10px;">Real-time updates from Nour Store</p>
+    <div style="display: flex; align-items: center; gap: 10px;">
+        <div style="background: var(--card-green); width: 30px; height: 30px; border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; font-size: 0.6em;">N</div>
+        <span style="font-size: 0.8em;"><b>Nour Store:</b> تم تحديث الموقع بنجاح.</span>
     </div>
 </div>
-
-<div class="feed-section">
-    <span class="status-tag">● Active</span>
-    <h3>Last News Feed</h3>
-    <hr>
-    <p>📢 <b>Nour Store:</b> تم تحديث واجهة المستخدم بالألوان الإمبراطورية الجديدة (3 minutes ago)</p>
-</div>
-
-<script>
-    const rates = { SAR: 1, USD: 0.27, SDG: 160, AED: 0.99 };
-    function update() {
-        const c = document.getElementById('curr').value;
-        const p1 = document.getElementById('p1');
-        const val = (p1.getAttribute('data-base') * rates[c]).toFixed(2);
-        p1.innerText = `${val} ${c}`;
-    }
-</script>
-
-<footer style="text-align:center; padding:30px; background:var(--primary-green); color:white; margin-top:20px;">
-    <p>© 2026 <b>Elnour Mubarak</b> | رُفَقاء المحبة</p>
-</footer>
 
 </body>
 </html>
