@@ -36,12 +36,11 @@
 
         .container { width: 92%; margin: 20px auto; padding-bottom: 80px; }
         
-        /* تصميم البطاقة المظبوط (صورة يمين - نص يسار) */
         .card {
             background: var(--card-gray); border-radius: 20px; margin-bottom: 25px;
             overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.3); text-align: right;
         }
-        .card-head { padding: 10px 15px; font-weight: bold; color: #fff; }
+        .card-head { padding: 12px 15px; font-weight: bold; color: #fff; display: flex; align-items: center; gap: 10px; }
         
         /* ألوان الأقسام */
         .bg-car { background: #064e3b; }
@@ -59,7 +58,7 @@
             background: var(--gold); color: #000; border: none; padding: 10px 20px;
             border-radius: 20px; font-weight: bold; cursor: pointer; text-decoration: none; display: inline-block; font-size: 14px;
         }
-        .add-fab { position: fixed; bottom: 20px; left: 20px; width: 60px; height: 60px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; color: #000; cursor: pointer; border: none; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        .category-icon { font-size: 20px; }
     </style>
 </head>
 <body>
@@ -70,87 +69,79 @@
         <div style="color:#D4AF37; font-weight:bold;">Nore Store</div>
     </div>
     <div class="search-container">
-        <input type="text" class="search-bar" placeholder="🔍 ابحث عن سيارات، وظائف، عقارات...">
+        <input type="text" class="search-bar" placeholder="🔍 ابحث عن ما تحتاجه...">
     </div>
 </header>
 
 <div class="container">
     
     <div class="card">
-        <div class="card-head bg-car">🚗 سيارات مستعملة</div>
+        <div class="card-head bg-car"><span class="category-icon">🚗</span> سيارات مستعملة</div>
         <div class="card-inner">
             <div class="card-img-box"><img src="https://images.unsplash.com/photo-1550355291-bbee04a92027?q=80&w=300"></div>
             <div style="flex:1">
                 <h3 style="margin:0; color:#D4AF37; font-size: 16px;">سوق السيارات</h3>
-                <p style="margin:5px 0; font-size:12px; color:#ccc;">بيع وشراء السيارات بأفضل الأسعار</p>
-                <button class="btn-gold">تصفح الآن</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-head bg-house">🏠 عقارات (إيجار)</div>
-        <div class="card-inner">
-            <div class="card-img-box"><img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=300"></div>
-            <div style="flex:1">
-                <h3 style="margin:0; color:#D4AF37; font-size: 16px;">شقق وبيوت للإيجار</h3>
-                <p style="margin:5px 0; font-size:12px; color:#ccc;">ابحث عن سكنك المناسب</p>
-                <button class="btn-gold">شاهد العروض</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-head bg-serv">🛠️ خدمات منزلية</div>
-        <div class="card-inner">
-            <div class="card-img-box"><img src="https://images.unsplash.com/photo-1581578731548-c64695ce6958?q=80&w=300"></div>
-            <div style="flex:1">
-                <h3 style="margin:0; color:#D4AF37; font-size: 16px;">صيانة ونظافة</h3>
-                <p style="margin:5px 0; font-size:12px; color:#ccc;">فنيين سباكة، كهرباء، ونظافة</p>
-                <button class="btn-gold">اطلب خدمة</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-head bg-phone">📱 جوالات وأجهزة إلكترونية</div>
-        <div class="card-inner">
-            <div class="card-img-box"><img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=300"></div>
-            <div style="flex:1">
-                <h3 style="margin:0; color:#D4AF37; font-size: 16px;">عالم التقنية</h3>
-                <p style="margin:5px 0; font-size:12px; color:#ccc;">أحدث الجوالات واللابتوبات</p>
                 <button class="btn-gold">تصفح</button>
             </div>
         </div>
     </div>
 
     <div class="card">
-        <div class="card-head bg-furn">🛋️ أثاث مستعمل</div>
+        <div class="card-head bg-house"><span class="category-icon">🏠</span> عقارات (إيجار)</div>
         <div class="card-inner">
-            <div class="card-img-box"><img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=300"></div>
+            <div class="card-img-box"><img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=300"></div>
             <div style="flex:1">
-                <h3 style="margin:0; color:#D4AF37; font-size: 16px;">سوق الأثاث</h3>
-                <p style="margin:5px 0; font-size:12px; color:#ccc;">فرش بيتك بأسعار اقتصادية</p>
-                <button class="btn-gold">مشاهدة</button>
+                <h3 style="margin:0; color:#D4AF37; font-size: 16px;">شقق وبيوت</h3>
+                <button class="btn-gold">شاهد</button>
             </div>
         </div>
     </div>
 
     <div class="card">
-        <div class="card-head bg-job">💼 وظائف وطلبات عمل</div>
+        <div class="card-head bg-serv"><span class="category-icon">🛠️✨</span> صيانة ونظافة</div>
+        <div class="card-inner">
+            <div class="card-img-box"><img src="https://images.unsplash.com/photo-1581578731548-c64695ce6958?q=80&w=300"></div>
+            <div style="flex:1">
+                <h3 style="margin:0; color:#D4AF37; font-size: 16px;">صيانة شاملة ونظافة</h3>
+                <button class="btn-gold">اطلب الآن</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-head bg-phone"><span class="category-icon">📱</span> جوالات وإلكترونيات</div>
+        <div class="card-inner">
+            <div class="card-img-box"><img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=300"></div>
+            <div style="flex:1">
+                <h3 style="margin:0; color:#D4AF37; font-size: 16px;">أحدث التقنيات</h3>
+                <button class="btn-gold">تصفح</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-head bg-furn"><span class="category-icon">🛋️</span> أثاث مستعمل</div>
+        <div class="card-inner">
+            <div class="card-img-box"><img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=300"></div>
+            <div style="flex:1">
+                <h3 style="margin:0; color:#D4AF37; font-size: 16px;">فرش أثاث</h3>
+                <button class="btn-gold">تصفح</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-head bg-job"><span class="category-icon">💼</span> وظائف وطلبات عمل</div>
         <div class="card-inner">
             <div class="card-img-box"><img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=300"></div>
             <div style="flex:1">
-                <h3 style="margin:0; color:#D4AF37; font-size: 16px;">فرص العمل</h3>
-                <p style="margin:5px 0; font-size:12px; color:#ccc;">ابحث عن وظيفة أو موظف</p>
-                <button class="btn-gold">سجل الآن</button>
+                <h3 style="margin:0; color:#D4AF37; font-size: 16px;">فرص التوظيف</h3>
+                <button class="btn-gold">مشاهدة</button>
             </div>
         </div>
     </div>
 
 </div>
-
-<button class="add-fab" onclick="alert('قريباً: سيتم فتح باب إضافة الإعلانات لكل قسم')">+</button>
 
 </body>
 </html>
