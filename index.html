@@ -6,22 +6,49 @@
     <title>متجر نور | Elnour Mubarak</title>
     <style>
         :root { --primary: #3CB371; --secondary: #228B22; }
-        body { background-color: var(--secondary); color: white; font-family: sans-serif; margin: 0; text-align: center; }
-        header { background-color: var(--primary); padding: 40px 20px; border-bottom: 8px solid #1a6b1a; }
-        .box { background: white; color: #333; margin: 20px auto; padding: 30px; border-radius: 20px; width: 80%; max-width: 400px; }
-        .btn { background: var(--primary); color: white; padding: 15px; border-radius: 10px; text-decoration: none; display: block; margin-top: 20px; font-weight: bold; }
+        body { background-color: var(--secondary); color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; }
+        header { background-color: var(--primary); padding: 50px 20px; text-align: center; border-bottom: 10px solid #1a6b1a; }
+        .container { display: flex; flex-wrap: wrap; justify-content: center; padding: 20px; }
+        .card { background: white; color: #333; margin: 15px; padding: 25px; border-radius: 15px; width: 300px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+        .card h3 { color: var(--secondary); border-bottom: 2px solid var(--primary); padding-bottom: 10px; }
+        .btn { background: var(--primary); color: white; padding: 12px; border-radius: 8px; text-decoration: none; display: block; margin-top: 15px; font-weight: bold; text-align: center; }
+        .badge { background: #ffd700; color: #333; padding: 5px 10px; border-radius: 5px; font-size: 0.8em; font-weight: bold; }
     </style>
 </head>
 <body>
-    <header>
-        <h1>متجر نور (Nour Store)</h1>
-        <p>المدير التنفيذي: <b>Elnour Mubarak</b></p>
-    </header>
-    <div class="box">
-        <h3>لوحة إدارة العمولات (15%)</h3>
-        <p>مرحباً بك يا <b>SoOo</b></p>
-        <p>مجتمع: رُفَقاء المحبة</p>
-        <a href="#" class="btn">دخول الإدارة</a>
+
+<header>
+    <h1>متجر نور (Nour Store)</h1>
+    <p>المنصة الرسمية للمدير التنفيذي: <b>Elnour Mubarak</b></p>
+    <span class="badge">مدون وبلوجر معتمد</span>
+</header>
+
+<div class="container">
+    <!-- الجانب العملي 1: إدارة العمولات -->
+    <div class="card">
+        <h3>نظام العمولات الرقمي</h3>
+        <p>توزيع تلقائي للأرباح بنسبة <b>15%</b> لشركاء النجاح تحت إشرافنا المباشر.</p>
+        <a href="#" class="btn">تتبع العمولات</a>
     </div>
+
+    <!-- الجانب العملي 2: البرمجة والأتمتة -->
+    <div class="card">
+        <h3>خدمات الأتمتة (Python)</h3>
+        <p>تطوير بوتات تليجرام متقدمة وسكريبتات ذكية لإدارة المحتوى الرقمي بفعالية.</p>
+        <a href="#" class="btn">طلب سكريبت</a>
+    </div>
+
+    <!-- الجانب العملي 3: ميثاق المجتمع -->
+    <div class="card">
+        <h3>رُفَقاء المحبة</h3>
+        <p>نعمل وفق دستور "رُفَقاء المحبة" لضمان التعاون والشفافية بين جميع الأعضاء.</p>
+        <a href="#" class="btn">قراءة الميثاق</a>
+    </div>
+</div>
+
+<footer style="text-align: center; padding: 20px; font-size: 0.9em;">
+    &copy; 2026 Elnour Mubarak. جميع الحقوق محفوظة.
+</footer>
+
 </body>
 </html>
