@@ -6,64 +6,52 @@
     <title>Nour Real Estate | عقارات دبي</title>
     <style>
         :root { --gold: #D4AF37; --dark: #1a1a1a; --bg: #f4f4f4; }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: var(--bg); color: var(--dark); }
-        header { background: var(--dark); color: var(--gold); padding: 20px; text-align: center; font-size: 1.5em; font-weight: bold; border-bottom: 3px solid var(--gold); }
-        .hero { background: var(--dark); color: white; padding: 40px 20px; text-align: center; }
-        .container { padding: 20px; max-width: 600px; margin: auto; }
-        .card { background: white; border-radius: 20px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-bottom: 25px; border-top: 5px solid var(--gold); }
-        input, select, button { width: 100%; padding: 14px; margin: 10px 0; border-radius: 12px; border: 1px solid #ddd; box-sizing: border-box; font-size: 1em; }
-        button { background: var(--dark); color: var(--gold); font-weight: bold; border: 1px solid var(--gold); cursor: pointer; transition: 0.3s; }
-        button:hover { background: var(--gold); color: var(--dark); }
+        body { font-family: sans-serif; margin: 0; background: var(--bg); color: var(--dark); text-align: center; }
+        header { background: var(--dark); color: var(--gold); padding: 20px; font-size: 1.3em; font-weight: bold; border-bottom: 3px solid var(--gold); }
+        .container { padding: 20px; max-width: 450px; margin: auto; }
+        .card { background: white; border-radius: 20px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-bottom: 25px; }
+        input, select, button { width: 100%; padding: 14px; margin: 10px 0; border-radius: 12px; border: 1px solid #ddd; box-sizing: border-box; }
+        button { background: var(--dark); color: var(--gold); font-weight: bold; border: 1px solid var(--gold); cursor: pointer; }
         .hidden { display: none; }
-        .property-card { background: white; border-radius: 15px; padding: 15px; margin: 15px 0; border-right: 8px solid var(--gold); text-align: right; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .price { color: #2d5a43; font-weight: bold; font-size: 1.2em; }
-        .location { color: #666; font-size: 0.9em; }
+        .property-card { background: white; border-radius: 15px; padding: 15px; margin: 15px 0; border-right: 8px solid var(--gold); text-align: right; }
     </style>
 </head>
 <body>
 
 <header>NOUR REAL ESTATE | نُور للعقارات</header>
 
-<div class="hero">
-    <h2>استثمر في مستقبل دبي 🏗️</h2>
-    <p>المنصة الأولى لربط المطورين العقاريين بالمستثمرين</p>
-</div>
-
 <div class="container">
-    <div id="authSection" class="card">
-        <h3>تسجيل المطورين والوكلاء</h3>
-        <input type="email" id="email" placeholder="البريد الإلكتروني للشركة">
-        <input type="password" id="password" placeholder="كلمة السر">
-        <button onclick="login()">دخول الوكلاء</button>
-        <button onclick="register()" style="background: var(--gold); color: var(--dark);">تسجيل شركة عقارية جديدة</button>
+    <div id="loginSection" class="card">
+        <h3>دخول الوكلاء العقاريين</h3>
+        <input type="text" id="userNick" placeholder="اسم المستخدم (مثلاً: SoOo)">
+        <input type="password" id="userPass" placeholder="كلمة السر">
+        <button onclick="simpleLogin()">دخول / تسجيل جديد</button>
+        <p style="font-size: 0.8em; color: #666;">إذا كنت جديداً، سيتم إنشاء حسابك تلقائياً عند الضغط</p>
     </div>
 
-    <div id="dashboardSection" class="card hidden">
-        <h3 id="welcomeMsg">مرحباً بك في لوحة الإدراج</h3>
+    <div id="dashSection" class="card hidden">
+        <h3 id="hello">مرحباً</h3>
         <div style="border-top: 1px solid #eee; padding-top: 10px;">
-            <h4>إضافة عقار جديد بالمنصة 🏠</h4>
-            <input type="text" id="propName" placeholder="اسم المشروع (مثلاً: برج خليفة)">
-            <select id="propLocation">
+            <h4>إضافة عقار جديد في دبي 🏙️</h4>
+            <input type="text" id="pName" placeholder="اسم المشروع">
+            <select id="pLoc">
                 <option value="دبي مارينا">دبي مارينا</option>
                 <option value="نخلة جميرا">نخلة جميرا</option>
-                <option value="وسط مدينة دبي (DownTown)">وسط مدينة دبي</option>
-                <option value="الخليج التجاري">الخليج التجاري</option>
-                <option value="قرية جميرا الدائرية (JVC)">JVC</option>
+                <option value="داون تاون دبي">داون تاون دبي</option>
             </select>
-            <input type="number" id="propPrice" placeholder="السعر (AED)">
-            <button onclick="addProperty()">نشر العقار الآن</button>
+            <input type="number" id="pPrice" placeholder="السعر بالدرهم (AED)">
+            <button onclick="addProp()">نشر العقار الآن</button>
         </div>
-        <button onclick="logout()" style="background:#eee; color:#333; border:none; margin-top:20px;">تسجيل خروج</button>
+        <button onclick="location.reload()" style="background:#eee; color:#333; border:none; margin-top:10px;">خروج</button>
     </div>
 
     <div class="card">
-        <h3 style="color: var(--gold);">العقارات المتاحة في دبي 📍</h3>
-        <div id="propertiesList">جاري تحميل أحدث العروض...</div>
+        <h3 style="color: var(--gold);">أحدث العقارات 📍</h3>
+        <div id="list">جاري التحميل...</div>
     </div>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
 
 <script>
@@ -76,65 +64,53 @@
         appId: "1:1058922024981:web:8317653906d138ec8bfe1c"
     };
     firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
     const db = firebase.firestore();
 
-    async function register() {
-        const e = document.getElementById('email').value;
-        const p = document.getElementById('password').value;
-        try { await auth.createUserWithEmailAndPassword(e, p); alert("تم إنشاء حساب شركتكم بنجاح!"); }
-        catch(err) { alert("خطأ في التسجيل: " + err.message); }
-    }
+    let currentAgent = "";
 
-    async function login() {
-        const e = document.getElementById('email').value;
-        const p = document.getElementById('password').value;
-        try { await auth.signInWithEmailAndPassword(e, p); }
-        catch(err) { alert("تأكد من بيانات الدخول"); }
-    }
-
-    function logout() { auth.signOut(); location.reload(); }
-
-    auth.onAuthStateChanged(user => {
-        if (user) {
-            document.getElementById('authSection').classList.add('hidden');
-            document.getElementById('dashboardSection').classList.remove('hidden');
-            document.getElementById('welcomeMsg').innerText = "الوكيل: " + user.email;
+    // دخول بسيط بدون تعقيدات الإيميل
+    function simpleLogin() {
+        const user = document.getElementById('userNick').value;
+        const pass = document.getElementById('userPass').value;
+        if(user.length > 2 && pass.length > 3) {
+            currentAgent = user;
+            document.getElementById('loginSection').classList.add('hidden');
+            document.getElementById('dashSection').classList.remove('hidden');
+            document.getElementById('hello').innerText = "أهلاً بك يا " + user;
+        } else {
+            alert("يرجى كتابة اسم وباسوورد (أكثر من 4 أرقام)");
         }
-    });
+    }
 
-    async function addProperty() {
-        const name = document.getElementById('propName').value;
-        const loc = document.getElementById('propLocation').value;
-        const price = document.getElementById('propPrice').value;
-        
+    async function addProp() {
+        const name = document.getElementById('pName').value;
+        const loc = document.getElementById('pLoc').value;
+        const price = document.getElementById('pPrice').value;
         if(name && price) {
             await db.collection("properties").add({
                 propertyName: name,
                 location: loc,
                 price: price,
-                agent: auth.currentUser.email,
-                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                agent: currentAgent,
+                time: firebase.firestore.FieldValue.serverTimestamp()
             });
-            alert("تم إدراج العقار بنجاح!");
-            document.getElementById('propName').value = "";
-            document.getElementById('propPrice').value = "";
+            alert("تم النشر!");
+            document.getElementById('pName').value = "";
+            document.getElementById('pPrice').value = "";
         }
     }
 
-    // عرض العقارات وتحديثها لحظياً
-    db.collection("properties").orderBy("createdAt", "desc").onSnapshot(snap => {
+    db.collection("properties").orderBy("time", "desc").onSnapshot(snap => {
         let html = "";
         snap.forEach(doc => {
             const p = doc.data();
             html += `<div class="property-card">
-                <strong>🏙️ ${p.propertyName}</strong> <br>
-                <span class="location">📍 الموقع: ${p.location}</span> <br>
-                <span class="price">💰 السعر: ${Number(p.price).toLocaleString()} AED</span> <br>
-                <small style="color:#999">المعلن: ${p.agent}</small>
+                <strong>🏠 ${p.propertyName}</strong> <br>
+                <span>📍 ${p.location}</span> | <span style="color:green">${Number(p.price).toLocaleString()} AED</span> <br>
+                <small>بواسطة: ${p.agent}</small>
             </div>`;
         });
-        document.getElementById('propertiesList').innerHTML = html || "لا توجد عقارات مدرجة حالياً";
+        document.getElementById('list').innerHTML = html || "لا توجد عقارات";
     });
 </script>
 </body>
