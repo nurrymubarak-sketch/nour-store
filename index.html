@@ -5,74 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nore Store | متجر نوري</title>
     <style>
-        :root {
-            --gold: #D4AF37;
-            --dark-bg: #0b0e14;
-            --card-bg: #161b22;
-        }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: var(--dark-bg); color: #fff; text-align: center; }
+        /* التنسيق الأصلي اللي طلبته */
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #0b0e14; color: #fff; text-align: center; }
+        header { background: #0b0e14; padding: 25px; border-bottom: 2px solid #D4AF37; }
+        .logo { font-size: 30px; font-weight: bold; color: #D4AF37; }
 
-        header { background: var(--dark-bg); padding: 20px 0; border-bottom: 2px solid var(--gold); position: sticky; top: 0; z-index: 1000; }
-        .logo { font-size: 35px; font-weight: bold; color: var(--gold); text-decoration: none; }
+        /* ميزة البحث (هادئة جداً) */
+        .search-area { padding: 15px; }
+        #search { width: 90%; padding: 10px; border-radius: 5px; border: 1px solid #333; background: #1a1a1a; color: #fff; }
 
-        .search-area { width: 90%; margin: 15px auto; }
-        .search-box { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #333; background: #1a1a1a; color: #fff; outline: none; }
+        .container { width: 95%; margin: auto; padding-bottom: 80px; }
 
-        /* الأقسام بشكل بسيط جداً */
-        .cats { display: flex; gap: 10px; overflow-x: auto; padding: 10px; width: 90%; margin: auto; scrollbar-width: none; }
-        .cats span { background: #1a1a1a; padding: 5px 15px; border-radius: 20px; font-size: 12px; border: 1px solid #333; white-space: nowrap; cursor: pointer; }
-        .cats span.active { background: var(--gold); color: #000; border: none; }
+        /* البطاقات العمودية (نفس تصميمك الأول) */
+        .card { background: #161b22; border-radius: 10px; margin-bottom: 20px; border: 1px solid #222; text-align: right; overflow: hidden; }
+        .card img { width: 100%; height: auto; display: block; border-bottom: 1px solid #222; }
+        .card-info { padding: 15px; }
+        .card-title { font-size: 22px; color: #D4AF37; margin: 0; }
+        .price { color: #2ecc71; font-weight: bold; font-size: 18px; display: block; margin: 10px 0; }
+        .desc { font-size: 14px; color: #ccc; line-height: 1.5; }
 
-        .container { width: 95%; margin: auto; padding-bottom: 100px; }
-
-        /* التصميم القديم: بطاقات عمودية واضحة */
-        .card { background: var(--card-bg); border-radius: 15px; margin-bottom: 20px; overflow: hidden; border: 1px solid #222; text-align: right; display: flex; flex-direction: column; }
+        /* الأزرار */
+        .btn-wa { background: #D4AF37; color: #000; border: none; padding: 15px; border-radius: 5px; width: 100%; font-weight: bold; cursor: pointer; text-decoration: none; display: block; margin-top: 15px; text-align: center; }
         
-        .card-img { width: 100%; height: auto; max-height: 350px; object-fit: cover; border-bottom: 1px solid #222; }
+        .add-btn { position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; background: #D4AF37; border-radius: 50%; font-size: 30px; color: #000; border: none; cursor: pointer; z-index: 1000; }
 
-        .card-body { padding: 15px; position: relative; }
-        .ad-title { font-size: 20px; color: var(--gold); margin: 0; }
-        .verified { font-size: 12px; color: #3897f0; margin-right: 5px; }
-        
-        .stats { font-size: 10px; color: #666; margin-top: 5px; display: block; }
-        .price { color: #2ecc71; font-weight: bold; font-size: 18px; margin: 8px 0; display: block; }
-        .desc { font-size: 14px; color: #aaa; line-height: 1.6; }
-
-        .btn-wa { background: var(--gold); color: #000; border: none; padding: 14px; border-radius: 10px; font-weight: bold; cursor: pointer; text-align: center; text-decoration: none; display: block; margin-top: 15px; animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.02); } 100% { transform: scale(1); } }
-
-        .add-btn { position: fixed; bottom: 25px; right: 25px; width: 65px; height: 65px; background: var(--gold); border-radius: 50%; border: none; font-size: 35px; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.5); z-index: 2000; }
-
-        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 3000; padding: 25px; overflow-y: auto; text-align: right; }
-        input, textarea, select { width: 100%; padding: 14px; margin-top: 10px; border-radius: 10px; border: 1px solid #333; background: #111; color: #fff; box-sizing: border-box; }
+        /* مودال الإضافة */
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 2000; padding: 20px; overflow-y: auto; text-align: right; }
+        input, textarea { width: 100%; padding: 12px; margin-top: 10px; border-radius: 5px; border: 1px solid #333; background: #111; color: #fff; box-sizing: border-box; }
     </style>
 </head>
 <body>
 
-<header>
-    <div class="logo">NORE STORE</div>
-</header>
+<header><div class="logo">NORE STORE</div></header>
 
 <div class="search-area">
-    <input type="text" id="search" class="search-box" placeholder="ابحث عن إعلان..." onkeyup="filter()">
+    <input type="text" id="search" placeholder="بحث عن إعلان..." onkeyup="doSearch()">
 </div>
 
-<div class="cats">
-    <span class="active">الكل</span>
-    <span>شحن عملات</span>
-    <span>إلكترونيات</span>
-    <span>خدمات</span>
-</div>
-
-<div class="container" id="adsGrid">
-    <div class="card ad-item">
-        <img src="https://cdn.pixabay.com/photo/2021/01/30/06/42/tiktok-5962992_1280.png" class="card-img">
-        <div class="card-body">
-            <h3 class="ad-title">شحن تيك توك رسمي <span class="verified">☑️ موثوق</span></h3>
-            <span class="stats">👁️ 1.2k مشاهدة • نُشر مؤخراً</span>
-            <span class="price">فوري - آمن 100%</span>
-            <p class="desc">اشحن حسابك في ثواني برقم الآيدي فقط. متوفر على مدار الساعة لخدمتكم.</p>
-            <a href="https://wa.me/971551505027?text=أريد_استفسار_عن_شحن_تيك_توك" class="btn-wa">💬 تواصل الآن واتساب</a>
+<div class="container" id="adsList">
+    <div class="card ad-box">
+        <img src="https://cdn.pixabay.com/photo/2021/01/30/06/42/tiktok-5962992_1280.png">
+        <div class="card-info">
+            <h3 class="card-title">شحن تيك توك فوري</h3>
+            <span class="price">سعر منافس</span>
+            <p class="desc">شحن رسمي برقم الآيدي، استلام خلال دقائق.</p>
+            <a href="https://wa.me/971551505027" class="btn-wa">تواصل واتساب</a>
         </div>
     </div>
 </div>
@@ -80,55 +57,56 @@
 <button class="add-btn" onclick="document.getElementById('postModal').style.display='block'">+</button>
 
 <div id="postModal" class="modal">
-    <h2 style="color:var(--gold); text-align:center;">إضافة إعلان جديد 🚀</h2>
-    <input type="text" id="m-title" placeholder="عنوان الإعلان">
-    <input type="text" id="m-price" placeholder="السعر">
-    <input type="file" id="m-img" accept="image/*">
-    <input type="text" id="m-wa" placeholder="رقم الواتساب">
-    <textarea id="m-desc" rows="4" placeholder="وصف المنتج..."></textarea>
-    <button class="btn-wa" style="width:100%; animation:none;" onclick="saveAd()">🚀 انشر إعلاني الآن</button>
-    <p style="text-align:center; color:#666; margin-top:20px;" onclick="this.parentElement.style.display='none'">إلغاء</p>
+    <h2 style="color:#D4AF37; text-align:center;">إضافة إعلان جديد</h2>
+    <input type="text" id="t-title" placeholder="عنوان الإعلان">
+    <input type="text" id="t-price" placeholder="السعر">
+    <input type="file" id="t-img" accept="image/*">
+    <input type="text" id="t-wa" placeholder="رقم الواتساب">
+    <textarea id="t-desc" rows="4" placeholder="وصف المنتج..."></textarea>
+    <button class="btn-wa" style="margin-top:20px;" onclick="saveAd()">نشر الآن</button>
+    <p style="text-align:center; color:#888;" onclick="this.parentElement.style.display='none'">إلغاء</p>
 </div>
 
 <script>
-    function filter() {
+    function doSearch() {
         let val = document.getElementById('search').value.toLowerCase();
-        let items = document.querySelectorAll('.ad-item');
-        items.forEach(i => i.style.display = i.innerText.toLowerCase().includes(val) ? 'flex' : 'none');
+        let ads = document.querySelectorAll('.ad-box');
+        ads.forEach(ad => {
+            ad.style.display = ad.innerText.toLowerCase().includes(val) ? 'block' : 'none';
+        });
     }
 
     function saveAd() {
-        const title = document.getElementById('m-title').value;
-        const price = document.getElementById('m-price').value;
-        const wa = document.getElementById('m-wa').value;
-        const desc = document.getElementById('m-desc').value;
-        const file = document.getElementById('m-img').files[0];
+        const title = document.getElementById('t-title').value;
+        const price = document.getElementById('t-price').value;
+        const wa = document.getElementById('t-wa').value;
+        const desc = document.getElementById('t-desc').value;
+        const file = document.getElementById('t-img').files[0];
 
         if(title && wa && file) {
             const reader = new FileReader();
             reader.onload = function(e) {
-                let list = JSON.parse(localStorage.getItem('nore_vFinal')) || [];
-                list.unshift({title, price, wa, desc, img: e.target.result});
-                localStorage.setItem('nore_vFinal', JSON.stringify(list));
+                let ads = JSON.parse(localStorage.getItem('nore_ads_fixed')) || [];
+                ads.unshift({title, price, wa, desc, img: e.target.result});
+                localStorage.setItem('nore_ads_fixed', JSON.stringify(ads));
                 location.reload();
             };
             reader.readAsDataURL(file);
-        } else { alert("يا SoOo، البيانات ناقصة!"); }
+        } else { alert("يا SoOo، كمل البيانات!"); }
     }
 
     window.onload = function() {
-        const grid = document.getElementById('adsGrid');
-        const list = JSON.parse(localStorage.getItem('nore_vFinal')) || [];
-        list.forEach(ad => {
-            grid.innerHTML += `
-                <div class="card ad-item">
-                    <img src="${ad.img}" class="card-img">
-                    <div class="card-body">
-                        <h3 class="ad-title">${ad.title} <span class="verified">☑️</span></h3>
-                        <span class="stats">👁️ ${Math.floor(Math.random()*100)} مشاهدة</span>
-                        <span class="price">${ad.price || 'اتصل'}</span>
+        const list = document.getElementById('adsList');
+        const ads = JSON.parse(localStorage.getItem('nore_ads_fixed')) || [];
+        ads.forEach(ad => {
+            list.innerHTML += `
+                <div class="card ad-box">
+                    <img src="${ad.img}">
+                    <div class="card-info">
+                        <h3 class="card-title">${ad.title}</h3>
+                        <span class="price">${ad.price}</span>
                         <p class="desc">${ad.desc}</p>
-                        <a href="https://wa.me/${ad.wa}?text=أريد_الاستفسار_عن:_${ad.title}" class="btn-wa">💬 تواصل واتساب</a>
+                        <a href="https://wa.me/${ad.wa}" class="btn-wa">تواصل واتساب</a>
                     </div>
                 </div>`;
         });
