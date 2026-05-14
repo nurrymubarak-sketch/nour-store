@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nore Store | متجر نوري</title>
+    
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
     <style>
         :root {
             --gold: linear-gradient(135deg, #D4AF37, #F9F295, #B8860B);
@@ -16,36 +20,28 @@
         .logo-box { border: 2px solid #D4AF37; display: inline-block; padding: 10px 25px; border-radius: 15px; background: #000; margin-bottom: 5px; }
         .logo-n { font-size: 50px; background: var(--gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-family: serif; margin: 0; line-height: 1; }
         
-        /* تنسيق الجملة الجذابة والترجمة */
-        .sub-logo { margin-top: 10px; padding: 0 10px; }
+        .sub-logo { margin-top: 10px; }
         .sub-logo .ar { color: #D4AF37; font-size: 18px; font-weight: bold; display: block; }
-        .sub-logo .en { color: #aaa; font-size: 12px; font-style: italic; display: block; margin-top: 4px; letter-spacing: 0.5px; }
+        .sub-logo .en { color: #aaa; font-size: 11px; font-style: italic; display: block; margin-top: 4px; }
 
         .container { width: 92%; margin: 20px auto; padding-bottom: 50px; }
-        
-        /* زر بوابة المعلنين */
-        .btn-portal { background: var(--gold); color: #000; padding: 15px; border-radius: 15px; font-weight: bold; width: 100%; border: none; margin-bottom: 30px; font-size: 16px; cursor: pointer; display: block; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2); }
+        .btn-portal { background: var(--gold); color: #000; padding: 15px; border-radius: 15px; font-weight: bold; width: 100%; border: none; margin-bottom: 30px; font-size: 16px; cursor: pointer; display: block; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); }
 
-        /* تنسيق الكروت */
         .card { background: var(--card-gray); border-radius: 20px; margin-bottom: 25px; overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.3); text-align: right; }
-        .card-head { padding: 12px 15px; font-weight: bold; color: #fff; font-size: 14px; display: flex; align-items: center; gap: 8px; }
+        .card-head { padding: 12px 15px; font-weight: bold; color: #fff; font-size: 14px; background: #064e3b; }
         
-        .bg-car { background: #064e3b; } .bg-house { background: #1e3a8a; } .bg-serv { background: #431407; }
-        .bg-phone { background: #581c87; } .bg-furn { background: #78350f; } .bg-job { background: #164e63; }
+        .ad-list { background: #1a1a1a; padding: 10px; min-height: 20px; }
+        .user-ad { display: flex; padding: 12px; border-bottom: 1px solid #333; gap: 12px; align-items: center; animation: fadeIn 0.5s; }
+        .user-ad img { width: 85px; height: 85px; border-radius: 10px; object-fit: cover; border: 1.5px solid #D4AF37; }
+        .user-ad div { flex: 1; }
+        .user-ad strong { color: #D4AF37; font-size: 15px; display: block; margin-bottom: 4px; }
+        .user-ad p { margin: 0; font-size: 13px; color: #ccc; line-height: 1.4; }
 
-        .card-inner { padding: 15px; display: flex; gap: 15px; align-items: center; }
-        .card-img-box { width: 110px; height: 90px; border-radius: 12px; border: 1.5px solid #D4AF37; overflow: hidden; flex-shrink: 0; }
-        .card-img-box img { width: 100%; height: 100%; object-fit: cover; }
-        
-        .info-side { flex: 1; }
-        .info-side h3 { margin: 0; color: #D4AF37; font-size: 16px; }
-        .btn-gold { background: var(--gold); color: #000; padding: 8px 15px; border-radius: 20px; font-weight: bold; text-decoration: none; display: inline-block; font-size: 12px; margin-top: 8px; }
-
-        /* صفحة التسجيل (البوابة) */
         .page { display: none; position: fixed; inset: 0; background: #0d1117; z-index: 9999; padding: 25px; overflow-y: auto; text-align: right; }
-        input, select, textarea { width: 100%; padding: 12px; margin-top: 8px; border-radius: 10px; border: 1px solid #333; background: #1a1a1a; color: #fff; box-sizing: border-box; font-family: inherit; }
-        label { display: block; margin-top: 15px; color: #D4AF37; font-weight: bold; font-size: 14px; }
-        .btn-send { background: var(--gold); color: #000; padding: 15px; border-radius: 15px; font-weight: bold; width: 100%; border: none; margin-top: 25px; cursor: pointer; font-size: 16px; }
+        input, select, textarea { width: 100%; padding: 12px; margin-top: 8px; border-radius: 10px; border: 1px solid #333; background: #1a1a1a; color: #fff; box-sizing: border-box; }
+        label { display: block; margin-top: 15px; color: #D4AF37; font-weight: bold; }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
@@ -62,129 +58,113 @@
 </header>
 
 <div class="container">
-    <button class="btn-portal" onclick="openPage('regPage')">🔑 بوابة المعلنين | إنشاء حساب واعلان</button>
+    <button class="btn-portal" onclick="document.getElementById('regPage').style.display='block'">✨ انشر إعلانك ليراه الجميع الآن</button>
 
     <div class="card">
-        <div class="card-head bg-car">🚗 سيارات مستعملة</div>
-        <div class="card-inner">
-            <div class="card-img-box"><img src="https://images.unsplash.com/photo-1550355291-bbee04a92027?w=300"></div>
-            <div class="info-side">
-                <h3>سوق السيارات</h3>
-                <a href="#" class="btn-gold" onclick="openPage('regPage')">أضف إعلانك</a>
-            </div>
-        </div>
+        <div class="card-head">🚗 سيارات للبيع</div>
+        <div id="list-cars" class="ad-list"></div>
     </div>
 
     <div class="card">
-        <div class="card-head bg-house">🏠 عقارات (إيجار)</div>
-        <div class="card-inner">
-            <div class="card-img-box"><img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=300"></div>
-            <div class="info-side">
-                <h3>شقق وبيوت</h3>
-                <a href="#" class="btn-gold">شاهد الصور</a>
-            </div>
-        </div>
+        <div class="card-head" style="background:#1e3a8a;">🏠 بيوت للإيجار / للبيع</div>
+        <div id="list-house" class="ad-list"></div>
     </div>
 
     <div class="card">
-        <div class="card-head bg-serv">🛠️✨ صيانة ونظافة</div>
-        <div class="card-inner">
-            <div class="card-img-box"><img src="https://images.unsplash.com/photo-1581578731548-c64695ce6958?w=300"></div>
-            <div class="info-side">
-                <h3>صيانة شاملة</h3>
-                <a href="#" class="btn-gold">اطلب الآن</a>
-            </div>
-        </div>
+        <div class="card-head" style="background:#581c87;">📱 جوالات وإلكترونيات</div>
+        <div id="list-tech" class="ad-list"></div>
     </div>
 
     <div class="card">
-        <div class="card-head bg-phone">📱 جوالات وإلكترونيات</div>
-        <div class="card-inner">
-            <div class="card-img-box"><img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=300"></div>
-            <div class="info-side">
-                <h3>أحدث التقنيات</h3>
-                <a href="#" class="btn-gold">تصفح</a>
-            </div>
-        </div>
+        <div class="card-head" style="background:#431407;">🛠️ خدمات صيانة ونظافة</div>
+        <div id="list-fix" class="ad-list"></div>
     </div>
 
     <div class="card">
-        <div class="card-head bg-furn">🛋️ أثاث مستعمل</div>
-        <div class="card-inner">
-            <div class="card-img-box"><img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=300"></div>
-            <div class="info-side">
-                <h3>فرش وأثاث</h3>
-                <a href="#" class="btn-gold">شاهد العروض</a>
-            </div>
-        </div>
+        <div class="card-head" style="background:#065f46;">💼 وظائف شاغرة</div>
+        <div id="list-jobs" class="ad-list"></div>
     </div>
 
     <div class="card">
-        <div class="card-head bg-job">💼 وظائف وطلبات عمل</div>
-        <div class="card-inner">
-            <div class="card-img-box"><img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=300"></div>
-            <div class="info-side">
-                <h3>فرص التوظيف</h3>
-                <a href="#" class="btn-gold">سجل الآن</a>
-            </div>
-        </div>
+        <div class="card-head" style="background:#374151;">✨ مستلزمات ومنوعات أخرى</div>
+        <div id="list-other" class="ad-list"></div>
     </div>
 </div>
 
 <div id="regPage" class="page">
-    <h2 style="color:#D4AF37; text-align:center;">بوابة المعلنين 🔑</h2>
-    <p style="text-align:center; font-size:12px; color:#aaa;">سيصلك تأكيد على البريد الإلكتروني بعد مراجعة الطلب</p>
+    <h2 style="color:#D4AF37; text-align:center;">نشر إعلان جديد 🚀</h2>
     
-    <label>الاسم الكامل</label>
+    <label>الاسم</label>
     <input type="text" id="uName" placeholder="أدخل اسمك">
     
-    <label>البريد الإلكتروني</label>
-    <input type="email" id="uEmail" placeholder="example@mail.com">
-    
-    <label>رقم الواتساب</label>
-    <input type="tel" id="uPhone" placeholder="+249...">
-    
-    <label>نوع القسم</label>
+    <label>القسم</label>
     <select id="uType">
-        <option>سيارات مستعملة</option>
-        <option>عقارات (إيجار)</option>
-        <option>صيانة ونظافة</option>
-        <option>جوالات وإلكترونيات</option>
-        <option>أثاث مستعمل</option>
-        <option>وظائف وطلبات عمل</option>
+        <option value="cars">سيارات للبيع</option>
+        <option value="house">بيوت للإيجار / للبيع</option>
+        <option value="tech">جوالات وإلكترونيات</option>
+        <option value="fix">خدمات صيانة ونظافة</option>
+        <option value="jobs">وظائف شاغرة</option>
+        <option value="other">مستلزمات ومنوعات أخرى</option>
     </select>
     
-    <label>تفاصيل الإعلان</label>
-    <textarea id="uDesc" rows="4" placeholder="اكتب تفاصيل إعلانك هنا..."></textarea>
+    <label>رابط صورة الإعلان</label>
+    <input type="text" id="uImg" placeholder="انسخ رابط الصورة وضعه هنا">
     
-    <button class="btn-send" onclick="sendData()">إرسال الطلب والتحقق</button>
+    <label>وصف الإعلان</label>
+    <textarea id="uDesc" rows="4" placeholder="اكتب تفاصيل إعلانك..."></textarea>
     
-    <button onclick="closePage('regPage')" style="background:none; border:none; color:#666; width:100%; margin-top:20px; cursor:pointer;">إلغاء والعودة</button>
+    <button class="btn-portal" style="margin-top:20px;" onclick="publishAd()">انشر الآن</button>
+    <button onclick="document.getElementById('regPage').style.display='none'" style="background:none; border:none; color:#666; width:100%; margin-top:20px;">إلغاء</button>
 </div>
 
 <script>
-    function openPage(id) { document.getElementById(id).style.display = 'block'; }
-    function closePage(id) { document.getElementById(id).style.display = 'none'; }
+    // إعدادات SoOo الخاصة
+    const firebaseConfig = {
+      apiKey: "AIzaSyC-MoihmZLENUbWi1oo0aODvsbPvWVEN-U",
+      authDomain: "norestore-efa4e.firebaseapp.com",
+      projectId: "norestore-efa4e",
+      databaseURL: "https://norestore-efa4e-default-rtdb.firebaseio.com", // رابط القاعدة المباشر
+      appId: "1:501643206128:web:b26650c9f9324fb9d35135"
+    };
 
-    function sendData() {
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    // جلب الإعلانات وتوزيعها على الأقسام الستة
+    db.ref('ads').on('value', (snapshot) => {
+        const sections = ['cars', 'house', 'tech', 'fix', 'jobs', 'other'];
+        sections.forEach(s => document.getElementById('list-'+s).innerHTML = "");
+
+        snapshot.forEach((child) => {
+            let ad = child.val();
+            let html = `
+                <div class="user-ad">
+                    <img src="${ad.img || 'https://via.placeholder.com/85'}">
+                    <div>
+                        <strong>${ad.name}</strong>
+                        <p>${ad.desc}</p>
+                    </div>
+                </div>`;
+            
+            let target = document.getElementById('list-' + ad.type);
+            if(target) target.innerHTML += html;
+        });
+    });
+
+    // دالة النشر في السيرفر
+    function publishAd() {
         let name = document.getElementById('uName').value;
-        let email = document.getElementById('uEmail').value;
-        let phone = document.getElementById('uPhone').value;
         let type = document.getElementById('uType').value;
+        let img = document.getElementById('uImg').value;
         let desc = document.getElementById('uDesc').value;
 
-        if(!name || !phone || !desc) {
-            alert('الرجاء تعبئة البيانات الأساسية');
-            return;
+        if(name && desc) {
+            db.ref('ads').push({ name, type, img, desc });
+            alert('تم النشر بنجاح على متجر نوري!');
+            document.getElementById('regPage').style.display = 'none';
+        } else {
+            alert('أكمل البيانات أولاً');
         }
-
-        let message = `طلب إعلان جديد من Nore Store:\nالمعلن: ${name}\nالإيميل: ${email}\nالواتساب: ${phone}\nالقسم: ${type}\nالتفاصيل: ${desc}`;
-        
-        // فتح الواتساب الخاص بك
-        window.open(`https://wa.me/971551505027?text=${encodeURIComponent(message)}`, '_blank');
-        
-        alert('تم الإرسال! ستصلك رسالة تأكيد على الإيميل: ' + (email || 'المرتبط بحسابك') + ' فور المراجعة.');
-        closePage('regPage');
     }
 </script>
 </body>
