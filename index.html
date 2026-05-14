@@ -5,108 +5,167 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nore Store | متجر نوري</title>
     <style>
-        /* التنسيق الأصلي اللي طلبته */
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #0b0e14; color: #fff; text-align: center; }
-        header { background: #0b0e14; padding: 25px; border-bottom: 2px solid #D4AF37; }
-        .logo { font-size: 30px; font-weight: bold; color: #D4AF37; }
-
-        /* ميزة البحث (هادئة جداً) */
-        .search-area { padding: 15px; }
-        #search { width: 90%; padding: 10px; border-radius: 5px; border: 1px solid #333; background: #1a1a1a; color: #fff; }
-
-        .container { width: 95%; margin: auto; padding-bottom: 80px; }
-
-        /* البطاقات العمودية (نفس تصميمك الأول) */
-        .card { background: #161b22; border-radius: 10px; margin-bottom: 20px; border: 1px solid #222; text-align: right; overflow: hidden; }
-        .card img { width: 100%; height: auto; display: block; border-bottom: 1px solid #222; }
-        .card-info { padding: 15px; }
-        .card-title { font-size: 22px; color: #D4AF37; margin: 0; }
-        .price { color: #2ecc71; font-weight: bold; font-size: 18px; display: block; margin: 10px 0; }
-        .desc { font-size: 14px; color: #ccc; line-height: 1.5; }
-
-        /* الأزرار */
-        .btn-wa { background: #D4AF37; color: #000; border: none; padding: 15px; border-radius: 5px; width: 100%; font-weight: bold; cursor: pointer; text-decoration: none; display: block; margin-top: 15px; text-align: center; }
+        :root {
+            --gold: linear-gradient(135deg, #D4AF37, #F9F295, #B8860B);
+            --dark-bg: #0d1117;
+            --card-gray: #161b22;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0; background: var(--dark-bg); color: #fff; text-align: center;
+        }
+        header {
+            background: linear-gradient(to bottom, #16213e, #0f3460);
+            padding: 20px 0; border-bottom: 3px solid #D4AF37;
+        }
+        .logo-box {
+            border: 2px solid #D4AF37; display: inline-block;
+            padding: 10px 25px; border-radius: 15px; background: #000; margin-bottom: 10px;
+        }
+        .logo-n {
+            font-size: 50px; background: var(--gold);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            font-family: serif; margin: 0; line-height: 1;
+        }
         
-        .add-btn { position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; background: #D4AF37; border-radius: 50%; font-size: 30px; color: #000; border: none; cursor: pointer; z-index: 1000; }
+        .search-container { width: 90%; margin: 10px auto; }
+        .search-bar {
+            width: 100%; padding: 12px; border-radius: 25px; border: 1px solid #D4AF37;
+            background: #1a1a1a; color: #fff; text-align: center; outline: none;
+        }
 
-        /* مودال الإضافة */
-        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 2000; padding: 20px; overflow-y: auto; text-align: right; }
-        input, textarea { width: 100%; padding: 12px; margin-top: 10px; border-radius: 5px; border: 1px solid #333; background: #111; color: #fff; box-sizing: border-box; }
+        .nav-bar { background: rgba(255,255,255,0.05); padding: 15px; display: flex; justify-content: center; gap: 15px; }
+        .nav-bar span { cursor: pointer; color: #ccc; font-size: 14px; }
+
+        .container { width: 92%; margin: 20px auto; padding-bottom: 80px; }
+        .card {
+            background: var(--card-gray); border-radius: 20px; margin-bottom: 25px;
+            overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.3); text-align: right;
+        }
+        .bg-tk { background: linear-gradient(90deg, #ff0050, #00f2ea); }
+        .bg-re { background: #1e3a8a; }
+        .bg-custom { background: #333; } /* لون افتراضي للإعلانات المضافة */
+
+        .card-inner { padding: 20px; display: flex; gap: 15px; align-items: center; }
+        .card-img-box { width: 130px; height: 95px; border-radius: 12px; border: 1.5px solid #D4AF37; overflow: hidden; flex-shrink: 0; }
+        .card-img-box img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .btn-gold {
+            background: var(--gold); color: #000; border: none; padding: 12px 25px;
+            border-radius: 25px; font-weight: bold; cursor: pointer; text-decoration: none; display: inline-block;
+        }
+        .page { 
+            display: none; position: fixed; inset: 0; background: #0d1117; 
+            z-index: 9999; padding: 25px; overflow-y: auto; text-align: right; 
+        }
+        input, select, textarea { width: 100%; padding: 14px; margin-top: 10px; border-radius: 10px; border: 1px solid #333; background: #1a1a1a; color: #fff; box-sizing: border-box; }
+        label { display: block; margin-top: 20px; color: #D4AF37; font-weight: bold; }
     </style>
 </head>
 <body>
 
-<header><div class="logo">NORE STORE</div></header>
+<header>
+    <div class="logo-box">
+        <h1 class="logo-n">N</h1>
+        <div style="color:#D4AF37; font-weight:bold;">Nore Store</div>
+    </div>
+    <div class="search-container">
+        <input type="text" id="mainSearch" class="search-bar" placeholder="🔍 ابحث في المتجر..." onkeyup="filterAds()">
+    </div>
+</header>
 
-<div class="search-area">
-    <input type="text" id="search" placeholder="بحث عن إعلان..." onkeyup="doSearch()">
+<div class="nav-bar">
+    <span onclick="location.reload()">الرئيسية</span>
+    <span onclick="openPage('aboutPage')">حولنا</span>
 </div>
 
-<div class="container" id="adsList">
-    <div class="card ad-box">
-        <img src="https://cdn.pixabay.com/photo/2021/01/30/06/42/tiktok-5962992_1280.png">
-        <div class="card-info">
-            <h3 class="card-title">شحن تيك توك فوري</h3>
-            <span class="price">سعر منافس</span>
-            <p class="desc">شحن رسمي برقم الآيدي، استلام خلال دقائق.</p>
-            <a href="https://wa.me/971551505027" class="btn-wa">تواصل واتساب</a>
+<div class="container" id="adsContainer">
+    <button class="btn-gold" style="width:100%; padding:20px; margin-bottom:25px; font-size: 18px;" onclick="openPage('regPage')">🔑 إضافة إعلان جديد</button>
+
+    <div class="card ad-item">
+        <div class="card-head bg-tk" style="padding:10px 15px; font-weight:bold;">🪙 شحن عملات تيك توك</div>
+        <div class="card-inner">
+            <div class="card-img-box"><img src="https://files.catbox.moe/p9o4b6.png"></div>
+            <div style="flex:1">
+                <h3 style="margin:0; color:#D4AF37; font-size:16px;">شحن فوري وآمن</h3>
+                <a href="https://wa.me/971551505027" class="btn-gold" style="margin-top:10px;">اشحن الآن</a>
+            </div>
         </div>
     </div>
+
+    </div>
+
+<div id="regPage" class="page">
+    <h2 style="color:#D4AF37; text-align:center;">إضافة إعلانك الخاص 🚀</h2>
+    <label>عنوان الإعلان</label><input type="text" id="p-title" placeholder="مثال: آيفون 15 برو ماكس">
+    <label>القسم</label>
+    <select id="p-cat">
+        <option value="📱 إلكترونيات">إلكترونيات</option>
+        <option value="🚗 سيارات">سيارات</option>
+        <option value="🏙️ عقارات">عقارات</option>
+        <option value="💼 خدمات">خدمات</option>
+    </select>
+    <label>السعر</label><input type="text" id="p-price" placeholder="حدد السعر أو اكتب (اتصل)">
+    <label>رقم الواتساب</label><input type="tel" id="p-wa" placeholder="+249...">
+    <label>صورة المنتج</label><input type="file" id="p-img" accept="image/*">
+    <button class="btn-gold" style="width:100%; margin-top:25px;" onclick="saveNewAd()">تأكيد ونشر الإعلان</button>
+    <button onclick="closePage('regPage')" style="background:none; border:none; color:#666; width:100%; margin-top:15px;">إلغاء والعودة</button>
 </div>
 
-<button class="add-btn" onclick="document.getElementById('postModal').style.display='block'">+</button>
-
-<div id="postModal" class="modal">
-    <h2 style="color:#D4AF37; text-align:center;">إضافة إعلان جديد</h2>
-    <input type="text" id="t-title" placeholder="عنوان الإعلان">
-    <input type="text" id="t-price" placeholder="السعر">
-    <input type="file" id="t-img" accept="image/*">
-    <input type="text" id="t-wa" placeholder="رقم الواتساب">
-    <textarea id="t-desc" rows="4" placeholder="وصف المنتج..."></textarea>
-    <button class="btn-wa" style="margin-top:20px;" onclick="saveAd()">نشر الآن</button>
-    <p style="text-align:center; color:#888;" onclick="this.parentElement.style.display='none'">إلغاء</p>
+<div id="aboutPage" class="page">
+    <h2 style="color:#D4AF37; text-align:center;">حول Nore Store 💎</h2>
+    <p style="line-height:1.8; padding:20px; text-align: center;">مرحباً بكم في متجر نوري. نحن نجمع بين الأمان في المعاملات والسهولة في العرض.</p>
+    <button class="btn-gold" style="width:100%" onclick="closePage('aboutPage')">رجوع</button>
 </div>
 
 <script>
-    function doSearch() {
-        let val = document.getElementById('search').value.toLowerCase();
-        let ads = document.querySelectorAll('.ad-box');
+    function openPage(id) { document.getElementById(id).style.display = 'block'; }
+    function closePage(id) { document.getElementById(id).style.display = 'none'; }
+
+    // وظيفة البحث
+    function filterAds() {
+        let val = document.getElementById('mainSearch').value.toLowerCase();
+        let ads = document.querySelectorAll('.ad-item');
         ads.forEach(ad => {
             ad.style.display = ad.innerText.toLowerCase().includes(val) ? 'block' : 'none';
         });
     }
 
-    function saveAd() {
-        const title = document.getElementById('t-title').value;
-        const price = document.getElementById('t-price').value;
-        const wa = document.getElementById('t-wa').value;
-        const desc = document.getElementById('t-desc').value;
-        const file = document.getElementById('t-img').files[0];
+    // حفظ ونشر الإعلان الجديد بنفس التنسيق
+    function saveNewAd() {
+        const title = document.getElementById('p-title').value;
+        const price = document.getElementById('p-price').value;
+        const cat = document.getElementById('p-cat').value;
+        const wa = document.getElementById('p-wa').value;
+        const file = document.getElementById('p-img').files[0];
 
         if(title && wa && file) {
             const reader = new FileReader();
             reader.onload = function(e) {
-                let ads = JSON.parse(localStorage.getItem('nore_ads_fixed')) || [];
-                ads.unshift({title, price, wa, desc, img: e.target.result});
-                localStorage.setItem('nore_ads_fixed', JSON.stringify(ads));
+                let ads = JSON.parse(localStorage.getItem('nore_user_ads')) || [];
+                ads.unshift({title, price, cat, wa, img: e.target.result});
+                localStorage.setItem('nore_user_ads', JSON.stringify(ads));
                 location.reload();
             };
             reader.readAsDataURL(file);
-        } else { alert("يا SoOo، كمل البيانات!"); }
+        } else { alert("يا SoOo، املأ كل البيانات والصورة!"); }
     }
 
+    // عرض الإعلانات المخزنة عند فتح الموقع
     window.onload = function() {
-        const list = document.getElementById('adsList');
-        const ads = JSON.parse(localStorage.getItem('nore_ads_fixed')) || [];
+        const container = document.getElementById('adsContainer');
+        const ads = JSON.parse(localStorage.getItem('nore_user_ads')) || [];
         ads.forEach(ad => {
-            list.innerHTML += `
-                <div class="card ad-box">
-                    <img src="${ad.img}">
-                    <div class="card-info">
-                        <h3 class="card-title">${ad.title}</h3>
-                        <span class="price">${ad.price}</span>
-                        <p class="desc">${ad.desc}</p>
-                        <a href="https://wa.me/${ad.wa}" class="btn-wa">تواصل واتساب</a>
+            container.innerHTML += `
+                <div class="card ad-item">
+                    <div class="card-head bg-custom" style="padding:10px 15px; font-weight:bold;">${ad.cat}</div>
+                    <div class="card-inner">
+                        <div class="card-img-box"><img src="${ad.img}"></div>
+                        <div style="flex:1">
+                            <h3 style="margin:0; color:#D4AF37; font-size:16px;">${ad.title}</h3>
+                            <p style="margin:5px 0; font-size:12px; color:#2ecc71;">${ad.price}</p>
+                            <a href="https://wa.me/${ad.wa}" class="btn-gold">تواصل الآن</a>
+                        </div>
                     </div>
                 </div>`;
         });
