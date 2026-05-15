@@ -17,6 +17,10 @@
         .tips-track { display: inline-block; animation: scrollTips 40s linear infinite; }
         @keyframes scrollTips { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
+        /* شريط الروابط العلوي المرجوع */
+        .top-nav { display: flex; justify-content: center; gap: 20px; padding: 10px; background: #000; border-bottom: 1px solid #333; }
+        .top-nav span { cursor: pointer; color: var(--gold); font-size: 14px; font-weight: bold; }
+
         header { padding: 20px; text-align: center; border-bottom: 2px solid var(--gold); background: #000; }
         .logo-box { display: inline-block; border: 3px solid var(--gold); padding: 10px 20px; border-radius: 15px; }
         .logo-n { font-size: 32px; color: var(--gold); margin: 0; }
@@ -48,16 +52,24 @@
         input, select, textarea { width: 100%; padding: 14px; margin: 8px 0; border-radius: 10px; background: #0a0e1a; border: 1px solid #334155; color: #fff; text-align: center; }
         .btn-submit { background: var(--gold); color: #000; padding: 16px; width: 100%; border-radius: 30px; font-weight: bold; border: none; cursor: pointer; }
 
-        #navBar { display: flex; justify-content: space-around; align-items: center; background: #000; padding: 10px 0; position: fixed; bottom: 0; width: 100%; border-top: 2px solid var(--gold); }
+        #navBar { display: flex; justify-content: space-around; align-items: center; background: #000; padding: 10px 0; position: fixed; bottom: 0; width: 100%; border-top: 2px solid var(--gold); z-index: 999; }
         .post-btn-large { background: var(--gold); color: #000; padding: 12px 25px; border-radius: 25px; font-weight: bold; border: none; cursor: pointer; }
+        
+        .overlay-box { display: none; background: rgba(0,0,0,0.95); position: fixed; top: 0; width: 100%; height: 100%; z-index: 10000; padding: 40px 20px; box-sizing: border-box; text-align: center; }
     </style>
 </head>
 <body>
 
 <div class="tips-bar">
     <div class="tips-track">
-        ✨ نصيحة: استخدم صوراً واضحة لجذب الزبائن أسرع • 🛡️ تأكد من معاينة السلعة قبل الدفع • 📱 أضف رقم واتساب صحيح لتسهيل التواصل • 🚀 نوري ستور بوابتك الأفضل للبيع والشراء • 💡 الصدق في الوصف يبني السمعة • ✅ سجل دخولك لإدارة إعلاناتك
+        ✨ نصيحة: استخدم صوراً واضحة لجذب الزبائن أسرع • 🛡️ تأكد من معاينة السلعة قبل الدفع • 📱 أضف رقم واتساب صحيح لتسهيل التواصل • 🚀 نوري ستور بوابتك الأفضل • ✅ سجل دخولك الآن
     </div>
+</div>
+
+<div class="top-nav">
+    <span onclick="showOverlay('about')">حولنا</span>
+    <span onclick="showOverlay('contact')">تواصل معنا</span>
+    <span id="adminBadge" style="display:none; color:var(--red); font-weight:bold;">● وضع الآدمن</span>
 </div>
 
 <header>
@@ -89,7 +101,6 @@
                 <input type="email" id="uEmail" placeholder="البريد الإلكتروني">
                 <input type="password" id="uPass" placeholder="كلمة المرور">
                 <input type="password" id="uPassConfirm" placeholder="تأكيد كلمة المرور"> 
-                
                 <button class="btn-submit" onclick="handleAuth()" id="mainAuthBtn">إنشاء حساب 🚀</button>
             </div>
         </div>
@@ -117,6 +128,19 @@
     <button class="post-btn-large" onclick="showView('post')">➕ انشر إعلانك</button>
 </div>
 
+<div id="aboutOverlay" class="overlay-box">
+    <h2 style="color:var(--gold)">حول نوري ستور</h2>
+    <p style="line-height:1.8;">نوري ستور هو متجر إلكتروني رائد يهدف إلى تيسير عمليات البيع والشراء عبر الإنترنت بكل سلاسة وأمان. نحن نسعى لتوفير بيئة رقمية متكاملة تجمع بين البائع والمشتري في منصة واحدة تمتاز بالسرعة والمصداقية. تتيح المنصة للمستخدمين عرض منتجاتهم وخدماتهم في أقسام متنوعة تشمل العقارات، السيارات، والتقنية وغيرها. نحن نؤمن بأن التجارة الإلكترونية يجب أن تكون بسيطة ومتاحة للجميع دون أي تعقيدات تقنية.</p>
+    <button class="btn-submit" onclick="closeOverlay()">إغلاق</button>
+</div>
+
+<div id="contactOverlay" class="overlay-box">
+    <h2>تواصل معنا</h2>
+    <p>للدعم الفني والاستفسارات:</p>
+    <h3 style="color:var(--gold)">nurry6666@gmail.com</h3>
+    <button class="btn-submit" onclick="closeOverlay()">إغلاق</button>
+</div>
+
 <script>
     const firebaseConfig = { apiKey: "AIzaSyCGHZnuS8OrzZwFVhhZ55nGbf0yGKw8lUA", authDomain: "norestore-d1f0d.firebaseapp.com", projectId: "norestore-d1f0d", databaseURL: "https://norestore-d1f0d-default-rtdb.firebaseio.com" };
     firebase.initializeApp(firebaseConfig);
@@ -126,7 +150,10 @@
     let isSignupMode = true;
 
     auth.onAuthStateChanged(user => {
-        if(user) document.getElementById('authArea').style.display = 'none';
+        if(user) {
+            document.getElementById('authArea').style.display = 'none';
+            if(user.email === ADMIN_EMAIL) document.getElementById('adminBadge').style.display = 'inline';
+        }
         loadAds();
     });
 
@@ -135,8 +162,6 @@
         document.getElementById('tabSignup').className = signup ? 'tab-active' : 'tab-inactive';
         document.getElementById('tabLogin').className = signup ? 'tab-inactive' : 'tab-active';
         document.getElementById('mainAuthBtn').innerText = signup ? "إنشاء حساب 🚀" : "تسجيل دخول 🔑";
-        
-        // إظهار أو إخفاء خانات الاسم والتأكيد بناءً على الوضع
         document.getElementById('uName').style.display = signup ? 'block' : 'none';
         document.getElementById('uPassConfirm').style.display = signup ? 'block' : 'none';
         document.getElementById('authStatus').innerHTML = ""; 
@@ -146,17 +171,13 @@
         const name = document.getElementById('uName').value;
         const e = document.getElementById('uEmail').value, p = document.getElementById('uPass').value;
         const pConfirm = document.getElementById('uPassConfirm').value;
-
         if(!e || !p) return alert("يرجى ملء جميع الحقول");
-
         if(isSignupMode) {
             if(!name) return alert("يرجى كتابة اسمك");
             if(p !== pConfirm) return alert("كلمة السر غير متطابقة!");
-            
             auth.createUserWithEmailAndPassword(e, p).then((res) => {
-                // حفظ الاسم في قاعدة البيانات لربطه بالحساب
                 db.ref('users/' + res.user.uid).set({ fullName: name });
-                document.getElementById('authStatus').innerHTML = `<div style="background:var(--green); padding:10px; border-radius:10px; margin-bottom:10px;">✅ تم إنشاء الحساب بنجاح! سجل دخولك الآن.</div>`;
+                document.getElementById('authStatus').innerHTML = `<div style="background:var(--green); padding:10px; border-radius:10px; margin-bottom:10px;">✅ تم إنشاء الحساب! سجل دخولك الآن.</div>`;
                 switchAuth(false);
             }).catch(err => alert(err.message));
         } else {
@@ -169,28 +190,25 @@
         const editId = document.getElementById('editId').value;
         const btn = document.getElementById('upBtn');
         btn.disabled = true; btn.innerText = "جاري الحفظ...";
-
         let imageUrls = [];
         if(files.length > 0) {
             for(let i=0; i<Math.min(files.length, 10); i++) {
                 const fd = new FormData();
-                fd.append('file', files[i]);
-                fd.append('upload_preset', 'ml_default');
+                fd.append('file', files[i]); fd.append('upload_preset', 'ml_default');
                 const res = await fetch('https://api.cloudinary.com/v1_1/dky9ovkhw/image/upload', {method:'POST', body:fd});
                 const data = await res.json();
                 imageUrls.push(data.secure_url);
             }
         }
-
         const adData = {
             uid: auth.currentUser.uid,
+            email: auth.currentUser.email,
             title: document.getElementById('pTitle').value,
             price: document.getElementById('pPrice').value,
             phone: document.getElementById('pPhone').value,
             cat: document.getElementById('pCat').value,
         };
         if(imageUrls.length > 0) adData.imgs = imageUrls;
-
         if(editId) { await db.ref('ads').child(editId).update(adData); } 
         else { await db.ref('ads').push(adData); }
         location.reload();
@@ -205,7 +223,6 @@
                 const isOwner = auth.currentUser && (auth.currentUser.uid === ad.uid || auth.currentUser.email === ADMIN_EMAIL);
                 let imgsHtml = '';
                 if(ad.imgs) ad.imgs.forEach(src => imgsHtml += `<img src="${src}">`);
-                
                 const card = `
                     <div class="ad-card" data-title="${ad.title.toLowerCase()}">
                         <div class="img-slider">${imgsHtml}</div>
@@ -247,6 +264,8 @@
         const v = document.getElementById('searchInput').value.toLowerCase();
         document.querySelectorAll('.ad-card').forEach(c => c.style.display = c.getAttribute('data-title').includes(v) ? 'block' : 'none');
     }
+    function showOverlay(t) { document.getElementById(t + 'Overlay').style.display = 'block'; }
+    function closeOverlay() { document.querySelectorAll('.overlay-box').forEach(o => o.style.display = 'none'); }
 </script>
 </body>
 </html>
