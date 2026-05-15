@@ -1,51 +1,122 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نوري ستور | Nore Store</title>
+    
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+    <style>
+        :root { --blue: #1e40af; --gold: #fbbf24; --green: #22c55e; --bg: #f8fafc; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: var(--bg); color: #1e293b; direction: rtl; padding-bottom: 80px; }
+        
+        /* الهيدر النظيف */
+        .top-nav { background: #fff; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .logo { font-size: 22px; font-weight: 800; color: var(--blue); text-decoration: none; }
+
+        /* منطقة الترحيب والاستمارة */
+        .hero { background: var(--blue); padding: 40px 20px; text-align: center; color: #fff; }
+        .auth-box { background: #fff; max-width: 400px; margin: 20px auto; padding: 25px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); color: #334155; }
+        input, select, textarea { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; text-align: center; }
+        .btn-main { width: 100%; padding: 15px; background: var(--green); color: #fff; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 16px; }
+
+        /* الأقسام بشكل كروت */
+        .container { width: 92%; max-width: 800px; margin: 20px auto; }
+        .cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 20px; }
+        .cat-card { background: #fff; padding: 20px; border-radius: 15px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.05); cursor: pointer; border: 1px solid transparent; }
+        .cat-card:active { border-color: var(--gold); transform: scale(0.95); }
+        .cat-card span { display: block; font-size: 30px; margin-bottom: 5px; }
+
+        /* القائمة السفلية */
+        .bottom-nav { position: fixed; bottom: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #eee; }
+        .nav-btn { background: none; border: none; font-weight: bold; color: #64748b; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<nav class="top-nav">
+    <a href="#" class="logo">نوري ستور</a>
+</nav>
+
+<div id="main-view">
+    <section class="hero">
+        <h2 style="margin:0;">عن ماذا تبحث اليوم؟</h2>
+        <div class="auth-box" id="regForm">
+            <h3 style="margin-top:0;">إنشاء حساب سريع</h3>
+            <input type="text" id="uName" placeholder="الاسم الكامل">
+            <input type="email" id="uEmail" placeholder="البريد الإلكتروني">
+            <input type="password" id="uPass" placeholder="كلمة المرور (6 أرقام فأكثر)">
+            <button class="btn-main" onclick="handleAuth()">إنشاء حساب مجاناً 🚀</button>
+        </div>
+    </section>
+
+    <div class="container">
+        <input type="text" placeholder="🔍 ابحث عن سيارة، منزل، موبايل..." onkeyup="search()" style="background:#fff;">
+        <div class="cat-grid">
+            <div class="cat-card"><span>🚗</span><b>سيارات</b></div>
+            <div class="cat-card"><span>🏠</span><b>عقارات</b></div>
+            <div class="cat-card"><span>📱</span><b>تقنية</b></div>
+            <div class="cat-card"><span>🛋️</span><b>أثاث</b></div>
+            <div class="cat-card"><span>🛠️</span><b>خدمات</b></div>
+            <div class="cat-card"><span>➕</span><b>أخرى</b></div>
+        </div>
+    </div>
+</div>
+
+<div id="post-view" style="display:none;" class="container">
+    <div class="auth-box" style="max-width: 500px; margin: 40px auto; border: 2px solid var(--gold);">
+        <h2 style="color:var(--blue);">نشر إعلان جديد</h2>
+        <input type="text" id="adTitle" placeholder="عنوان الإعلان">
+        <textarea id="adDesc" placeholder="تفاصيل المنتج..."></textarea>
+        <input type="number" id="adPrice" placeholder="السعر">
+        <input type="tel" id="adPhone" placeholder="رقم الواتساب">
+        <select id="adCat">
+            <option value="cars">سيارات</option><option value="houses">عقارات</option><option value="tech">تقنية</option>
+        </select>
+        <input type="file" id="adFile" accept="image/*">
+        <button class="btn-main" style="background:var(--blue);" onclick="saveAd()">نشر الآن ✅</button>
+    </div>
+</div>
+
+<div class="bottom-nav">
+    <button class="nav-btn" onclick="location.reload()">🏠 الرئيسية</button>
+    <button class="nav-btn" onclick="alert('سجل أولاً لتتمكن من النشر')">➕ انشر إعلان</button>
+</div>
+
 <script>
-    // الدوال المسؤولة عن تسجيل العميل وفتح الاستمارة تلقائياً
-    function handleReg() {
-        const name = document.getElementById('regName').value;
-        const email = document.getElementById('regEmail').value;
-        const pass = document.getElementById('regPass').value;
-        const btn = document.querySelector('.btn-fast-reg');
+    // بيانات الـ Firebase الخاصة بك (لا تقم بتغييرها)
+    const firebaseConfig = { 
+        apiKey: "AIzaSyCGHZnuS8OrzZwFVhhZ55nGbf0yGKw8lUA", 
+        authDomain: "norestore-d1f0d.firebaseapp.com", 
+        projectId: "norestore-d1f0d", 
+        databaseURL: "https://norestore-d1f0d-default-rtdb.firebaseio.com" 
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
 
-        if(!email || !pass || !name) {
-            alert("يا SoOo، العميل لازم يملأ الاسم والإيميل وكلمة السر (6 خانات) عشان الاستمارة تفتح!");
+    function handleAuth() {
+        const name = document.getElementById('uName').value;
+        const email = document.getElementById('uEmail').value;
+        const pass = document.getElementById('uPass').value;
+
+        if(!email || pass.length < 6) {
+            alert("تأكد من كتابة بريد صحيح وكلمة مرور لا تقل عن 6 خانات");
             return;
         }
 
-        btn.innerText = "جاري فتح الاستمارة... ⏳";
-        btn.disabled = true;
-
-        // تنفيذ التسجيل باستخدام البيانات الموجودة مسبقاً
         auth.createUserWithEmailAndPassword(email, pass)
-        .then((userCredential) => {
-            // تحديث اسم العميل
-            userCredential.user.updateProfile({ displayName: name });
-            
-            // النجاح: إخفاء منطقة التسجيل وإظهار استمارة الإعلان فوراً
-            document.getElementById('regArea').style.display = 'none'; 
-            document.getElementById('postView').style.display = 'block'; 
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            
-            alert("مرحباً بك يا " + name + ".. الآن يمكنك إضافة إعلانك!");
+        .then((user) => {
+            alert("أهلاً بك يا " + name + "! سجلنا حسابك بنجاح.");
+            // إخفاء الرئيسية وفتح استمارة النشر فوراً
+            document.getElementById('main-view').style.display = 'none';
+            document.getElementById('post-view').style.display = 'block';
         })
-        .catch((error) => {
-            btn.innerText = "▶ إنشاء حساب مجاناً";
-            btn.disabled = false;
-            // توضيح سبب الرفض للعميل (كلمة سر قصيرة أو إيميل مستخدم)
-            if (error.code === 'auth/weak-password') alert("كلمة السر ضعيفة (لازم 6 خانات)");
-            else alert("عذراً: " + error.message);
-        });
-    }
-
-    // دالة التنقل بين الأقسام
-    function nav(section) {
-        if(section === 'post' && !auth.currentUser) {
-            document.getElementById('regArea').scrollIntoView({ behavior: 'smooth' });
-            alert("سجل حسابك أولاً لتتمكن من النشر!");
-            return;
-        }
-        // إظهار وإخفاء الواجهات بناءً على الاختيار
-        document.getElementById('mainContent').style.display = (section === 'home') ? 'block' : 'none';
-        document.getElementById('postView').style.display = (section === 'post') ? 'block' : 'none';
-        document.getElementById('myAdsView').style.display = (section === 'my') ? 'block' : 'none';
+        .catch(err => alert("عذراً: " + err.message));
     }
 </script>
+
+</body>
+</html>
