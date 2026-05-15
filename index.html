@@ -1,136 +1,51 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نوري ستور | Nore Store</title>
-    
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-
-    <style>
-        :root { --main-blue: #1e40af; --gold: #fbbf24; --dark: #0f172a; --gray: #f8fafc; }
-        body { font-family: 'Cairo', sans-serif; margin: 0; background: var(--gray); color: var(--dark); line-height: 1.6; }
-        
-        /* 1. الهيدر النظيف */
-        nav { background: #fff; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); sticky: top; z-index: 1000; }
-        .logo { font-size: 24px; font-weight: 800; color: var(--main-blue); text-decoration: none; }
-        .nav-links a { margin: 0 10px; text-decoration: none; color: var(--dark); font-weight: 600; font-size: 14px; }
-        .btn-register { background: var(--main-blue); color: #fff !important; padding: 8px 15px; border-radius: 8px; }
-
-        /* 2. شريط البحث الجذاب */
-        .hero { background: var(--main-blue); padding: 40px 20px; text-align: center; color: #fff; }
-        .search-container { max-width: 600px; margin: 20px auto; position: relative; }
-        .search-input { width: 100%; padding: 15px 50px 15px 20px; border-radius: 50px; border: none; font-size: 16px; outline: none; }
-        .search-icon { position: absolute; right: 20px; top: 15px; color: #64748b; }
-
-        /* 3. الأقسام بشكل أيقونات (Grid) */
-        .categories { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; padding: 20px; max-width: 800px; margin: 0 auto; }
-        .cat-card { background: #fff; padding: 20px; border-radius: 15px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05); cursor: pointer; transition: 0.3s; border: 1px solid transparent; }
-        .cat-card:hover { border-color: var(--gold); transform: translateY(-5px); }
-        .cat-card i { font-size: 30px; display: block; margin-bottom: 10px; }
-        .cat-card span { font-weight: bold; font-size: 14px; }
-
-        /* 4. الاستمارة الاحترافية */
-        .auth-container { max-width: 400px; margin: 40px auto; background: #fff; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-        .auth-container h2 { text-align: center; margin-bottom: 25px; color: var(--main-blue); }
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; }
-        .form-group input { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #cbd5e1; box-sizing: border-box; }
-        .btn-submit { width: 100%; padding: 14px; background: var(--main-blue); color: #fff; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px; }
-
-        /* 5. عرض الإعلانات */
-        .ad-grid { padding: 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
-        .ad-card { background: #fff; border-radius: 15px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-        .ad-card img { width: 100%; height: 200px; object-fit: cover; }
-        .ad-info { padding: 15px; }
-        .ad-price { color: var(--main-blue); font-weight: 800; font-size: 18px; }
-
-        footer { text-align: center; padding: 20px; color: #64748b; font-size: 12px; }
-
-        @media (max-width: 600px) { .categories { grid-template-columns: repeat(2, 1fr); } }
-    </style>
-</head>
-<body>
-
-<nav>
-    <a href="#" class="logo">نوري ستور</a>
-    <div class="nav-links">
-        <a href="#" onclick="showSection('main')">الرئيسية</a>
-        <a href="#" class="btn-register" onclick="showSection('auth')">إنشاء حساب</a>
-    </div>
-</nav>
-
-<div id="main-view">
-    <section class="hero">
-        <h1>عن ماذا تبحث اليوم؟</h1>
-        <div class="search-container">
-            <span class="search-icon">🔍</span>
-            <input type="text" class="search-input" placeholder="سيارات، عقارات، إلكترونيات..." onkeyup="searchAds()">
-        </div>
-    </section>
-
-    <div class="categories">
-        <div class="cat-card" onclick="filter('cars')"><i>🚗</i><span>سيارات</span></div>
-        <div class="cat-card" onclick="filter('houses')"><i>🏠</i><span>عقارات</span></div>
-        <div class="cat-card" onclick="filter('tech')"><i>📱</i><span>إلكترونيات</span></div>
-        <div class="cat-card" onclick="filter('furniture')"><i>📦</i><span>أثاث</span></div>
-        <div class="cat-card" onclick="filter('jobs')"><i>🛠</i><span>خدمات</span></div>
-        <div class="cat-card" onclick="filter('other')"><i>➕</i><span>أخرى</span></div>
-    </div>
-
-    <div class="ad-grid" id="ads-container">
-        </div>
-</div>
-
-<div id="auth-view" style="display:none;">
-    <div class="auth-container">
-        <h2 id="auth-title">إنشاء حساب جديد</h2>
-        <div class="form-group" id="name-group">
-            <label>الاسم الكامل</label>
-            <input type="text" id="reg-name" placeholder="أدخل اسمك الثلاثي">
-        </div>
-        <div class="form-group">
-            <label>البريد الإلكتروني</label>
-            <input type="email" id="reg-email" placeholder="example@mail.com">
-        </div>
-        <div class="form-group">
-            <label>كلمة المرور</label>
-            <input type="password" id="reg-pass" placeholder="********">
-        </div>
-        <button class="btn-submit" onclick="handleAuth()" id="auth-btn">إنشاء حساب</button>
-        <p style="text-align:center; font-size:14px; margin-top:15px;">
-            لديك حساب بالفعل؟ <a href="#" onclick="toggleAuth(false)">تسجيل دخول</a>
-        </p>
-    </div>
-</div>
-
-<footer>
-    <p>© 2026 نوري ستور - جميع الحقوق محفوظة</p>
-</footer>
-
 <script>
-    // نفس إعدادات Firebase السابقة الخاصة بك
-    const firebaseConfig = { apiKey: "AIzaSyCGHZnuS8OrzZwFVhhZ55nGbf0yGKw8lUA", authDomain: "norestore-d1f0d.firebaseapp.com", projectId: "norestore-d1f0d", databaseURL: "https://norestore-d1f0d-default-rtdb.firebaseio.com" };
-    firebase.initializeApp(firebaseConfig);
-    
-    let isSignup = true;
+    // الدوال المسؤولة عن تسجيل العميل وفتح الاستمارة تلقائياً
+    function handleReg() {
+        const name = document.getElementById('regName').value;
+        const email = document.getElementById('regEmail').value;
+        const pass = document.getElementById('regPass').value;
+        const btn = document.querySelector('.btn-fast-reg');
 
-    function showSection(sec) {
-        document.getElementById('main-view').style.display = sec === 'main' ? 'block' : 'none';
-        document.getElementById('auth-view').style.display = sec === 'auth' ? 'block' : 'none';
+        if(!email || !pass || !name) {
+            alert("يا SoOo، العميل لازم يملأ الاسم والإيميل وكلمة السر (6 خانات) عشان الاستمارة تفتح!");
+            return;
+        }
+
+        btn.innerText = "جاري فتح الاستمارة... ⏳";
+        btn.disabled = true;
+
+        // تنفيذ التسجيل باستخدام البيانات الموجودة مسبقاً
+        auth.createUserWithEmailAndPassword(email, pass)
+        .then((userCredential) => {
+            // تحديث اسم العميل
+            userCredential.user.updateProfile({ displayName: name });
+            
+            // النجاح: إخفاء منطقة التسجيل وإظهار استمارة الإعلان فوراً
+            document.getElementById('regArea').style.display = 'none'; 
+            document.getElementById('postView').style.display = 'block'; 
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            alert("مرحباً بك يا " + name + ".. الآن يمكنك إضافة إعلانك!");
+        })
+        .catch((error) => {
+            btn.innerText = "▶ إنشاء حساب مجاناً";
+            btn.disabled = false;
+            // توضيح سبب الرفض للعميل (كلمة سر قصيرة أو إيميل مستخدم)
+            if (error.code === 'auth/weak-password') alert("كلمة السر ضعيفة (لازم 6 خانات)");
+            else alert("عذراً: " + error.message);
+        });
     }
 
-    function toggleAuth(signup) {
-        isSignup = signup;
-        document.getElementById('auth-title').innerText = signup ? "إنشاء حساب جديد" : "تسجيل الدخول";
-        document.getElementById('name-group').style.display = signup ? 'block' : 'none';
-        document.getElementById('auth-btn').innerText = signup ? "إنشاء حساب" : "تسجيل دخول";
+    // دالة التنقل بين الأقسام
+    function nav(section) {
+        if(section === 'post' && !auth.currentUser) {
+            document.getElementById('regArea').scrollIntoView({ behavior: 'smooth' });
+            alert("سجل حسابك أولاً لتتمكن من النشر!");
+            return;
+        }
+        // إظهار وإخفاء الواجهات بناءً على الاختيار
+        document.getElementById('mainContent').style.display = (section === 'home') ? 'block' : 'none';
+        document.getElementById('postView').style.display = (section === 'post') ? 'block' : 'none';
+        document.getElementById('myAdsView').style.display = (section === 'my') ? 'block' : 'none';
     }
-
-    // وظائف Firebase (الدخول، البحث، الفلترة) تستمر كما في النسخ السابقة مع تحسين الأداء
 </script>
-
-</body>
-</html>
