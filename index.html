@@ -10,56 +10,36 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
     <style>
-        :root { --gold: #D4AF37; --dark-bg: #0a0e1a; --card-gray: #1e293b; --green: #22c55e; --red: #ef4444; --blue: #3b82f6; }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: var(--dark-bg); color: #fff; direction: rtl; padding-bottom: 110px; }
+        :root { --gold: #D4AF37; --dark-bg: #0a0e1a; --card-gray: #1e293b; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: var(--dark-bg); color: #fff; direction: rtl; padding-bottom: 100px; }
         
-        /* الهيدر واللوجو */
-        header { padding: 30px 20px; text-align: center; background: #000; border-bottom: 2px solid var(--gold); }
-        .logo-box { border: 2.5px solid var(--gold); display: inline-block; padding: 15px 40px; border-radius: 15px; margin-bottom: 10px; }
-        .logo-n { font-size: 65px; color: var(--gold); font-family: serif; margin: 0; line-height: 1; }
-        .sub-title { color: var(--gold); font-size: 19px; font-weight: bold; display: block; margin-top: 8px; }
-        .sub-title-en { color: #94a3b8; font-size: 13px; display: block; margin-top: 4px; letter-spacing: 1px; }
+        /* الهيدر واللوجو الأصلي */
+        header { padding: 30px 20px; text-align: center; border-bottom: 2px solid var(--gold); background: #000; }
+        .logo-n { font-size: 60px; color: var(--gold); font-family: serif; margin: 0; }
+        .sub-title { color: var(--gold); font-size: 16px; font-weight: bold; display: block; margin-top: 5px; }
 
         /* الشريط المتحرك */
-        .ticker-wrap { background: #020617; border-bottom: 1px solid var(--gold); padding: 12px 0; overflow: hidden; }
-        .ticker { display: inline-block; white-space: nowrap; animation: ticker 40s linear infinite; }
-        .tip-item { display: inline-block; padding: 0 50px; font-size: 14px; font-weight: 500; }
+        .ticker-wrap { background: #020617; border-bottom: 1px solid var(--gold); padding: 10px 0; overflow: hidden; }
+        .ticker { display: inline-block; white-space: nowrap; animation: ticker 35s linear infinite; }
+        .tip-item { display: inline-block; padding: 0 40px; font-size: 14px; }
         @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
-        .container { width: 94%; max-width: 600px; margin: 20px auto; }
+        .container { width: 92%; max-width: 550px; margin: 20px auto; }
 
-        /* شريط البحث */
-        .search-area { background: var(--card-gray); padding: 15px; border-radius: 20px; border: 1px solid var(--gold); margin-bottom: 25px; }
-        .search-input { width: 100%; background: #0a0e1a; border: 1px solid #334155; color: #fff; padding: 14px; border-radius: 12px; box-sizing: border-box; text-align: center; font-size: 16px; }
+        /* الأقسام الستة الأصلية */
+        .section-card { border-radius: 15px; margin-bottom: 12px; cursor: pointer; padding: 25px; font-weight: bold; font-size: 20px; text-align: right; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        .c1 { background: #1a4731; } .c2 { background: #1e3a8a; } .c3 { background: #4c1d95; }
+        .c4 { background: #701a1a; } .c5 { background: #ea580c; } .c6 { background: #4b5563; }
+        .ad-list { display: none; padding-top: 15px; }
 
-        /* الأقسام الستة */
-        .section-card { border-radius: 18px; margin-bottom: 15px; cursor: pointer; padding: 25px; font-weight: bold; font-size: 20px; text-align: right; transition: 0.3s; box-shadow: 0 6px 15px rgba(0,0,0,0.4); }
-        .section-card:active { transform: scale(0.97); }
-        .c1 { background: linear-gradient(45deg, #1a4731, #2d5a44); } 
-        .c2 { background: linear-gradient(45deg, #1e3a8a, #2563eb); } 
-        .c3 { background: linear-gradient(45deg, #4c1d95, #6d28d9); }
-        .c4 { background: linear-gradient(45deg, #701a1a, #991b1b); } 
-        .c5 { background: linear-gradient(45deg, #ea580c, #f97316); } 
-        .c6 { background: linear-gradient(45deg, #4b5563, #6b7280); }
-        .ad-list { display: none; padding-top: 20px; }
-
-        /* واجهة التسجيل أسفل الأقسام */
-        .auth-footer { background: var(--card-gray); padding: 25px; border-radius: 25px; border: 2px solid var(--gold); text-align: center; margin-top: 30px; }
-        .auth-tabs { display: flex; gap: 10px; margin-bottom: 20px; background: #0a0e1a; padding: 5px; border-radius: 15px; }
-        .auth-tabs button { flex: 1; padding: 12px; border-radius: 10px; border: none; background: transparent; color: #94a3b8; cursor: pointer; font-weight: bold; }
-        .btn-active { background: var(--gold) !important; color: #000 !important; }
-
-        /* استمارة الإعلان */
-        .form-box { background: var(--card-gray); padding: 25px; border-radius: 25px; border: 2px solid var(--gold); margin-top: 20px; display: none; }
-        input, select, textarea { width: 100%; padding: 15px; margin: 10px 0; border-radius: 12px; background: #0a0e1a; border: 1px solid #334155; color: #fff; box-sizing: border-box; font-size: 16px; }
-        .btn-confirm { background: var(--gold); color: #000; padding: 18px; width: 100%; border-radius: 35px; font-weight: bold; border: none; cursor: pointer; font-size: 18px; margin-top: 10px; }
-
-        /* تصميم كرت الإعلان */
-        .ad-item { background: #0f172a; border-radius: 20px; padding: 18px; margin-bottom: 20px; border: 1px solid #334155; }
-        .ad-img { width: 100%; border-radius: 15px; max-height: 350px; object-fit: cover; }
-        .ad-actions { display: flex; gap: 10px; margin-top: 15px; }
-        .btn-act { flex: 1; padding: 12px; border-radius: 10px; border: none; color: #fff; font-weight: bold; cursor: pointer; text-decoration: none; text-align: center; font-size: 13px; }
-        .wa { background: var(--green); } .share { background: var(--blue); } .del { background: var(--red); }
+        /* استمارات التسجيل والدخول */
+        .auth-box { background: var(--card-gray); padding: 25px; border-radius: 20px; border: 2px solid var(--gold); text-align: center; margin-top: 20px; }
+        .auth-tabs { display: flex; gap: 10px; margin-bottom: 15px; }
+        .auth-tabs button { flex: 1; padding: 10px; border-radius: 8px; border: none; background: #0a0e1a; color: #fff; cursor: pointer; }
+        .active-tab { background: var(--gold) !important; color: #000 !important; font-weight: bold; }
+        
+        input, select, textarea { width: 100%; padding: 14px; margin: 8px 0; border-radius: 10px; background: #0a0e1a; border: 1px solid #334155; color: #fff; box-sizing: border-box; text-align: center; }
+        .btn-submit { background: var(--gold); color: #000; padding: 16px; width: 100%; border-radius: 30px; font-weight: bold; border: none; cursor: pointer; font-size: 18px; margin-top: 10px; }
 
         /* القائمة السفلية */
         #navBar { display: flex; justify-content: space-around; align-items: center; background: #000; padding: 15px 0; position: fixed; bottom: 0; width: 100%; border-top: 2px solid var(--gold); z-index: 9999; }
@@ -69,57 +49,42 @@
 <body>
 
 <header>
-    <div class="logo-box">
-        <h1 class="logo-n">N</h1>
-    </div>
-    <span class="sub-title">نوري ستور - Nore Store</span>
+    <h1 class="logo-n">Nore Store</h1>
     <span class="sub-title">عالمك للإعلان والخدمات الموثوقة</span>
-    <span class="sub-title-en">Your World for Advertising & Trusted Services</span>
 </header>
 
 <div class="ticker-wrap"><div class="ticker">
-    <span class="tip-item">✨ نوري ستور يرحب بكم.. عرض بضاعتك الآن أصبح أسهل وأسرع.</span>
-    <span class="tip-item">🛡️ نصيحة: تأكد من مراجعة مواصفات المنتج جيداً قبل الشراء.</span>
-    <span class="tip-item">📱 استخدم ميزة الواتساب للتواصل المباشر مع صاحب الإعلان.</span>
+    <span class="tip-item">🚀 سجل الآن في نوري ستور لتتمكن من إضافة إعلاناتك وإدارتها بسهولة.</span>
+    <span class="tip-item">🛡️ تواصل مباشر عبر الواتساب ومشاركة سريعة لكل الإعلانات.</span>
 </div></div>
 
 <div class="container">
-    <div class="search-area">
-        <input type="text" id="mainSearch" class="search-input" placeholder="عن ماذا تبحث اليوم؟ (سيارات، موبايلات...)" onkeyup="filterAds()">
-    </div>
-
-    <div id="mainContent">
+    <div id="homeView">
         <div class="section-card c1" onclick="toggleSec('cars')">سيارات للبيع 🚗 <div id="sec-cars" class="ad-list"></div></div>
         <div class="section-card c2" onclick="toggleSec('houses')">عقارات وأراضي 🏠 <div id="sec-houses" class="ad-list"></div></div>
         <div class="section-card c3" onclick="toggleSec('tech')">جوالات وإلكترونيات 📱 <div id="sec-tech" class="ad-list"></div></div>
         <div class="section-card c4" onclick="toggleSec('jobs')">وظائف وخدمات 💼 <div id="sec-jobs" class="ad-list"></div></div>
         <div class="section-card c5" onclick="toggleSec('furniture')">أثاث ومنزل 🛋️ <div id="sec-furniture" class="ad-list"></div></div>
         <div class="section-card c6" onclick="toggleSec('other')">أقسام أخرى 📦 <div id="sec-other" class="ad-list"></div></div>
-    </div>
 
-    <div id="authArea" class="auth-footer">
-        <div id="loggedOutUI">
+        <div id="authArea" class="auth-box">
             <div class="auth-tabs">
-                <button id="tSignup" class="btn-active" onclick="setAuth(true)">تسجيل جديد</button>
-                <button id="tLogin" onclick="setAuth(false)">تسجيل دخول</button>
+                <button id="btnSignup" class="active-tab" onclick="toggleAuthMode(true)">تسجيل جديد</button>
+                <button id="btnLogin" onclick="toggleAuthMode(false)">دخول</button>
             </div>
-            <div id="authForm">
-                <input type="text" id="userName" placeholder="الاسم بالكامل">
-                <input type="email" id="userEmail" placeholder="البريد الإلكتروني">
-                <input type="password" id="userPass" placeholder="كلمة السر">
-                <button class="btn-confirm" onclick="processAuth()" id="authBtn">بدء الاستخدام 🚀</button>
+            <div id="nameField">
+                <input type="text" id="uName" placeholder="الاسم الكامل">
             </div>
-        </div>
-        <div id="loggedInUI" style="display:none;">
-            <p style="color:var(--gold); font-size: 18px;">مرحباً بك في نوري ستور ✅</p>
-            <button class="btn-confirm" style="background:var(--red); color:#fff; width: auto; padding: 10px 30px;" onclick="logout()">خروج 🚪</button>
+            <input type="email" id="uEmail" placeholder="البريد الإلكتروني">
+            <input type="password" id="uPass" placeholder="كلمة المرور">
+            <button class="btn-submit" onclick="handleAuth()" id="mainAuthBtn">إنشاء الحساب 🚀</button>
         </div>
     </div>
 
-    <div id="postView" class="form-box">
-        <h3 style="color:var(--gold); text-align:center;">نشر إعلان جديد</h3>
+    <div id="postView" style="display:none;" class="auth-box">
+        <h3 style="color:var(--gold);">نشر إعلان جديد</h3>
         <input type="text" id="pTitle" placeholder="عنوان الإعلان">
-        <textarea id="pDesc" rows="3" placeholder="اكتب تفاصيل المنتج هنا..."></textarea>
+        <textarea id="pDesc" placeholder="تفاصيل المنتج..."></textarea>
         <input type="number" id="pPrice" placeholder="السعر">
         <input type="tel" id="pPhone" placeholder="رقم الواتساب">
         <select id="pCat">
@@ -127,114 +92,68 @@
             <option value="jobs">وظائف</option><option value="furniture">أثاث</option><option value="other">أخرى</option>
         </select>
         <input type="file" id="pFile" accept="image/*">
-        <button class="btn-confirm" onclick="uploadAd()" id="upBtn">نشر الإعلان الآن ✅</button>
-    </div>
-
-    <div id="myAdsView" style="display:none; margin-top:20px;">
-        <h3 style="color:var(--gold); text-align:center;">إعلاناتي الشخصية</h3>
-        <div id="myAdsList"></div>
+        <button class="btn-submit" onclick="alert('جاري الرفع...')">نشر الآن ✅</button>
     </div>
 </div>
 
 <div id="navBar">
-    <button class="nav-btn" onclick="nav('home')">🏠 الرئيسية</button>
-    <button class="nav-btn" onclick="nav('post')">➕ انشر إعلان</button>
-    <button class="nav-btn" onclick="nav('my')">👤 إعلاناتي</button>
+    <button class="nav-btn" onclick="showView('home')">🏠 الرئيسية</button>
+    <button class="nav-btn" onclick="showView('post')">➕ انشر إعلان</button>
+    <button class="nav-btn" onclick="auth.signOut(); location.reload();">🚪 خروج</button>
 </div>
 
 <script>
-    // الإعدادات
+    // Firebase Config
     const firebaseConfig = { apiKey: "AIzaSyCGHZnuS8OrzZwFVhhZ55nGbf0yGKw8lUA", authDomain: "norestore-d1f0d.firebaseapp.com", projectId: "norestore-d1f0d", databaseURL: "https://norestore-d1f0d-default-rtdb.firebaseio.com" };
     firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth(), db = firebase.database();
-    let isSignup = true;
+    const auth = firebase.auth();
 
-    // مراقبة الدخول
-    auth.onAuthStateChanged(user => {
-        if(user) {
-            document.getElementById('loggedOutUI').style.display = 'none';
-            document.getElementById('loggedInUI').style.display = 'block';
-            nav('post'); // الانتقال التلقائي للنشر
-            loadAds();
-        } else {
-            document.getElementById('loggedOutUI').style.display = 'block';
-            document.getElementById('loggedInUI').style.display = 'none';
-        }
-    });
+    let isSignupMode = true;
 
-    function setAuth(s) {
-        isSignup = s;
-        document.getElementById('userName').style.display = s ? 'block' : 'none';
-        document.getElementById('tSignup').className = s ? 'btn-active' : '';
-        document.getElementById('tLogin').className = s ? '' : 'btn-active';
-        document.getElementById('authBtn').innerText = s ? "بدء الاستخدام 🚀" : "دخول 🔑";
+    function toggleAuthMode(signup) {
+        isSignupMode = signup;
+        document.getElementById('nameField').style.display = signup ? 'block' : 'none';
+        document.getElementById('btnSignup').className = signup ? 'active-tab' : '';
+        document.getElementById('btnLogin').className = signup ? '' : 'active-tab';
+        document.getElementById('mainAuthBtn').innerText = signup ? "إنشاء الحساب 🚀" : "دخول 🔑";
     }
 
-    function processAuth() {
-        const e = document.getElementById('userEmail').value, p = document.getElementById('userPass').value;
-        if(isSignup) auth.createUserWithEmailAndPassword(e, p).catch(a => alert(a.message));
-        else auth.signInWithEmailAndPassword(e, p).catch(a => alert(a.message));
-    }
-
-    function nav(v) {
-        if(v !== 'home' && !auth.currentUser) { window.scrollTo(0, document.body.scrollHeight); return; }
-        document.getElementById('mainContent').style.display = v === 'home' ? 'block' : 'none';
-        document.getElementById('postView').style.display = v === 'post' ? 'block' : 'none';
-        document.getElementById('myAdsView').style.display = v === 'my' ? 'block' : 'none';
-        document.getElementById('authArea').style.display = v === 'home' ? 'block' : 'none';
-    }
-
-    async function uploadAd() {
-        const file = document.getElementById('pFile').files[0];
-        if(!file) return alert("اختر صورة للمنتج");
-        const btn = document.getElementById('upBtn'); btn.innerText = "جاري النشر..."; btn.disabled = true;
+    function handleAuth() {
+        const email = document.getElementById('uEmail').value;
+        const pass = document.getElementById('uPass').value;
         
-        const fd = new FormData(); fd.append('file', file); fd.append('upload_preset', 'ml_default');
-        try {
-            const res = await fetch('https://api.cloudinary.com/v1_1/dky9ovkhw/image/upload', {method:'POST', body:fd});
-            const data = await res.json();
-            db.ref('ads').push({
-                uid: auth.currentUser.uid, title: document.getElementById('pTitle').value,
-                desc: document.getElementById('pDesc').value, price: document.getElementById('pPrice').value,
-                phone: document.getElementById('pPhone').value, cat: document.getElementById('pCat').value,
-                img: data.secure_url
-            });
-            alert("تم النشر بنجاح!"); nav('home');
-        } catch(e) { alert("خطأ في الاتصال"); }
-        btn.innerText = "نشر الإعلان الآن ✅"; btn.disabled = false;
+        if(isSignupMode) {
+            auth.createUserWithEmailAndPassword(email, pass)
+                .then(() => { alert("تم التسجيل! يمكنك النشر الآن."); showView('post'); })
+                .catch(err => alert(err.message));
+        } else {
+            auth.signInWithEmailAndPassword(email, pass)
+                .then(() => { alert("أهلاً بعودتك!"); showView('home'); })
+                .catch(err => alert(err.message));
+        }
     }
 
-    function loadAds() {
-        db.ref('ads').on('value', snap => {
-            const data = snap.val();
-            document.querySelectorAll('.ad-list').forEach(l => l.innerHTML = '');
-            document.getElementById('myAdsList').innerHTML = '';
-            for(let id in data) {
-                const ad = data[id];
-                const isOwner = auth.currentUser && auth.currentUser.uid === ad.uid;
-                const adHtml = `
-                    <div class="ad-item">
-                        <img src="${ad.img}" class="ad-img">
-                        <h3 style="margin: 10px 0;">${ad.title}</h3>
-                        <p style="color:#cbd5e1; font-size:14px;">${ad.desc}</p>
-                        <b style="color:var(--gold); font-size:18px;">${ad.price} ريال</b>
-                        <div class="ad-actions">
-                            <a href="https://wa.me/${ad.phone}" class="btn-act wa" target="_blank">واتساب</a>
-                            <button onclick="shareAd('${ad.title}')" class="btn-act share">مشاركة</button>
-                            ${isOwner ? `<button onclick="delAd('${id}')" class="btn-act del">حذف</button>` : ''}
-                        </div>
-                    </div>`;
-                const target = document.getElementById('sec-' + ad.cat);
-                if(target) target.innerHTML += adHtml;
-                if(isOwner) document.getElementById('myAdsList').innerHTML += adHtml;
-            }
-        });
+    function showView(v) {
+        if(v === 'post' && !auth.currentUser) {
+            window.scrollTo(0, document.body.scrollHeight);
+            alert("سجل حسابك أولاً يا غالي!");
+            return;
+        }
+        document.getElementById('homeView').style.display = v === 'home' ? 'block' : 'none';
+        document.getElementById('postView').style.display = v === 'post' ? 'block' : 'none';
     }
 
-    function toggleSec(id) { const el = document.getElementById('sec-'+id); el.style.display = el.style.display === 'block' ? 'none' : 'block'; }
-    function shareAd(t) { if(navigator.share) navigator.share({title:'نوري ستور', text:'شاهد هذا الإعلان: ' + t, url:window.location.href}); }
-    function delAd(id) { if(confirm("هل متأكد من حذف الإعلان؟")) db.ref('ads/'+id).remove(); }
-    function logout() { auth.signOut(); }
+    function toggleSec(id) {
+        const el = document.getElementById('sec-'+id);
+        el.style.display = el.style.display === 'block' ? 'none' : 'block';
+    }
+
+    // مراقبة حالة الدخول لإخفاء استمارة التسجيل عند الدخول
+    auth.onAuthStateChanged(user => {
+        if(user) document.getElementById('authArea').style.display = 'none';
+        else document.getElementById('authArea').style.display = 'block';
+    });
 </script>
+
 </body>
 </html>
