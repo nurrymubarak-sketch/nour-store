@@ -11,136 +11,212 @@
 
     <style>
         :root { --gold: #D4AF37; --dark-bg: #0a0e1a; --card-gray: #1e293b; }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: var(--dark-bg); color: #fff; text-align: center; overflow-x: hidden; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, sans-serif; 
+            margin: 0; 
+            background: var(--dark-bg); 
+            color: #fff; 
+            text-align: center;
+            direction: rtl;
+        }
         
-        /* الهيدر واللوجو والجملة المطلوبة */
-        header { background: #0a0e1a; padding: 30px 20px; }
-        .logo-box { border: 2.5px solid var(--gold); display: inline-block; padding: 15px 40px; border-radius: 12px; background: #000; margin-bottom: 20px; }
-        .logo-n { font-size: 65px; color: var(--gold); font-family: serif; margin: 0; line-height: 1; }
-        .logo-name { color: var(--gold); font-weight: bold; font-size: 18px; display: block; margin-top: 10px; }
-        
-        /* الجملة اللي تحت اللوجو من الصورة */
-        .sub-title { color: var(--gold); font-size: 20px; font-weight: bold; margin-bottom: 5px; }
-        .sub-title-en { color: #94a3b8; font-size: 14px; font-style: italic; margin-bottom: 20px; display: block; }
+        /* الهيدر واللوجو */
+        header { padding: 25px 20px; }
+        .logo-box { border: 2.5px solid var(--gold); display: inline-block; padding: 12px 35px; border-radius: 12px; background: #000; margin-bottom: 10px; }
+        .logo-n { font-size: 60px; color: var(--gold); font-family: serif; margin: 0; line-height: 1; }
+        .sub-title { color: var(--gold); font-size: 18px; font-weight: bold; margin-top: 10px; }
+        .sub-title-en { color: #94a3b8; font-size: 13px; display: block; margin-bottom: 15px; }
 
-        /* شريط النصائح (أبطأ بمرتين) */
-        .ticker-wrap { width: 100%; overflow: hidden; background: #020617; border-top: 1px solid var(--gold); border-bottom: 1px solid var(--gold); padding: 10px 0; margin-bottom: 20px; }
+        /* شريط النصائح المتحرك */
+        .ticker-wrap { width: 100%; overflow: hidden; background: #020617; border-top: 1px solid var(--gold); border-bottom: 1px solid var(--gold); padding: 10px 0; margin-bottom: 15px; }
         .ticker { display: inline-block; white-space: nowrap; animation: ticker 60s linear infinite; }
-        .tip-item { display: inline-block; padding: 0 50px; color: #cbd5e1; font-size: 14px; }
-        .tip-item b { color: var(--gold); }
+        .tip-item { display: inline-block; padding: 0 40px; font-size: 14px; }
         @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
-        /* البحث والأقسام */
-        .search-container { padding: 0 20px 20px; }
-        .search-box { width: 100%; max-width: 500px; padding: 15px 25px; border-radius: 30px; border: 1.5px solid var(--gold); background: transparent; color: white; text-align: center; font-size: 16px; outline: none; }
+        .container { width: 92%; max-width: 500px; margin: 0 auto; padding-bottom: 100px; }
+        .section-card { border-radius: 15px; margin-bottom: 10px; cursor: pointer; padding: 22px; text-align: right; font-weight: bold; font-size: 19px; }
+        
+        /* ضبط ظهور الإعلانات ومنع التقطيع */
+        .ad-list { display: none; padding: 15px; background: rgba(0,0,0,0.2); text-align: right; border-radius: 0 0 15px 15px; }
+        .ad-item { 
+            background: #1e293b; 
+            padding: 18px; 
+            border-radius: 12px; 
+            margin-bottom: 15px; 
+            border-right: 5px solid var(--gold);
+            white-space: normal; 
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            text-align: right;
+        }
+        .ad-img { width: 100%; border-radius: 10px; margin-bottom: 12px; max-height: 350px; object-fit: cover; }
+        .ad-item h3 { color: var(--gold); margin: 5px 0; line-height: 1.4; }
+        .ad-item p { font-size: 15px; line-height: 1.6; color: #e2e8f0; }
 
-        .container { width: 92%; max-width: 550px; margin: 0 auto; padding-bottom: 100px; }
-        .section-card { border-radius: 20px; margin-bottom: 15px; cursor: pointer; transition: 0.3s; position: relative; overflow: hidden; }
-        .section-header { padding: 25px; font-weight: bold; font-size: 20px; display: flex; justify-content: space-between; align-items: center; }
-        .btn-post { background: var(--gold); color: #000; padding: 8px 15px; border-radius: 15px; font-size: 14px; font-weight: bold; border: none; }
-        .ad-list { display: none; padding: 20px; background: rgba(0,0,0,0.3); text-align: right; }
+        /* ألوان الأقسام */
+        .c1 { background: #1a4731; } .c2 { background: #1e3a8a; } .c3 { background: #4c1d95; }
+        .c4 { background: #701a1a; } .c5 { background: #ea580c; } .c6 { background: #4b5563; }
 
-        /* ألوان الأقسام من الصورة */
-        .bg-cars { background: #1a4731; } /* أخضر سيارات */
-        .bg-houses { background: #1e3a8a; } /* أزرق عقارات */
-        .bg-tech { background: #4c1d95; } /* بنفسجي جوالات */
+        /* استمارة النشر */
+        #postForm { display: none; background: var(--card-gray); padding: 25px; border-radius: 25px; border: 2px solid var(--gold); text-align: right; }
+        input, select, textarea { width: 100%; padding: 14px; margin: 10px 0; border-radius: 12px; background: #0a0e1a; border: 1px solid #334155; color: #fff; font-size: 16px; box-sizing: border-box; }
+        .btn-main { background: var(--gold); color: #000; padding: 15px; width: 100%; border-radius: 30px; font-weight: bold; border: none; cursor: pointer; font-size: 17px; }
 
-        /* مودال الحساب */
-        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 2000; padding: 20px; }
-        .modal-body { background: #1e293b; padding: 30px; border-radius: 20px; border: 2px solid var(--gold); max-width: 400px; margin: 50px auto; }
-        input { width: 100%; padding: 15px; margin: 10px 0; border-radius: 12px; background: #0a0e1a; border: 1px solid #334155; color: #fff; box-sizing: border-box; }
-        .btn-main { background: var(--gold); color: #000; padding: 15px; width: 100%; border-radius: 30px; font-weight: bold; border: none; cursor: pointer; }
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 2000; padding: 20px; }
+        .modal-body { background: #1e293b; padding: 25px; border-radius: 20px; border: 2px solid var(--gold); max-width: 400px; margin: 40px auto; text-align: center; }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="logo-box">
-        <h1 class="logo-n">N</h1>
-        <span class="logo-name">Nore Store</span>
-    </div>
+    <div class="logo-box"><h1 class="logo-n">N</h1><span style="color:var(--gold); font-weight:bold;">Nore Store</span></div>
     <div class="sub-title">عالمك للإعلان والخدمات الموثوقة</div>
     <span class="sub-title-en">Your World for Advertising & Trusted Services</span>
 </header>
 
-<div class="search-container">
-    <input type="text" class="search-box" placeholder="ابحث عن سيارة، عقار، أو أي شيء...">
-</div>
-
-<div class="ticker-wrap">
-    <div class="ticker">
-        <span class="tip-item"><b>🚗 نصيحة:</b> افحص المحرك والجير جيداً قبل الشراء.</span>
-        <span class="tip-item"><b>🛡️ أمان:</b> قابل البائع في أماكن عامة لضمان سلامتك.</span>
-        <span class="tip-item"><b>💡 للبائع:</b> أضف صوراً واضحة لزيادة فرص البيع.</span>
-        <span class="tip-item"><b>🏠 تنبيه:</b> تأكد من صحة أوراق ملكية العقار رسمياً.</span>
-    </div>
-</div>
+<div class="ticker-wrap"><div class="ticker">
+    <span class="tip-item">🚗 نصيحة: افحص السلعة جيداً قبل الشراء.</span>
+    <span class="tip-item">🛡️ أمان: قابل البائع في مكان عام ومؤمن.</span>
+    <span class="tip-item">💸 تنبيه: لا ترسل مبالغ مالية قبل المعاينة.</span>
+    <span class="tip-item">📱 ملاحظة: تأكد من مطابقة الصور للمنتج المعروض.</span>
+    <span class="tip-item">🤝 ثقة: التعامل المباشر وجهاً لوجه هو الأضمن.</span>
+</div></div>
 
 <div class="container">
-    <div class="section-card bg-cars" onclick="toggleSection('cars')">
-        <div class="section-header">
-            <button class="btn-post">انشر مجاناً</button>
-            <span>سيارات للبيع 🚗</span>
-        </div>
-        <div id="list-cars" class="ad-list">لا توجد إعلانات حالياً</div>
+    <div id="sections">
+        <div class="section-card c1" onclick="toggleSection('cars')">سيارات للبيع 🚗<div id="list-cars" class="ad-list"></div></div>
+        <div class="section-card c2" onclick="toggleSection('houses')">عقارات وأراضي 🏠<div id="list-houses" class="ad-list"></div></div>
+        <div class="section-card c3" onclick="toggleSection('tech')">جوالات وإلكترونيات 📱<div id="list-tech" class="ad-list"></div></div>
+        <div class="section-card c4" onclick="toggleSection('jobs')">وظائف وخدمات 💼<div id="list-jobs" class="ad-list"></div></div>
+        <div class="section-card c5" onclick="toggleSection('furniture')">أثاث ومنزل 🛋️<div id="list-furniture" class="ad-list"></div></div>
+        <div class="section-card c6" onclick="toggleSection('other')">أقسام أخرى 📦<div id="list-other" class="ad-list"></div></div>
     </div>
 
-    <div class="section-card bg-houses" onclick="toggleSection('houses')">
-        <div class="section-header">
-            <button class="btn-post">انشر مجاناً</button>
-            <span>عقارات 🏠</span>
-        </div>
-        <div id="list-houses" class="ad-list">لا توجد إعلانات حالياً</div>
-    </div>
-
-    <div class="section-card bg-tech" onclick="toggleSection('tech')">
-        <div class="section-header">
-            <button class="btn-post">انشر مجاناً</button>
-            <span>جوالات 📱</span>
-        </div>
-        <div id="list-tech" class="ad-list">لا توجد إعلانات حالياً</div>
+    <div id="postForm">
+        <h3 style="color:var(--gold); text-align:center;">نشر إعلان جديد</h3>
+        <select id="adCategory">
+            <option value="cars">سيارات</option><option value="houses">عقارات</option>
+            <option value="tech">جوالات</option><option value="jobs">وظائف</option>
+            <option value="furniture">أثاث</option><option value="other">أقسام أخرى</option>
+        </select>
+        <input type="text" id="adTitle" placeholder="عنوان الإعلان">
+        <textarea id="adDesc" placeholder="وصف المنتج وتفاصيله" rows="3"></textarea>
+        <input type="number" id="adPrice" placeholder="السعر">
+        <input type="tel" id="adPhone" placeholder="رقم الهاتف">
+        <label style="color:var(--gold); font-size:14px; display:block; margin-top:10px;">ارفع صورة المنتج:</label>
+        <input type="file" id="adFile" accept="image/*" style="border:none;">
+        <button id="submitBtn" class="btn-main" onclick="handlePost()">نشر الإعلان الآن 🚀</button>
+        <button onclick="logout()" style="background:none; color:red; border:none; margin-top:15px; cursor:pointer; width:100%;">تسجيل خروج</button>
     </div>
 </div>
 
-<div style="position:fixed; bottom:25px; left:50%; transform:translateX(-50%); z-index:1000;">
-    <button class="btn-main" style="width:200px; box-shadow: 0 10px 20px rgba(0,0,0,0.5);" onclick="document.getElementById('authM').style.display='block'">دخول / إنشاء حساب</button>
+<div id="authFloat" style="position:fixed; bottom:20px; left:50%; transform:translateX(-50%); z-index:1000;">
+    <button class="btn-main" style="width:200px;" onclick="document.getElementById('authM').style.display='block'">دخول / تسجيل</button>
 </div>
 
 <div id="authM" class="modal"><div class="modal-body">
-    <h3 style="color:var(--gold);">إنشاء حساب جديد</h3>
-    <input type="email" id="email" placeholder="البريد الإلكتروني">
+    <h3 id="mTitle" style="color:var(--gold);">تسجيل دخول</h3>
+    <input type="email" id="email" placeholder="الإيميل">
     <input type="password" id="pass" placeholder="كلمة المرور">
-    <input type="password" id="rePass" placeholder="تأكيد كلمة المرور">
-    <button class="btn-main" onclick="handleAuth()">تأكيد الإنشاء</button>
-    <button onclick="document.getElementById('authM').style.display='none'" style="background:none; border:none; color:#94a3b8; margin-top:15px; cursor:pointer;">إغلاق</button>
+    <button class="btn-main" onclick="handleAuth()">تأكيد</button>
+    <p onclick="toggleAuthMode()" style="cursor:pointer; font-size:12px; margin-top:10px; color:var(--gold);">تبديل بين دخول / إنشاء حساب</p>
 </div></div>
 
 <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyCGHZnuS8OrzZwFVhhZ55nGbf0yGKw8lUA",
-      authDomain: "norestore-d1f0d.firebaseapp.com",
-      projectId: "norestore-d1f0d",
-      databaseURL: "https://norestore-d1f0d-default-rtdb.firebaseio.com",
-      appId: "1:850362951907:web:fea185c1c3d5f49557fdd6"
+    // Firebase Config
+    const firebaseConfig = { 
+        apiKey: "AIzaSyCGHZnuS8OrzZwFVhhZ55nGbf0yGKw8lUA", 
+        authDomain: "norestore-d1f0d.firebaseapp.com", 
+        projectId: "norestore-d1f0d", 
+        databaseURL: "https://norestore-d1f0d-default-rtdb.firebaseio.com" 
     };
-
     firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
+    const auth = firebase.auth(), db = firebase.database();
+    let isSignup = false;
 
-    function toggleSection(id) {
-        const list = document.getElementById('list-' + id);
-        document.querySelectorAll('.ad-list').forEach(el => {
-            if(el.id !== 'list-' + id) el.style.display = 'none';
-        });
-        list.style.display = (list.style.display === 'block' ? 'none' : 'block');
+    // Cloudinary Config
+    const CLOUD_NAME = "dky9ovkhw"; 
+    const UPLOAD_PRESET = "ml_default"; 
+
+    auth.onAuthStateChanged(user => {
+        if(user) { 
+            document.getElementById('sections').style.display='none'; 
+            document.getElementById('postForm').style.display='block'; 
+            document.getElementById('authFloat').style.display='none'; 
+        } else { 
+            document.getElementById('sections').style.display='block'; 
+            document.getElementById('postForm').style.display='none'; 
+            document.getElementById('authFloat').style.display='block'; 
+        }
+        loadAds();
+    });
+
+    async function handlePost() {
+        const file = document.getElementById('adFile').files[0];
+        const btn = document.getElementById('submitBtn');
+        if(!file) return alert("يرجى اختيار صورة!");
+        
+        btn.innerText = "جاري الرفع..."; btn.disabled = true;
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('upload_preset', UPLOAD_PRESET);
+
+        try {
+            const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, { method: 'POST', body: formData });
+            const data = await res.json();
+            if(!data.secure_url) throw new Error("تأكد من ضبط Unsigned في Cloudinary");
+
+            const ad = {
+                category: document.getElementById('adCategory').value,
+                title: document.getElementById('adTitle').value,
+                desc: document.getElementById('adDesc').value,
+                price: document.getElementById('adPrice').value,
+                phone: document.getElementById('adPhone').value,
+                image: data.secure_url,
+                email: auth.currentUser.email,
+                id: Date.now()
+            };
+            await db.ref('ads/' + ad.id).set(ad);
+            alert("تم النشر بنجاح!"); location.reload();
+        } catch(e) { 
+            alert("خطأ: " + e.message); 
+            btn.disabled = false; btn.innerText = "نشر الإعلان الآن 🚀"; 
+        }
     }
 
+    function loadAds() {
+        db.ref('ads').on('value', snap => {
+            const ads = snap.val();
+            document.querySelectorAll('.ad-list').forEach(el => el.innerHTML = '');
+            for(let id in ads) {
+                const ad = ads[id];
+                const adHTML = `
+                    <div class="ad-item">
+                        <img src="${ad.image}" class="ad-img">
+                        <h3>${ad.title}</h3>
+                        <p>${ad.desc}</p>
+                        <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid #334155; padding-top:10px; margin-top:10px;">
+                            <b style="font-size:17px; color:var(--gold);">${ad.price} ريال</b>
+                            <a href="tel:${ad.phone}" style="color:#22c55e; text-decoration:none; font-weight:bold;">📞 اتصل</a>
+                        </div>
+                    </div>`;
+                const list = document.getElementById('list-' + ad.category);
+                if(list) list.innerHTML += adHTML;
+            }
+        });
+    }
+
+    function toggleAuthMode() { isSignup = !isSignup; document.getElementById('mTitle').innerText = isSignup ? "إنشاء حساب" : "تسجيل دخول"; }
     function handleAuth() {
-        const e = document.getElementById('email').value, p = document.getElementById('pass').value, rp = document.getElementById('rePass').value;
-        if(p !== rp) return alert("كلمات المرور غير متطابقة!");
-        auth.createUserWithEmailAndPassword(e, p)
-            .then(() => { alert("تم إنشاء الحساب بنجاح!"); location.reload(); })
-            .catch(err => alert(err.message));
+        const e = document.getElementById('email').value, p = document.getElementById('pass').value;
+        if(isSignup) auth.createUserWithEmailAndPassword(e, p).catch(err => alert(err.message));
+        else auth.signInWithEmailAndPassword(e, p).catch(err => alert(err.message));
+        document.getElementById('authM').style.display='none';
+    }
+    function logout() { auth.signOut().then(() => location.reload()); }
+    function toggleSection(id) { 
+        const el = document.getElementById('list-' + id);
+        el.style.display = el.style.display==='block' ? 'none' : 'block'; 
     }
 </script>
 </body>
