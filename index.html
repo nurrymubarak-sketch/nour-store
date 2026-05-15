@@ -13,43 +13,44 @@
         :root { --gold: #D4AF37; --dark-bg: #0a0e1a; --card-gray: #1e293b; --green: #22c55e; --red: #ef4444; }
         body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: var(--dark-bg); color: #fff; direction: rtl; padding-bottom: 80px; }
         
-        /* الهيدر واللوجو والكتابة التحتو */
         header { padding: 25px 20px; text-align: center; }
         .logo-box { border: 2.5px solid var(--gold); display: inline-block; padding: 12px 35px; border-radius: 12px; background: #000; margin-bottom: 10px; }
         .logo-n { font-size: 60px; color: var(--gold); font-family: serif; margin: 0; line-height: 1; }
         .sub-title { color: var(--gold); font-size: 18px; font-weight: bold; margin-top: 10px; display: block; }
-        .sub-title-en { color: #94a3b8; font-size: 13px; display: block; margin-top: 5px; }
+        .sub-title-en { color: #94a3b8; font-size: 13px; display: block; }
 
-        /* شريط النصائح المتحرك */
         .ticker-wrap { width: 100%; overflow: hidden; background: #020617; border-top: 1px solid var(--gold); border-bottom: 1px solid var(--gold); padding: 10px 0; margin: 15px 0; }
         .ticker { display: inline-block; white-space: nowrap; animation: ticker 45s linear infinite; }
-        .tip-item { display: inline-block; padding: 0 40px; font-size: 14px; color: #fff; }
+        .tip-item { display: inline-block; padding: 0 40px; font-size: 14px; }
         @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
         .container { width: 92%; max-width: 600px; margin: 0 auto; }
-        
-        /* الأقسام */
-        .section-card { border-radius: 15px; margin-bottom: 12px; cursor: pointer; padding: 22px; font-weight: bold; font-size: 19px; text-align: right; }
+
+        /* ميزات البحث والفلترة الجديدة */
+        .search-area { background: var(--card-gray); padding: 15px; border-radius: 15px; margin-bottom: 15px; border: 1px solid var(--gold); }
+        .filter-row { display: flex; gap: 10px; margin-top: 10px; }
+        .search-input { background: #0a0e1a; border: 1px solid #334155; color: #fff; padding: 10px; border-radius: 8px; width: 100%; box-sizing: border-box; }
+        .filter-select { background: #0a0e1a; border: 1px solid #334155; color: var(--gold); padding: 5px; border-radius: 8px; font-size: 12px; cursor: pointer; flex: 1; }
+
+        .section-card { border-radius: 15px; margin-bottom: 12px; cursor: pointer; padding: 22px; font-weight: bold; font-size: 19px; text-align: right; transition: 0.3s; }
         .c1 { background: #1a4731; } .c2 { background: #1e3a8a; } .c3 { background: #4c1d95; }
         .c4 { background: #701a1a; } .c5 { background: #ea580c; } .c6 { background: #4b5563; }
 
-        /* الإعلانات */
         .ad-list { display: none; padding: 10px; background: rgba(0,0,0,0.3); border-radius: 0 0 15px 15px; }
-        .ad-item { background: var(--card-gray); padding: 15px; border-radius: 12px; margin-bottom: 15px; border-right: 5px solid var(--gold); word-wrap: break-word; }
+        .ad-item { background: var(--card-gray); padding: 15px; border-radius: 12px; margin-bottom: 15px; border-right: 5px solid var(--gold); }
         .ad-img { width: 100%; border-radius: 8px; max-height: 350px; object-fit: cover; margin-bottom: 10px; }
         .status-tag { display: inline-block; padding: 4px 10px; border-radius: 5px; font-size: 12px; margin-bottom: 10px; font-weight: bold; }
         
-        /* النماذج */
         .form-box { background: var(--card-gray); padding: 20px; border-radius: 20px; border: 2px solid var(--gold); margin-top: 20px; display: none; text-align: right; }
         input, select, textarea { width: 100%; padding: 12px; margin: 8px 0; border-radius: 10px; background: #0a0e1a; border: 1px solid #334155; color: #fff; box-sizing: border-box; font-size: 16px; }
-        .btn-main { background: var(--gold); color: #000; padding: 14px; width: 100%; border-radius: 30px; font-weight: bold; border: none; cursor: pointer; font-size: 16px; }
         
-        .controls { margin-top: 12px; display: flex; gap: 10px; }
-        .btn-del { background: var(--red); color: white; padding: 8px 15px; border-radius: 8px; border: none; }
-        .btn-sold { background: var(--green); color: white; padding: 8px 15px; border-radius: 8px; border: none; }
+        .action-btns { margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap; }
+        .btn-wa { background: #25d366; color: white; padding: 10px 15px; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: bold; display: flex; align-items: center; }
+        .btn-share { background: #3b82f6; color: white; padding: 10px 15px; border-radius: 8px; border: none; cursor: pointer; font-size: 14px; }
+        .btn-del { background: var(--red); color: white; padding: 10px 15px; border-radius: 8px; border: none; cursor: pointer; }
+        .btn-sold { background: var(--green); color: white; padding: 10px 15px; border-radius: 8px; border: none; cursor: pointer; }
 
-        /* الشريط السفلي */
-        #userToolbar { display: flex; justify-content: space-around; align-items: center; background: #000; padding: 12px 0; position: fixed; bottom: 0; width: 100%; border-top: 2px solid var(--gold); z-index: 1000; }
+        #userToolbar { display: flex; justify-content: space-around; align-items: center; background: #000; padding: 15px 0; position: fixed; bottom: 0; width: 100%; border-top: 2px solid var(--gold); z-index: 1000; }
         .nav-btn { background: none; color: white; border: none; cursor: pointer; font-size: 14px; font-weight: bold; }
 
         .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 2000; padding: 20px; }
@@ -65,14 +66,23 @@
 </header>
 
 <div class="ticker-wrap"><div class="ticker">
-    <span class="tip-item">🚗 نصيحة: افحص السلعة جيداً قبل الشراء.</span>
-    <span class="tip-item">🛡️ أمان: قابل البائع في مكان عام ومؤمن.</span>
-    <span class="tip-item">💸 تنبيه: لا ترسل مبالغ مالية قبل المعاينة.</span>
-    <span class="tip-item">📱 ملاحظة: تأكد من مطابقة الصور للمنتج.</span>
-    <span class="tip-item">🤝 ثقة: التعامل المباشر وجهاً لوجه هو الأضمن.</span>
+    <span class="tip-item">🔍 جديد: جرب ميزة البحث السريع عن المنتجات.</span>
+    <span class="tip-item">🛡️ أمان: قابل البائع في مكان عام.</span>
+    <span class="tip-item">📞 تواصل: استخدم زر الواتساب للطلب المباشر.</span>
 </div></div>
 
 <div class="container">
+    <div id="searchView" class="search-area">
+        <input type="text" id="searchInput" class="search-input" placeholder="ابحث عن سيارة، منزل، موبايل..." onkeyup="loadAds()">
+        <div class="filter-row">
+            <select id="priceFilter" class="filter-select" onchange="loadAds()">
+                <option value="default">ترتيب عشوائي</option>
+                <option value="low">السعر: من الأقل</option>
+                <option value="high">السعر: من الأعلى</option>
+            </select>
+        </div>
+    </div>
+
     <div id="mainView">
         <div class="section-card c1" onclick="toggleSection('cars')">سيارات للبيع 🚗 <div id="list-cars" class="ad-list"></div></div>
         <div class="section-card c2" onclick="toggleSection('houses')">عقارات وأراضي 🏠 <div id="list-houses" class="ad-list"></div></div>
@@ -88,17 +98,12 @@
         <input type="text" id="adTitle" placeholder="عنوان الإعلان">
         <textarea id="adDesc" placeholder="وصف المنتج بالتفصيل" rows="3"></textarea>
         <input type="number" id="adPrice" placeholder="السعر">
-        <input type="tel" id="adPhone" placeholder="رقم الهاتف">
-        <input type="email" id="adEmail" placeholder="الإيميل (اختياري)">
-        <label style="color:var(--gold); font-size:14px; display:block; margin:5px 0;">ارفع صورة الإعلان:</label>
+        <input type="tel" id="adPhone" placeholder="رقم الهاتف (+249...)">
         <input type="file" id="adFile" accept="image/*">
-        <button id="submitBtn" class="btn-main" onclick="handlePost()">نشر الآن 🚀</button>
+        <button id="submitBtn" style="background:var(--gold); border:none; padding:15px; width:100%; border-radius:30px; font-weight:bold; cursor:pointer;" onclick="handlePost()">نشر الآن 🚀</button>
     </div>
 
-    <div id="myAdsView" class="form-box">
-        <h3 style="color:var(--gold);">إعلاناتي المنشورة</h3>
-        <div id="myAdsList"></div>
-    </div>
+    <div id="myAdsView" class="form-box"><h3 style="color:var(--gold);">إعلاناتي</h3><div id="myAdsList"></div></div>
 </div>
 
 <div id="userToolbar">
@@ -110,11 +115,10 @@
 </div>
 
 <div id="authM" class="modal"><div class="modal-body">
-    <h3 id="mTitle" style="color:var(--gold);">تسجيل دخول</h3>
-    <input type="email" id="email" placeholder="الإيميل">
-    <input type="password" id="pass" placeholder="كلمة المرور">
-    <button class="btn-main" onclick="handleAuth()">تأكيد</button>
-    <p onclick="toggleAuthMode()" style="cursor:pointer; font-size:13px; color:var(--gold); margin-top:15px;">تبديل (دخول / حساب جديد)</p>
+    <h3 id="mTitle" style="color:var(--gold);">دخول</h3>
+    <input type="email" id="email" placeholder="الإيميل"><input type="password" id="pass" placeholder="كلمة المرور">
+    <button style="background:var(--gold); border:none; padding:12px; width:100%; border-radius:25px; font-weight:bold;" onclick="handleAuth()">تأكيد</button>
+    <p onclick="toggleAuthMode()" style="cursor:pointer; color:var(--gold); margin-top:15px; font-size:12px;">تبديل دخول / تسجيل جديد</p>
 </div></div>
 
 <script>
@@ -142,7 +146,7 @@
 
     async function handlePost() {
         const file = document.getElementById('adFile').files[0];
-        if(!file || !document.getElementById('adTitle').value) return alert("أكمل البيانات!");
+        if(!file) return alert("اختر صورة!");
         const btn = document.getElementById('submitBtn');
         btn.innerText = "جاري النشر..."; btn.disabled = true;
         const formData = new FormData();
@@ -153,40 +157,73 @@
             const adId = Date.now();
             await db.ref('ads/' + adId).set({
                 id: adId, uid: auth.currentUser.uid,
-                email: document.getElementById('adEmail').value || "غير متوفر",
                 phone: document.getElementById('adPhone').value,
                 title: document.getElementById('adTitle').value,
                 desc: document.getElementById('adDesc').value,
-                price: document.getElementById('adPrice').value,
+                price: parseFloat(document.getElementById('adPrice').value),
                 category: document.getElementById('adCategory').value,
                 image: data.secure_url, status: 'available'
             });
-            alert("تم النشر!"); showMain();
-        } catch(e) { alert("فشل الرفع"); }
+            alert("تم النشر بنجاح!"); showMain();
+        } catch(e) { alert("خطأ في الرفع"); }
         btn.disabled = false; btn.innerText = "نشر الآن 🚀";
     }
 
     function loadAds() {
+        const searchText = document.getElementById('searchInput').value.toLowerCase();
+        const sortType = document.getElementById('priceFilter').value;
+
         db.ref('ads').on('value', snap => {
-            const ads = snap.val();
+            let adsArr = [];
+            const adsData = snap.val();
+            for(let id in adsData) { adsArr.push({...adsData[id], key: id}); }
+
+            // فلترة البحث
+            if(searchText) {
+                adsArr = adsArr.filter(a => a.title.toLowerCase().includes(searchText) || a.desc.toLowerCase().includes(searchText));
+                // فتح كل الأقسام إذا كان هناك بحث
+                document.querySelectorAll('.ad-list').forEach(l => l.style.display = 'block');
+            }
+
+            // ترتيب السعر
+            if(sortType === 'low') adsArr.sort((a,b) => a.price - b.price);
+            if(sortType === 'high') adsArr.sort((a,b) => b.price - a.price);
+
             document.querySelectorAll('.ad-list').forEach(el => el.innerHTML = '');
             document.getElementById('myAdsList').innerHTML = '';
-            for(let id in ads) {
-                const ad = ads[id];
+
+            adsArr.forEach(ad => {
                 const isOwner = auth.currentUser && auth.currentUser.uid === ad.uid;
                 const isAdmin = auth.currentUser && auth.currentUser.email === ADMIN_EMAIL;
-                const html = `<div class="ad-item"><img src="${ad.image}" class="ad-img"><div class="status-tag" style="background:${ad.status==='available' ? 'var(--green)' : 'var(--red)'}">${ad.status==='available' ? 'متوفر' : 'تم البيع'}</div><h3>${ad.title}</h3><p>${ad.desc}</p><b>${ad.price} ريال | 📞 ${ad.phone}</b><div class="controls">${(isOwner || isAdmin) ? `<button class="btn-del" onclick="deleteAd('${id}')">حذف</button>` : ''}${isOwner ? `<button class="btn-sold" onclick="markSold('${id}')">تم البيع</button>` : ''}</div></div>`;
-                if(document.getElementById('list-'+ad.category)) document.getElementById('list-'+ad.category).innerHTML += html;
-                if(isOwner) document.getElementById('myAdsList').innerHTML += html;
-            }
+                const waLink = `https://wa.me/${ad.phone.replace('+', '').replace(/\s/g, '')}?text=أنا مهتم بإعلانك: ${ad.title}`;
+                
+                const adHTML = `
+                    <div class="ad-item">
+                        <img src="${ad.image}" class="ad-img">
+                        <div class="status-tag" style="background:${ad.status==='available' ? 'var(--green)' : 'var(--red)'}">${ad.status==='available' ? 'متوفر' : 'تم البيع'}</div>
+                        <h3>${ad.title}</h3>
+                        <p>${ad.desc}</p>
+                        <b style="color:var(--gold);">${ad.price} ريال | 📞 ${ad.phone}</b>
+                        <div class="action-btns">
+                            <a href="${waLink}" target="_blank" class="btn-wa">🟢 واتساب</a>
+                            <button class="btn-share" onclick="shareAd('${ad.title}', '${ad.price}')">🔗 مشاركة</button>
+                            ${(isOwner || isAdmin) ? `<button class="btn-del" onclick="deleteAd('${ad.key}')">حذف</button>` : ''}
+                            ${isOwner ? `<button class="btn-sold" onclick="markSold('${ad.key}')">تم البيع ✅</button>` : ''}
+                        </div>
+                    </div>`;
+                const target = document.getElementById('list-'+ad.category);
+                if(target) target.innerHTML += adHTML;
+                if(isOwner) document.getElementById('myAdsList').innerHTML += adHTML;
+            });
         });
     }
 
-    function deleteAd(id) { if(confirm("حذف؟")) db.ref('ads/' + id).remove(); }
+    function shareAd(t, p) { if (navigator.share) { navigator.share({ title: 'نوري ستور', text: `إعلان: ${t} بسعر ${p}`, url: window.location.href }); } }
+    function deleteAd(id) { if(confirm("حذف الإعلان؟")) db.ref('ads/' + id).remove(); }
     function markSold(id) { db.ref('ads/' + id).update({status: 'sold'}); }
-    function showMain() { document.getElementById('mainView').style.display='block'; document.getElementById('postForm').style.display='none'; document.getElementById('myAdsView').style.display='none'; }
-    function showPost() { document.getElementById('mainView').style.display='none'; document.getElementById('postForm').style.display='block'; document.getElementById('myAdsView').style.display='none'; }
-    function showMyAds() { document.getElementById('mainView').style.display='none'; document.getElementById('postForm').style.display='none'; document.getElementById('myAdsView').style.display='block'; }
+    function showMain() { document.getElementById('mainView').style.display='block'; document.getElementById('postForm').style.display='none'; document.getElementById('myAdsView').style.display='none'; document.getElementById('searchView').style.display='block'; }
+    function showPost() { document.getElementById('mainView').style.display='none'; document.getElementById('postForm').style.display='block'; document.getElementById('myAdsView').style.display='none'; document.getElementById('searchView').style.display='none'; }
+    function showMyAds() { document.getElementById('mainView').style.display='none'; document.getElementById('postForm').style.display='none'; document.getElementById('myAdsView').style.display='block'; document.getElementById('searchView').style.display='none'; }
     function toggleSection(id) { const el = document.getElementById('list-' + id); const isOpen = el.style.display === 'block'; document.querySelectorAll('.ad-list').forEach(l => l.style.display = 'none'); el.style.display = isOpen ? 'none' : 'block'; }
     function openAuth() { document.getElementById('authM').style.display='block'; }
     function toggleAuthMode() { isSignup = !isSignup; document.getElementById('mTitle').innerText = isSignup ? "حساب جديد" : "دخول"; }
