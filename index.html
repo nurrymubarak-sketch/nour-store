@@ -10,15 +10,13 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
     <style>
-        :root { --gold: #D4AF37; --dark-bg: #0a0e1a; --card-gray: #1e293b; }
+        :root { --gold: #D4AF37; --dark-bg: #0a0e1a; --card-gray: #1e293b; --green: #22c55e; }
         body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: var(--dark-bg); color: #fff; direction: rtl; padding-bottom: 100px; }
         
-        /* الهيدر واللوجو الأصلي */
         header { padding: 30px 20px; text-align: center; border-bottom: 2px solid var(--gold); background: #000; }
         .logo-n { font-size: 60px; color: var(--gold); font-family: serif; margin: 0; }
         .sub-title { color: var(--gold); font-size: 16px; font-weight: bold; display: block; margin-top: 5px; }
 
-        /* الشريط المتحرك */
         .ticker-wrap { background: #020617; border-bottom: 1px solid var(--gold); padding: 10px 0; overflow: hidden; }
         .ticker { display: inline-block; white-space: nowrap; animation: ticker 35s linear infinite; }
         .tip-item { display: inline-block; padding: 0 40px; font-size: 14px; }
@@ -26,13 +24,11 @@
 
         .container { width: 92%; max-width: 550px; margin: 20px auto; }
 
-        /* الأقسام الستة الأصلية */
         .section-card { border-radius: 15px; margin-bottom: 12px; cursor: pointer; padding: 25px; font-weight: bold; font-size: 20px; text-align: right; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
         .c1 { background: #1a4731; } .c2 { background: #1e3a8a; } .c3 { background: #4c1d95; }
         .c4 { background: #701a1a; } .c5 { background: #ea580c; } .c6 { background: #4b5563; }
         .ad-list { display: none; padding-top: 15px; }
 
-        /* استمارات التسجيل والدخول */
         .auth-box { background: var(--card-gray); padding: 25px; border-radius: 20px; border: 2px solid var(--gold); text-align: center; margin-top: 20px; }
         .auth-tabs { display: flex; gap: 10px; margin-bottom: 15px; }
         .auth-tabs button { flex: 1; padding: 10px; border-radius: 8px; border: none; background: #0a0e1a; color: #fff; cursor: pointer; }
@@ -41,7 +37,6 @@
         input, select, textarea { width: 100%; padding: 14px; margin: 8px 0; border-radius: 10px; background: #0a0e1a; border: 1px solid #334155; color: #fff; box-sizing: border-box; text-align: center; }
         .btn-submit { background: var(--gold); color: #000; padding: 16px; width: 100%; border-radius: 30px; font-weight: bold; border: none; cursor: pointer; font-size: 18px; margin-top: 10px; }
 
-        /* القائمة السفلية */
         #navBar { display: flex; justify-content: space-around; align-items: center; background: #000; padding: 15px 0; position: fixed; bottom: 0; width: 100%; border-top: 2px solid var(--gold); z-index: 9999; }
         .nav-btn { background: none; color: white; border: none; cursor: pointer; font-size: 14px; font-weight: bold; }
     </style>
@@ -72,16 +67,15 @@
                 <button id="btnSignup" class="active-tab" onclick="toggleAuthMode(true)">تسجيل جديد</button>
                 <button id="btnLogin" onclick="toggleAuthMode(false)">دخول</button>
             </div>
-            <div id="nameField">
-                <input type="text" id="uName" placeholder="الاسم الكامل">
-            </div>
+            <div id="nameField"><input type="text" id="uName" placeholder="الاسم الكامل"></div>
             <input type="email" id="uEmail" placeholder="البريد الإلكتروني">
             <input type="password" id="uPass" placeholder="كلمة المرور">
-            <button class="btn-submit" onclick="handleAuth()" id="mainAuthBtn">إنشاء الحساب 🚀</button>
+            <button class="btn-submit" onclick="handleAuth()" id="mainAuthBtn">بدء الاستخدام 🚀</button>
         </div>
     </div>
 
     <div id="postView" style="display:none;" class="auth-box">
+        <div id="successArea"></div>
         <h3 style="color:var(--gold);">نشر إعلان جديد</h3>
         <input type="text" id="pTitle" placeholder="عنوان الإعلان">
         <textarea id="pDesc" placeholder="تفاصيل المنتج..."></textarea>
@@ -92,7 +86,7 @@
             <option value="jobs">وظائف</option><option value="furniture">أثاث</option><option value="other">أخرى</option>
         </select>
         <input type="file" id="pFile" accept="image/*">
-        <button class="btn-submit" onclick="alert('جاري الرفع...')">نشر الآن ✅</button>
+        <button class="btn-submit" onclick="uploadAd()" id="upBtn">نشر الإعلان الآن ✅</button>
     </div>
 </div>
 
@@ -103,57 +97,70 @@
 </div>
 
 <script>
-    // Firebase Config
     const firebaseConfig = { apiKey: "AIzaSyCGHZnuS8OrzZwFVhhZ55nGbf0yGKw8lUA", authDomain: "norestore-d1f0d.firebaseapp.com", projectId: "norestore-d1f0d", databaseURL: "https://norestore-d1f0d-default-rtdb.firebaseio.com" };
     firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
+    const auth = firebase.auth(), db = firebase.database();
 
     let isSignupMode = true;
 
-    function toggleAuthMode(signup) {
-        isSignupMode = signup;
-        document.getElementById('nameField').style.display = signup ? 'block' : 'none';
-        document.getElementById('btnSignup').className = signup ? 'active-tab' : '';
-        document.getElementById('btnLogin').className = signup ? '' : 'active-tab';
-        document.getElementById('mainAuthBtn').innerText = signup ? "إنشاء الحساب 🚀" : "دخول 🔑";
+    // مراقبة الدخول لتبديل الاستمارات
+    auth.onAuthStateChanged(user => {
+        if(user) {
+            document.getElementById('authArea').style.display = 'none';
+            document.getElementById('postView').style.display = 'block';
+        } else {
+            document.getElementById('authArea').style.display = 'block';
+            document.getElementById('postView').style.display = 'none';
+        }
+    });
+
+    function toggleAuthMode(s) {
+        isSignupMode = s;
+        document.getElementById('nameField').style.display = s ? 'block' : 'none';
+        document.getElementById('btnSignup').className = s ? 'active-tab' : '';
+        document.getElementById('btnLogin').className = s ? '' : 'active-tab';
+        document.getElementById('mainAuthBtn').innerText = s ? "إنشاء الحساب 🚀" : "دخول 🔑";
     }
 
     function handleAuth() {
-        const email = document.getElementById('uEmail').value;
-        const pass = document.getElementById('uPass').value;
+        const e = document.getElementById('uEmail').value, p = document.getElementById('uPass').value;
+        if(isSignupMode) auth.createUserWithEmailAndPassword(e, p).catch(a => alert(a.message));
+        else auth.signInWithEmailAndPassword(e, p).catch(a => alert(a.message));
+    }
+
+    async function uploadAd() {
+        const file = document.getElementById('pFile').files[0];
+        if(!file) return alert("اختر صورة للمنتج");
+        const btn = document.getElementById('upBtn'); btn.disabled = true; btn.innerText = "جاري النشر...";
         
-        if(isSignupMode) {
-            auth.createUserWithEmailAndPassword(email, pass)
-                .then(() => { alert("تم التسجيل! يمكنك النشر الآن."); showView('post'); })
-                .catch(err => alert(err.message));
-        } else {
-            auth.signInWithEmailAndPassword(email, pass)
-                .then(() => { alert("أهلاً بعودتك!"); showView('home'); })
-                .catch(err => alert(err.message));
-        }
+        const fd = new FormData(); fd.append('file', file); fd.append('upload_preset', 'ml_default');
+        try {
+            const res = await fetch('https://api.cloudinary.com/v1_1/dky9ovkhw/image/upload', {method:'POST', body:fd});
+            const data = await res.json();
+            await db.ref('ads').push({
+                uid: auth.currentUser.uid, title: document.getElementById('pTitle').value,
+                desc: document.getElementById('pDesc').value, price: document.getElementById('pPrice').value,
+                phone: document.getElementById('pPhone').value, cat: document.getElementById('pCat').value,
+                img: data.secure_url
+            });
+            
+            document.getElementById('successArea').innerHTML = `
+                <div style="background: var(--green); padding: 15px; border-radius: 12px; margin-bottom: 20px;">
+                    <b>✅ تم النشر!</b><br>
+                    <button onclick="document.getElementById('successArea').innerHTML=''" style="background:#fff; border:none; padding:5px 15px; border-radius:20px; margin-top:10px; cursor:pointer; font-weight:bold;">إضافة إعلان آخر جديد ➕</button>
+                </div>`;
+            document.getElementById('pTitle').value = ''; document.getElementById('pPrice').value = ''; document.getElementById('pFile').value = '';
+        } catch(e) { alert("خطأ في الاتصال"); }
+        btn.disabled = false; btn.innerText = "نشر الإعلان الآن ✅";
     }
 
     function showView(v) {
-        if(v === 'post' && !auth.currentUser) {
-            window.scrollTo(0, document.body.scrollHeight);
-            alert("سجل حسابك أولاً يا غالي!");
-            return;
-        }
+        if(v === 'post' && !auth.currentUser) { window.scrollTo(0, document.body.scrollHeight); alert("سجل دخولك أولاً!"); return; }
         document.getElementById('homeView').style.display = v === 'home' ? 'block' : 'none';
         document.getElementById('postView').style.display = v === 'post' ? 'block' : 'none';
     }
 
-    function toggleSec(id) {
-        const el = document.getElementById('sec-'+id);
-        el.style.display = el.style.display === 'block' ? 'none' : 'block';
-    }
-
-    // مراقبة حالة الدخول لإخفاء استمارة التسجيل عند الدخول
-    auth.onAuthStateChanged(user => {
-        if(user) document.getElementById('authArea').style.display = 'none';
-        else document.getElementById('authArea').style.display = 'block';
-    });
+    function toggleSec(id) { const el = document.getElementById('sec-'+id); el.style.display = el.style.display === 'block' ? 'none' : 'block'; }
 </script>
-
 </body>
 </html>
