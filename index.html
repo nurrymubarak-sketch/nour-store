@@ -43,26 +43,24 @@
         .btn-share { background: var(--blue); color: white; padding: 8px; border: none; border-radius: 8px; cursor: pointer; flex: 1; }
 
         .auth-box { background: var(--card-gray); padding: 25px; border-radius: 20px; border: 2px solid var(--gold); text-align: center; }
+        .auth-tabs { display: flex; gap: 10px; margin-bottom: 15px; }
+        .auth-tabs button { flex: 1; padding: 10px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        .tab-active { background: var(--gold); color: #000; }
+        .tab-inactive { background: #0a0e1a; color: #fff; }
+
         input, select, textarea { width: 100%; padding: 14px; margin: 8px 0; border-radius: 10px; background: #0a0e1a; border: 1px solid #334155; color: #fff; text-align: center; }
         .btn-submit { background: var(--gold); color: #000; padding: 16px; width: 100%; border-radius: 30px; font-weight: bold; border: none; cursor: pointer; }
 
         #navBar { display: flex; justify-content: space-around; align-items: center; background: #000; padding: 10px 0; position: fixed; bottom: 0; width: 100%; border-top: 2px solid var(--gold); }
         .post-btn-large { background: var(--gold); color: #000; padding: 12px 25px; border-radius: 25px; font-weight: bold; border: none; cursor: pointer; }
-        .overlay-box { display: none; background: rgba(0,0,0,0.95); position: fixed; top: 0; width: 100%; height: 100%; z-index: 10000; padding: 40px 20px; box-sizing: border-box; text-align: center; }
     </style>
 </head>
 <body>
 
 <div class="tips-bar">
     <div class="tips-track">
-        ✨ نصيحة: يمكنك الآن رفع حتى 10 صور للإعلان الواحد • 🛡️ تأكد من معاينة السلعة قبل الدفع • 📱 أضف رقم واتساب صحيح لتسهيل التواصل • 🚀 نوري ستور بوابتك الأفضل • ✅ يمكنك تعديل أو حذف إعلاناتك بسهولة
+        ✨ نصيحة: استخدم صوراً واضحة لجذب الزبائن أسرع • 🛡️ تأكد من معاينة السلعة قبل الدفع • 📱 أضف رقم واتساب صحيح لتسهيل التواصل • 🚀 نوري ستور بوابتك الأفضل للبيع والشراء • 💡 الصدق في الوصف يبني السمعة • ✅ سجل دخولك لإدارة إعلاناتك
     </div>
-</div>
-
-<div class="top-nav">
-    <span onclick="showOverlay('about')">حولنا</span>
-    <span onclick="showOverlay('contact')">تواصل معنا</span>
-    <span id="adminBadge" style="display:none; color:var(--red); font-weight:bold;">● وضع الآدمن</span>
 </div>
 
 <header>
@@ -86,9 +84,13 @@
         <div id="authArea" class="auth-box" style="margin-top:20px;">
             <div id="authStatus"></div>
             <div id="authContent">
+                <div class="auth-tabs">
+                    <button id="tabSignup" class="tab-active" onclick="switchAuth(true)">تسجيل جديد</button>
+                    <button id="tabLogin" class="tab-inactive" onclick="switchAuth(false)">دخول</button>
+                </div>
                 <input type="email" id="uEmail" placeholder="البريد الإلكتروني">
                 <input type="password" id="uPass" placeholder="كلمة المرور">
-                <button class="btn-submit" onclick="handleAuth()" id="mainAuthBtn">دخول / تسجيل 🚀</button>
+                <button class="btn-submit" onclick="handleAuth()" id="mainAuthBtn">إنشاء حساب 🚀</button>
             </div>
         </div>
     </div>
@@ -115,48 +117,49 @@
     <button class="post-btn-large" onclick="showView('post')">➕ انشر إعلانك</button>
 </div>
 
-<div id="aboutOverlay" class="overlay-box">
-    <h2 style="color:var(--gold)">حول نوري ستور</h2>
-    <p style="line-height:1.8;">نوري ستور هو متجر إلكتروني رائد يهدف إلى تيسير عمليات البيع والشراء عبر الإنترنت بكل سلاسة وأمان. نحن نسعى لتوفير بيئة رقمية متكاملة تجمع بين البائع والمشتري في منصة واحدة تمتاز بالسرعة والمصداقية. تتيح المنصة للمستخدمين عرض منتجاتهم وخدماتهم في أقسام متنوعة تشمل العقارات، السيارات، والتقنية وغيرها. نحن نؤمن بأن التجارة الإلكترونية يجب أن تكون بسيطة ومتاحة للجميع دون أي تعقيدات تقنية.</p>
-    <button class="btn-submit" onclick="closeOverlay()">إغلاق</button>
-</div>
-
-<div id="contactOverlay" class="overlay-box">
-    <h2>تواصل معنا</h2>
-    <h3 style="color:var(--gold)">nurry6666@gmail.com</h3>
-    <button class="btn-submit" onclick="closeOverlay()">إغلاق</button>
-</div>
-
 <script>
     const firebaseConfig = { apiKey: "AIzaSyCGHZnuS8OrzZwFVhhZ55nGbf0yGKw8lUA", authDomain: "norestore-d1f0d.firebaseapp.com", projectId: "norestore-d1f0d", databaseURL: "https://norestore-d1f0d-default-rtdb.firebaseio.com" };
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth(), db = firebase.database();
     const ADMIN_EMAIL = "nurry6666@gmail.com";
 
+    let isSignupMode = true;
+
     auth.onAuthStateChanged(user => {
-        if(user) {
-            document.getElementById('authArea').style.display = 'none';
-            if(user.email === ADMIN_EMAIL) document.getElementById('adminBadge').style.display = 'inline';
-        }
+        if(user) document.getElementById('authArea').style.display = 'none';
         loadAds();
     });
 
+    function switchAuth(signup) {
+        isSignupMode = signup;
+        document.getElementById('tabSignup').className = signup ? 'tab-active' : 'tab-inactive';
+        document.getElementById('tabLogin').className = signup ? 'tab-inactive' : 'tab-active';
+        document.getElementById('mainAuthBtn').innerText = signup ? "إنشاء حساب 🚀" : "تسجيل دخول 🔑";
+        document.getElementById('authStatus').innerHTML = ""; 
+    }
+
     function handleAuth() {
         const e = document.getElementById('uEmail').value, p = document.getElementById('uPass').value;
-        auth.signInWithEmailAndPassword(e, p).catch(() => auth.createUserWithEmailAndPassword(e, p));
+        if(!e || !p) return alert("امسح الخانات واكتب بريدك وباسوردك");
+        if(isSignupMode) {
+            auth.createUserWithEmailAndPassword(e, p).then(() => {
+                document.getElementById('authStatus').innerHTML = `<div style="background:var(--green); padding:10px; border-radius:10px; margin-bottom:10px;">✅ تم إنشاء الحساب! سجل دخولك الآن.</div>`;
+                switchAuth(false);
+            }).catch(err => alert(err.message));
+        } else {
+            auth.signInWithEmailAndPassword(e, p).catch(err => alert("البيانات غير صحيحة"));
+        }
     }
 
     async function uploadAd() {
         const files = document.getElementById('pFile').files;
         const editId = document.getElementById('editId').value;
-        const btn = document.getElementById('upBtn'); 
+        const btn = document.getElementById('upBtn');
         btn.disabled = true; btn.innerText = "جاري الحفظ...";
 
         let imageUrls = [];
-        
-        // إذا كان هناك صور جديدة مختارة، نقوم برفعها
         if(files.length > 0) {
-            for(let i=0; i < Math.min(files.length, 10); i++) {
+            for(let i=0; i<Math.min(files.length, 10); i++) {
                 const fd = new FormData();
                 fd.append('file', files[i]);
                 fd.append('upload_preset', 'ml_default');
@@ -168,38 +171,31 @@
 
         const adData = {
             uid: auth.currentUser.uid,
-            email: auth.currentUser.email,
             title: document.getElementById('pTitle').value,
             price: document.getElementById('pPrice').value,
             phone: document.getElementById('pPhone').value,
             cat: document.getElementById('pCat').value,
         };
-
         if(imageUrls.length > 0) adData.imgs = imageUrls;
 
         if(editId) {
             await db.ref('ads').child(editId).update(adData);
-            alert("تم التعديل!");
         } else {
-            if(imageUrls.length === 0) { alert("يرجى اختيار صورة واحدة على الأقل"); btn.disabled = false; return; }
             await db.ref('ads').push(adData);
-            alert("تم النشر!");
         }
         location.reload();
     }
 
     function loadAds() {
-        db.ref('ads').on('value', snapshot => {
+        db.ref('ads').on('value', snap => {
             document.querySelectorAll('.ad-container').forEach(c => c.innerHTML = '');
-            snapshot.forEach(child => {
+            snap.forEach(child => {
                 const ad = child.val();
                 const id = child.key;
                 const isOwner = auth.currentUser && (auth.currentUser.uid === ad.uid || auth.currentUser.email === ADMIN_EMAIL);
-                
                 let imgsHtml = '';
                 if(ad.imgs) ad.imgs.forEach(src => imgsHtml += `<img src="${src}">`);
-                else if(ad.img) imgsHtml = `<img src="${ad.img}">`;
-
+                
                 const card = `
                     <div class="ad-card" data-title="${ad.title.toLowerCase()}">
                         <div class="img-slider">${imgsHtml}</div>
@@ -207,12 +203,9 @@
                             <div style="color:var(--gold); font-size:18px; font-weight:bold;">${ad.price} SD</div>
                             <div style="font-weight:bold; margin:5px 0;">${ad.title}</div>
                             <div class="ad-btns">
-                                <a href="https://wa.me/${ad.phone}" class="btn-wa">تواصل عبر الواتساب 📱</a>
-                                <button class="btn-share" onclick="shareAd('${ad.title}')">🔗 مشاركة</button>
-                                ${isOwner ? `
-                                    <button class="btn-edit" onclick="editAd('${id}')">تعديل 📝</button>
-                                    <button class="btn-del" onclick="deleteAd('${id}')">حذف 🗑️</button>
-                                ` : ''}
+                                <a href="https://wa.me/${ad.phone}" class="btn-wa">واتساب 📱</a>
+                                <button class="btn-share" onclick="shareAd('${ad.title}')">🔗</button>
+                                ${isOwner ? `<button class="btn-edit" onclick="editAd('${id}')">تعديل</button><button class="btn-del" onclick="deleteAd('${id}')">حذف</button>` : ''}
                             </div>
                         </div>
                     </div>`;
@@ -229,26 +222,20 @@
             document.getElementById('pPrice').value = ad.price;
             document.getElementById('pPhone').value = ad.phone;
             document.getElementById('pCat').value = ad.cat;
-            document.getElementById('formTitle').innerText = "تعديل الإعلان";
             showView('post');
         });
     }
-
-    function deleteAd(id) { if(confirm("حذف الإعلان نهائياً؟")) db.ref('ads').child(id).remove(); }
-    function shareAd(t) { navigator.share ? navigator.share({title:'نوري ستور', text:t, url:window.location.href}) : alert("انسخ الرابط"); }
+    function deleteAd(id) { if(confirm("حذف؟")) db.ref('ads').child(id).remove(); }
+    function shareAd(t) { navigator.share({title:'نوري ستور', text:t, url:window.location.href}); }
     function toggleSec(id) { const el = document.getElementById('sec-' + id); el.style.display = el.style.display==='block'?'none':'block'; }
     function showView(v) {
         if(v==='post' && !auth.currentUser) return alert("سجل دخولك");
         document.getElementById('homeView').style.display = v==='home'?'block':'none';
         document.getElementById('postView').style.display = v==='post'?'block':'none';
     }
-    function showOverlay(t) { document.getElementById(t+'Overlay').style.display='block'; }
-    function closeOverlay() { document.querySelectorAll('.overlay-box').forEach(o=>o.style.display='none'); }
     function filterAds() {
-        const val = document.getElementById('searchInput').value.toLowerCase();
-        document.querySelectorAll('.ad-card').forEach(card => {
-            card.style.display = card.getAttribute('data-title').includes(val) ? 'block' : 'none';
-        });
+        const v = document.getElementById('searchInput').value.toLowerCase();
+        document.querySelectorAll('.ad-card').forEach(c => c.style.display = c.getAttribute('data-title').includes(v) ? 'block' : 'none');
     }
 </script>
 </body>
