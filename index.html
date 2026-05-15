@@ -3,264 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nore Store | متجر نوري</title>
+    <title>Nore Store | نوري ستور</title>
     
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
     <style>
-        /* الألوان والهوية البصرية */
-        :root { --gold: #D4AF37; --dark-bg: #020617; --card-gray: #1e293b; --red: #ff4d4d; --green: #25d366; --blue: #3b82f6; }
-        
+        :root { --gold: #D4AF37; --dark-bg: #0a0e1a; --card-gray: #1e293b; }
         body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: var(--dark-bg); color: #fff; text-align: center; overflow-x: hidden; }
         
-        /* الهيدر واللوجو والجملة اللي تحته */
-        header { background: linear-gradient(to bottom, #16213e, #020617); padding: 20px; border-bottom: 3px solid var(--gold); }
-        .logo-box { border: 2.5px solid var(--gold); display: inline-block; padding: 10px 30px; border-radius: 15px; background: #000; margin-bottom: 10px; cursor: pointer; }
-        .logo-n { font-size: 50px; color: var(--gold); font-family: serif; margin: 0; line-height: 1; }
-        .logo-text { color: var(--gold); font-weight: bold; font-size: 14px; letter-spacing: 1px; text-transform: uppercase; margin-top: 5px; }
+        /* الهيدر واللوجو والجملة المطلوبة */
+        header { background: #0a0e1a; padding: 30px 20px; }
+        .logo-box { border: 2.5px solid var(--gold); display: inline-block; padding: 15px 40px; border-radius: 12px; background: #000; margin-bottom: 20px; }
+        .logo-n { font-size: 65px; color: var(--gold); font-family: serif; margin: 0; line-height: 1; }
+        .logo-name { color: var(--gold); font-weight: bold; font-size: 18px; display: block; margin-top: 10px; }
+        
+        /* الجملة اللي تحت اللوجو من الصورة */
+        .sub-title { color: var(--gold); font-size: 20px; font-weight: bold; margin-bottom: 5px; }
+        .sub-title-en { color: #94a3b8; font-size: 14px; font-style: italic; margin-bottom: 20px; display: block; }
 
-        /* شريط النصائح المتحرك تلقائياً */
-        .ticker-wrap { width: 100%; overflow: hidden; background: #0f172a; border-bottom: 1px solid var(--gold); padding: 12px 0; }
-        .ticker { display: inline-block; white-space: nowrap; padding-right: 100%; animation: ticker 35s linear infinite; }
-        .ticker:hover { animation-play-state: paused; }
+        /* شريط النصائح (أبطأ بمرتين) */
+        .ticker-wrap { width: 100%; overflow: hidden; background: #020617; border-top: 1px solid var(--gold); border-bottom: 1px solid var(--gold); padding: 10px 0; margin-bottom: 20px; }
+        .ticker { display: inline-block; white-space: nowrap; animation: ticker 60s linear infinite; }
         .tip-item { display: inline-block; padding: 0 50px; color: #cbd5e1; font-size: 14px; }
         .tip-item b { color: var(--gold); }
+        @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
-        @keyframes ticker {
-            0% { transform: translate3d(100%, 0, 0); }
-            100% { transform: translate3d(-100%, 0, 0); }
-        }
+        /* البحث والأقسام */
+        .search-container { padding: 0 20px 20px; }
+        .search-box { width: 100%; max-width: 500px; padding: 15px 25px; border-radius: 30px; border: 1.5px solid var(--gold); background: transparent; color: white; text-align: center; font-size: 16px; outline: none; }
 
-        /* شريط الحساب */
-        .auth-bar { background: #0f172a; padding: 12px; display: flex; justify-content: center; gap: 10px; align-items: center; border-bottom: 1px solid rgba(212,175,55,0.1); }
-        .btn-auth { background: var(--gold); color: #000; border: none; padding: 8px 18px; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 13px; }
+        .container { width: 92%; max-width: 550px; margin: 0 auto; padding-bottom: 100px; }
+        .section-card { border-radius: 20px; margin-bottom: 15px; cursor: pointer; transition: 0.3s; position: relative; overflow: hidden; }
+        .section-header { padding: 25px; font-weight: bold; font-size: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .btn-post { background: var(--gold); color: #000; padding: 8px 15px; border-radius: 15px; font-size: 14px; font-weight: bold; border: none; }
+        .ad-list { display: none; padding: 20px; background: rgba(0,0,0,0.3); text-align: right; }
 
-        /* حاوية الأقسام */
-        .container { width: 95%; max-width: 600px; margin: 20px auto; padding-bottom: 100px; }
-        .section-card { background: var(--card-gray); border-radius: 15px; margin-bottom: 15px; border: 1px solid rgba(212, 175, 55, 0.2); overflow: hidden; }
-        .section-header { padding: 18px; font-weight: bold; font-size: 16px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: 0.3s; }
-        .section-header:active { background: rgba(255,255,255,0.1); }
-        .ad-list { display: none; padding: 10px; background: #0f172a; border-top: 1px solid #334155; }
-        
-        /* كرت الإعلان */
-        .ad-box { background: #1e293b; border-radius: 12px; margin-bottom: 15px; border: 1px solid #334155; overflow: hidden; text-align: right; }
-        .ad-box img { width: 100%; height: auto; border-bottom: 2px solid var(--gold); max-height: 300px; object-fit: cover; }
-        .ad-content { padding: 15px; }
-        .price-tag { color: var(--gold); font-weight: bold; display: block; font-size: 18px; margin-bottom: 8px; }
-        
-        .btn-whatsapp { background: var(--green); color: white; display: block; padding: 12px; border-radius: 8px; text-decoration: none; font-weight: bold; margin-top: 10px; text-align: center; }
-        .user-actions { display: flex; gap: 8px; margin-top: 12px; }
-        .btn-edit { background: var(--blue); color: white; border: none; flex: 1; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: bold; }
-        .btn-del { background: var(--red); color: white; border: none; flex: 1; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        /* ألوان الأقسام من الصورة */
+        .bg-cars { background: #1a4731; } /* أخضر سيارات */
+        .bg-houses { background: #1e3a8a; } /* أزرق عقارات */
+        .bg-tech { background: #4c1d95; } /* بنفسجي جوالات */
 
-        /* المودالات */
-        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.96); z-index: 2000; padding: 20px; overflow-y: auto; }
-        .modal-body { background: var(--card-gray); padding: 25px; border-radius: 20px; border: 2px solid var(--gold); max-width: 450px; margin: 40px auto; }
-        input, textarea, select { width: 100%; padding: 14px; margin: 10px 0; border-radius: 10px; background: #020617; border: 1px solid #334155; color: #fff; box-sizing: border-box; font-size: 15px; }
-        
-        .btn-main { background: var(--gold); color: #000; padding: 14px; width: 100%; border-radius: 25px; font-weight: bold; border: none; cursor: pointer; font-size: 16px; margin-top: 10px; }
-        .btn-float { position: fixed; bottom: 25px; left: 25px; z-index: 1000; background: var(--gold); color: #000; width: 60px; height: 60px; border-radius: 50%; font-size: 30px; border: none; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.5); cursor: pointer; }
+        /* مودال الحساب */
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 2000; padding: 20px; }
+        .modal-body { background: #1e293b; padding: 30px; border-radius: 20px; border: 2px solid var(--gold); max-width: 400px; margin: 50px auto; }
+        input { width: 100%; padding: 15px; margin: 10px 0; border-radius: 12px; background: #0a0e1a; border: 1px solid #334155; color: #fff; box-sizing: border-box; }
+        .btn-main { background: var(--gold); color: #000; padding: 15px; width: 100%; border-radius: 30px; font-weight: bold; border: none; cursor: pointer; }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="logo-box" onclick="adminAccess()">
+    <div class="logo-box">
         <h1 class="logo-n">N</h1>
-        <div class="logo-text">Nore Store</div>
+        <span class="logo-name">Nore Store</span>
     </div>
+    <div class="sub-title">عالمك للإعلان والخدمات الموثوقة</div>
+    <span class="sub-title-en">Your World for Advertising & Trusted Services</span>
 </header>
+
+<div class="search-container">
+    <input type="text" class="search-box" placeholder="ابحث عن سيارة، عقار، أو أي شيء...">
+</div>
 
 <div class="ticker-wrap">
     <div class="ticker">
-        <span class="tip-item"><b>🚗 نصيحة للمشتري:</b> افحص المحرك والجير في مركز مختص قبل إتمام عملية الشراء.</span>
-        <span class="tip-item"><b>🏠 للعقارات:</b> تأكد من مطابقة بيانات المالك مع الأوراق الرسمية المسجلة.</span>
-        <span class="tip-item"><b>📱 للجوالات:</b> جرب الكاميرا، الشبكة، والشاحن جيداً قبل دفع المبلغ.</span>
-        <span class="tip-item"><b>💡 للبائع:</b> الإعلان المكتمل بالصور الواضحة والسعر المنطقي يبيع أسرع بـ 3 أضعاف.</span>
-        <span class="tip-item"><b>🛡️ أمان:</b> نوري ستور ينصحك بالمقابلة في أماكن عامة لضمان سلامتك.</span>
+        <span class="tip-item"><b>🚗 نصيحة:</b> افحص المحرك والجير جيداً قبل الشراء.</span>
+        <span class="tip-item"><b>🛡️ أمان:</b> قابل البائع في أماكن عامة لضمان سلامتك.</span>
+        <span class="tip-item"><b>💡 للبائع:</b> أضف صوراً واضحة لزيادة فرص البيع.</span>
+        <span class="tip-item"><b>🏠 تنبيه:</b> تأكد من صحة أوراق ملكية العقار رسمياً.</span>
     </div>
-</div>
-
-<div class="auth-bar">
-    <div id="userStatus"><button class="btn-auth" onclick="openM('authM')">دخول / تسجيل</button></div>
 </div>
 
 <div class="container">
-    <div class="section-card"><div class="section-header" style="border-right:6px solid #064e3b;" onclick="toggleSection('cars')"><span>🚗 سيارات للبيع</span><span>▼</span></div><div id="list-cars" class="ad-list"></div></div>
-    <div class="section-card"><div class="section-header" style="border-right:6px solid #1e3a8a;" onclick="toggleSection('house')"><span>🏠 عقارات وأراضي</span><span>▼</span></div><div id="list-house" class="ad-list"></div></div>
-    <div class="section-card"><div class="section-header" style="border-right:6px solid #581c87;" onclick="toggleSection('tech')"><span>📱 جوالات وإلكترونيات</span><span>▼</span></div><div id="list-tech" class="ad-list"></div></div>
-    <div class="section-card"><div class="section-header" style="border-right:6px solid #431407;" onclick="toggleSection('fix')"><span>🛠️ خدمات صيانة</span><span>▼</span></div><div id="list-fix" class="ad-list"></div></div>
-    <div class="section-card"><div class="section-header" style="border-right:6px solid #065f46;" onclick="toggleSection('jobs')"><span>💼 وظائف شاغرة</span><span>▼</span></div><div id="list-jobs" class="ad-list"></div></div>
-    <div class="section-card"><div class="section-header" style="border-right:6px solid #374151;" onclick="toggleSection('other')"><span>📦 منوعات أخرى</span><span>▼</span></div><div id="list-other" class="ad-list"></div></div>
+    <div class="section-card bg-cars" onclick="toggleSection('cars')">
+        <div class="section-header">
+            <button class="btn-post">انشر مجاناً</button>
+            <span>سيارات للبيع 🚗</span>
+        </div>
+        <div id="list-cars" class="ad-list">لا توجد إعلانات حالياً</div>
+    </div>
+
+    <div class="section-card bg-houses" onclick="toggleSection('houses')">
+        <div class="section-header">
+            <button class="btn-post">انشر مجاناً</button>
+            <span>عقارات 🏠</span>
+        </div>
+        <div id="list-houses" class="ad-list">لا توجد إعلانات حالياً</div>
+    </div>
+
+    <div class="section-card bg-tech" onclick="toggleSection('tech')">
+        <div class="section-header">
+            <button class="btn-post">انشر مجاناً</button>
+            <span>جوالات 📱</span>
+        </div>
+        <div id="list-tech" class="ad-list">لا توجد إعلانات حالياً</div>
+    </div>
 </div>
 
-<button class="btn-float" onclick="openPost()">+</button>
+<div style="position:fixed; bottom:25px; left:50%; transform:translateX(-50%); z-index:1000;">
+    <button class="btn-main" style="width:200px; box-shadow: 0 10px 20px rgba(0,0,0,0.5);" onclick="document.getElementById('authM').style.display='block'">دخول / إنشاء حساب</button>
+</div>
 
 <div id="authM" class="modal"><div class="modal-body">
-    <div id="authOptions">
-        <h3 style="color:var(--gold); text-align:center;">مرحباً بك في نوري ستور</h3>
-        <button class="btn-main" onclick="showAuthView('login')">تسجيل دخول</button>
-        <button class="btn-main" style="background:none; color:var(--gold); border:1.5px solid var(--gold);" onclick="showAuthView('signup')">إنشاء حساب جديد</button>
-        <button onclick="closeM('authM')" style="width:100%; background:none; border:none; color:gray; margin-top:15px;">إلغاء</button>
-    </div>
-    <div id="authForm" style="display:none;">
-        <h3 id="formTitle" style="color:var(--gold); text-align:center;"></h3>
-        <div id="successInfo" style="color:var(--green); display:none; margin-bottom:10px; font-weight:bold; text-align:center;">✅ تم إنشاء الحساب! جاري التحويل للدخول...</div>
-        <input type="email" id="email" placeholder="البريد الإلكتروني">
-        <input type="password" id="pass" placeholder="كلمة المرور">
-        <button id="submitBtn" class="btn-main"></button>
-        <button onclick="backToOptions()" style="width:100%; background:none; border:none; color:var(--gold); font-size:12px; margin-top:10px;">⬅ العودة للخلف</button>
-    </div>
-</div></div>
-
-<div id="postM" class="modal"><div class="modal-body">
-    <h3 id="postTitle" style="color:var(--gold); text-align:center;">إضافة إعلان جديد</h3>
-    <input type="hidden" id="editId">
-    <label style="font-size:12px; color:var(--gold)">اختر القسم المناسب:</label>
-    <select id="cat">
-        <option value="cars">سيارات للبيع</option><option value="house">عقارات</option><option value="tech">جوالات</option>
-        <option value="fix">صيانة</option><option value="jobs">وظائف</option><option value="other">منوعات</option>
-    </select>
-    <input type="text" id="pTitle" placeholder="اسم المنتج / العنوان">
-    <textarea id="pText" rows="4" placeholder="وصف تفصيلي وحالة المنتج"></textarea>
-    <input type="text" id="pPrice" placeholder="السعر التقريبي">
-    <input type="tel" id="pPhone" placeholder="رقم الواتساب (بدون أصفار)">
-    <label style="font-size:12px; color:var(--gold)">صورة المنتج:</label>
-    <input type="file" id="pImg" accept="image/*" onchange="readImg()">
-    <button class="btn-main" id="saveBtn" onclick="publish()">نشر الإعلان الآن ✅</button>
-    <button onclick="closeM('postM')" style="background:none; color:gray; border:none; margin-top:12px; width:100%;">إغلاق النافذة</button>
+    <h3 style="color:var(--gold);">إنشاء حساب جديد</h3>
+    <input type="email" id="email" placeholder="البريد الإلكتروني">
+    <input type="password" id="pass" placeholder="كلمة المرور">
+    <input type="password" id="rePass" placeholder="تأكيد كلمة المرور">
+    <button class="btn-main" onclick="handleAuth()">تأكيد الإنشاء</button>
+    <button onclick="document.getElementById('authM').style.display='none'" style="background:none; border:none; color:#94a3b8; margin-top:15px; cursor:pointer;">إغلاق</button>
 </div></div>
 
 <script>
-    // إعدادات قاعدة البيانات
     const firebaseConfig = {
-      apiKey: "AIzaSyC-MoihmZLENUbWi1oo0aODvsbPvWVEN-U",
-      authDomain: "norestore-efa4e.firebaseapp.com",
-      projectId: "norestore-efa4e",
-      databaseURL: "https://norestore-efa4e-default-rtdb.firebaseio.com",
-      appId: "1:501643206128:web:b26650c9f9324fb9d35135"
+      apiKey: "AIzaSyCGHZnuS8OrzZwFVhhZ55nGbf0yGKw8lUA",
+      authDomain: "norestore-d1f0d.firebaseapp.com",
+      projectId: "norestore-d1f0d",
+      databaseURL: "https://norestore-d1f0d-default-rtdb.firebaseio.com",
+      appId: "1:850362951907:web:fea185c1c3d5f49557fdd6"
     };
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database(), auth = firebase.auth();
-    let imgData = "", userNow = null, isAdmin = false;
 
-    // وظائف الواجهة
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
     function toggleSection(id) {
         const list = document.getElementById('list-' + id);
-        const isVisible = list.style.display === 'block';
-        document.querySelectorAll('.ad-list').forEach(el => el.style.display = 'none');
-        list.style.display = isVisible ? 'none' : 'block';
-    }
-
-    // مراقبة حالة المستخدم
-    auth.onAuthStateChanged(user => {
-        userNow = user;
-        if(user) {
-            document.getElementById('userStatus').innerHTML = `<span style="color:var(--gold); font-size:13px;">${user.email.split('@')[0]}</span> <button class="btn-auth" style="background:red; color:white; margin-right:8px;" onclick="auth.signOut()">خروج</button>`;
-        } else {
-            document.getElementById('userStatus').innerHTML = `<button class="btn-auth" onclick="openM('authM')">دخول / تسجيل</button>`;
-        }
-        loadAds();
-    });
-
-    // إدارة الحسابات
-    function showAuthView(t) {
-        document.getElementById('authOptions').style.display='none'; 
-        document.getElementById('authForm').style.display='block';
-        document.getElementById('successInfo').style.display='none';
-        const title = document.getElementById('formTitle');
-        const btn = document.getElementById('submitBtn');
-        if(t==='login') { title.innerText="تسجيل دخول"; btn.innerText="دخول"; btn.onclick=()=>authAct('login'); }
-        else { title.innerText="إنشاء حساب جديد"; btn.innerText="تأكيد الإنشاء"; btn.onclick=()=>authAct('signup'); }
-    }
-
-    function authAct(t) {
-        const e = document.getElementById('email').value, p = document.getElementById('pass').value;
-        if(!e || !p) return alert("يرجى كتابة البريد وكلمة المرور");
-        if(t === 'login') {
-            auth.signInWithEmailAndPassword(e,p).then(()=> { closeM('authM'); openPost(); }).catch(err=>alert(err.message));
-        } else {
-            auth.createUserWithEmailAndPassword(e,p).then(() => {
-                document.getElementById('successInfo').style.display = 'block';
-                setTimeout(() => { showAuthView('login'); }, 2000);
-            }).catch(err => alert(err.message));
-        }
-    }
-
-    // إدارة الصور والإعلانات
-    function readImg() {
-        const file = document.getElementById('pImg').files[0];
-        const reader = new FileReader(); reader.onloadend = () => imgData = reader.result;
-        if(file) reader.readAsDataURL(file);
-    }
-
-    function publish() {
-        if(!imgData) return alert("يرجى اختيار صورة للمنتج");
-        const id = document.getElementById('editId').value;
-        const c = document.getElementById('cat').value;
-        const data = { title: document.getElementById('pTitle').value, desc: document.getElementById('pText').value, price: document.getElementById('pPrice').value, phone: document.getElementById('pPhone').value, image: imgData, uid: userNow.uid };
-        if(id) db.ref('ads/' + c + '/' + id).update(data).then(() => location.reload());
-        else db.ref('ads/' + c).push(data).then(() => location.reload());
-    }
-
-    function loadAds() {
-        const cats = ['cars', 'house', 'tech', 'fix', 'jobs', 'other'];
-        cats.forEach(c => {
-            db.ref('ads/' + c).on('value', snap => {
-                const div = document.getElementById('list-' + c); if(!div) return;
-                div.innerHTML = "";
-                snap.forEach(ch => {
-                    const d = ch.val();
-                    const isOwner = userNow && userNow.uid === d.uid;
-                    div.innerHTML += `
-                        <div class="ad-box">
-                            <img src="${d.image}">
-                            <div class="ad-content">
-                                <h3>${d.title}</h3>
-                                <span class="price-tag">${d.price}</span>
-                                <p>${d.desc}</p>
-                                <a href="https://wa.me/${d.phone}" class="btn-whatsapp">تواصل عبر واتساب</a>
-                                ${isOwner || isAdmin ? `
-                                <div class="user-actions">
-                                    <button class="btn-edit" onclick="editAd('${c}','${ch.key}')">تعديل 📝</button>
-                                    <button class="btn-del" onclick="if(confirm('هل تريد حذف الإعلان نهائياً؟')) db.ref('ads/${c}/${ch.key}').remove()">حذف 🗑️</button>
-                                </div>` : ''}
-                            </div>
-                        </div>`;
-                });
-            });
+        document.querySelectorAll('.ad-list').forEach(el => {
+            if(el.id !== 'list-' + id) el.style.display = 'none';
         });
+        list.style.display = (list.style.display === 'block' ? 'none' : 'block');
     }
 
-    function editAd(c, id) {
-        db.ref('ads/' + c + '/' + id).once('value', snap => {
-            const d = snap.val();
-            document.getElementById('editId').value = id; document.getElementById('cat').value = c;
-            document.getElementById('pTitle').value = d.title; document.getElementById('pText').value = d.desc;
-            document.getElementById('pPrice').value = d.price; document.getElementById('pPhone').value = d.phone;
-            imgData = d.image; document.getElementById('postTitle').innerText = "تعديل الإعلان";
-            document.getElementById('saveBtn').innerText = "حفظ التعديلات ✅";
-            openM('postM');
-        });
+    function handleAuth() {
+        const e = document.getElementById('email').value, p = document.getElementById('pass').value, rp = document.getElementById('rePass').value;
+        if(p !== rp) return alert("كلمات المرور غير متطابقة!");
+        auth.createUserWithEmailAndPassword(e, p)
+            .then(() => { alert("تم إنشاء الحساب بنجاح!"); location.reload(); })
+            .catch(err => alert(err.message));
     }
-
-    function openPost() {
-        if(!userNow) { openM('authM'); return; }
-        document.getElementById('editId').value = "";
-        document.getElementById('postTitle').innerText = "إضافة إعلان جديد";
-        document.getElementById('saveBtn').innerText = "نشر الإعلان الآن ✅";
-        openM('postM');
-    }
-
-    // وضع المدير
-    function adminAccess() { if (prompt("كلمة السر الخاصة بالمدير:") === "123") { isAdmin = true; alert("وضع الإدارة مفعل - يمكنك حذف أي إعلان الآن"); loadAds(); } }
-    
-    // المساعدات
-    function openM(id) { document.getElementById(id).style.display = 'block'; }
-    function closeM(id) { document.getElementById(id).style.display = 'none'; if(id==='authM') backToOptions(); }
-    function backToOptions() { document.getElementById('authOptions').style.display='block'; document.getElementById('authForm').style.display='none'; }
 </script>
 </body>
 </html>
