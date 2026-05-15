@@ -17,9 +17,6 @@
         .tips-track { display: inline-block; animation: scrollTips 40s linear infinite; }
         @keyframes scrollTips { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
-        .top-nav { display: flex; justify-content: center; gap: 20px; padding: 10px; background: #000; border-bottom: 1px solid #333; }
-        .top-nav span { cursor: pointer; color: var(--gold); font-size: 14px; }
-
         header { padding: 20px; text-align: center; border-bottom: 2px solid var(--gold); background: #000; }
         .logo-box { display: inline-block; border: 3px solid var(--gold); padding: 10px 20px; border-radius: 15px; }
         .logo-n { font-size: 32px; color: var(--gold); margin: 0; }
@@ -88,8 +85,11 @@
                     <button id="tabSignup" class="tab-active" onclick="switchAuth(true)">تسجيل جديد</button>
                     <button id="tabLogin" class="tab-inactive" onclick="switchAuth(false)">دخول</button>
                 </div>
+                <input type="text" id="uName" placeholder="الاسم الكامل"> 
                 <input type="email" id="uEmail" placeholder="البريد الإلكتروني">
                 <input type="password" id="uPass" placeholder="كلمة المرور">
+                <input type="password" id="uPassConfirm" placeholder="تأكيد كلمة المرور"> 
+                
                 <button class="btn-submit" onclick="handleAuth()" id="mainAuthBtn">إنشاء حساب 🚀</button>
             </div>
         </div>
@@ -135,19 +135,32 @@
         document.getElementById('tabSignup').className = signup ? 'tab-active' : 'tab-inactive';
         document.getElementById('tabLogin').className = signup ? 'tab-inactive' : 'tab-active';
         document.getElementById('mainAuthBtn').innerText = signup ? "إنشاء حساب 🚀" : "تسجيل دخول 🔑";
+        
+        // إظهار أو إخفاء خانات الاسم والتأكيد بناءً على الوضع
+        document.getElementById('uName').style.display = signup ? 'block' : 'none';
+        document.getElementById('uPassConfirm').style.display = signup ? 'block' : 'none';
         document.getElementById('authStatus').innerHTML = ""; 
     }
 
     function handleAuth() {
+        const name = document.getElementById('uName').value;
         const e = document.getElementById('uEmail').value, p = document.getElementById('uPass').value;
-        if(!e || !p) return alert("امسح الخانات واكتب بريدك وباسوردك");
+        const pConfirm = document.getElementById('uPassConfirm').value;
+
+        if(!e || !p) return alert("يرجى ملء جميع الحقول");
+
         if(isSignupMode) {
-            auth.createUserWithEmailAndPassword(e, p).then(() => {
-                document.getElementById('authStatus').innerHTML = `<div style="background:var(--green); padding:10px; border-radius:10px; margin-bottom:10px;">✅ تم إنشاء الحساب! سجل دخولك الآن.</div>`;
+            if(!name) return alert("يرجى كتابة اسمك");
+            if(p !== pConfirm) return alert("كلمة السر غير متطابقة!");
+            
+            auth.createUserWithEmailAndPassword(e, p).then((res) => {
+                // حفظ الاسم في قاعدة البيانات لربطه بالحساب
+                db.ref('users/' + res.user.uid).set({ fullName: name });
+                document.getElementById('authStatus').innerHTML = `<div style="background:var(--green); padding:10px; border-radius:10px; margin-bottom:10px;">✅ تم إنشاء الحساب بنجاح! سجل دخولك الآن.</div>`;
                 switchAuth(false);
             }).catch(err => alert(err.message));
         } else {
-            auth.signInWithEmailAndPassword(e, p).catch(err => alert("البيانات غير صحيحة"));
+            auth.signInWithEmailAndPassword(e, p).catch(err => alert("خطأ في البيانات"));
         }
     }
 
@@ -178,11 +191,8 @@
         };
         if(imageUrls.length > 0) adData.imgs = imageUrls;
 
-        if(editId) {
-            await db.ref('ads').child(editId).update(adData);
-        } else {
-            await db.ref('ads').push(adData);
-        }
+        if(editId) { await db.ref('ads').child(editId).update(adData); } 
+        else { await db.ref('ads').push(adData); }
         location.reload();
     }
 
